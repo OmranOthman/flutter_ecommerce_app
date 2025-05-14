@@ -2,24 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/utils/app_routes.dart';
 import 'package:flutter_ecommerce_app/view_models/add_new_card_cubit/payment_methods_cubit.dart';
-import 'package:flutter_ecommerce_app/view_models/auth_cubit/auth_cubit.dart';
-import 'package:flutter_ecommerce_app/view_models/choose_location_cubit/choose_location_cubit.dart';
 import 'package:flutter_ecommerce_app/view_models/product_details_cubit/product_details_cubit.dart';
 import 'package:flutter_ecommerce_app/views/pages/add_new_card_page.dart';
 import 'package:flutter_ecommerce_app/views/pages/checkout_page.dart';
 import 'package:flutter_ecommerce_app/views/pages/choose_location_page.dart';
 import 'package:flutter_ecommerce_app/views/pages/edit_profile_page.dart';
-import 'package:flutter_ecommerce_app/views/widgets/bottom/custom_bottom_navbar.dart';
 import 'package:flutter_ecommerce_app/views/pages/login_page.dart';
 import 'package:flutter_ecommerce_app/views/pages/notifications_page.dart';
 import 'package:flutter_ecommerce_app/views/pages/product_details_page.dart';
 import 'package:flutter_ecommerce_app/views/pages/register_page.dart';
 import 'package:flutter_ecommerce_app/views/pages/security_page.dart';
 import 'package:flutter_ecommerce_app/views/pages/settings_page.dart';
+import 'package:flutter_ecommerce_app/views/widgets/bottom/custom_bottom_navbar.dart';
+// import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
+
+
+import 'route_error_page.dart';
 
 class AppRouter {
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
+
+  static NavigatorState get navigator => navigatorKey.currentState!;
+
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
-    switch (settings.name) {
+    // Getting agrs passed in while calling Navigastor.pushNamed
+    // final args = settings.arguments;
+
+  switch (settings.name) {
       case AppRoutes.homeRoute:
         return MaterialPageRoute(
           builder: (_) => const CustomBottomNavbar(),
@@ -28,19 +38,13 @@ class AppRouter {
 
       case AppRoutes.loginRoute:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => AuthCubit(),
-            child: const LoginPage(),
-          ),
+          builder: (_) => LoginPage(),
           settings: settings,
         );
 
       case AppRoutes.registerRoute:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => AuthCubit(),
-            child: const RegisterPage(),
-          ),
+          builder: (_) => RegisterPage(),
           settings: settings,
         );
 
@@ -51,14 +55,7 @@ class AppRouter {
         );
       case AppRoutes.chooseLocation:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) {
-              final cubit = ChooseLocationCubit();
-              cubit.fetchLocations();
-              return cubit;
-            },
-            child: const ChooseLocationPage(),
-          ),
+          builder: (_) => ChooseLocationPage(),
           settings: settings,
         );
       case AppRoutes.addNewCardRoute:
@@ -104,15 +101,24 @@ class AppRouter {
           builder: (_) => const EditProfilePage(),
           settings: settings,
         );
+  
+    
+
       default:
-        return MaterialPageRoute(
-          settings: settings,
-          builder: (_) => Scaffold(
-            body: Center(
-              child: Text('No route defined for ${settings.name}'),
-            ),
-          ),
-        );
+        return RouteErrorPage.routeError();
     }
   }
 }
+
+// Route<dynamic> _routeArgsHandler<T>(
+//   Route<dynamic> Function({required T params, RouteSettings? settings})
+//   routeCaller,
+//   Object? args,
+//   RouteSettings? settings,
+// ) {
+//   if (args is T) {
+//     return routeCaller(params: args, settings: settings);
+//   } else {
+//     return RouteErrorPage.routeArgumentsError();
+//   }
+// }

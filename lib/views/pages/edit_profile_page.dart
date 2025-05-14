@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/view_models/edit_profile_cubit/edit_profile_cubit.dart';
 import 'package:flutter_ecommerce_app/views/widgets/bottom/main_button.dart';
-import 'package:flutter_ecommerce_app/views/widgets/label_with_textfield.dart';
 
 class EditProfilePage extends StatelessWidget {
   const EditProfilePage({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ProfileCubit(),
+      child: const EditProfileView(),
+    );
+  }
+}
+
+class EditProfileView extends StatelessWidget {
+  const EditProfileView({
     super.key,
   });
 

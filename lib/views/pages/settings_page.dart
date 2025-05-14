@@ -9,6 +9,18 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AuthCubit(),
+      child: SettingsView(),
+    );
+  }
+}
+
+class SettingsView extends StatelessWidget {
+  const SettingsView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     final cubit = BlocProvider.of<AuthCubit>(context);
 
     return Scaffold(
@@ -95,12 +107,12 @@ class SettingsPage extends StatelessWidget {
             BlocConsumer<AuthCubit, AuthState>(
               bloc: cubit,
               listenWhen: (previous, current) =>
-              current is AuthLoggedOut || current is AuthLogOutError,
+                  current is AuthLoggedOut || current is AuthLogOutError,
               listener: (context, state) {
                 if (state is AuthLoggedOut) {
                   Navigator.of(context, rootNavigator: true)
                       .pushNamedAndRemoveUntil(
-                      AppRoutes.loginRoute, (route) => false);
+                          AppRoutes.loginRoute, (route) => false);
                 } else if (state is AuthLogOutError) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(state.message)),
@@ -112,7 +124,7 @@ class SettingsPage extends StatelessWidget {
                 if (state is AuthLoggingOut) {
                   return Padding(
                     padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                     child: Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
@@ -156,7 +168,8 @@ class SettingsPage extends StatelessWidget {
                                 SizedBox(
                                   width: 150,
                                   child: ElevatedButton(
-                                    onPressed: () => Navigator.of(context).pop(),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.deepPurple,
                                       foregroundColor: Colors.white,

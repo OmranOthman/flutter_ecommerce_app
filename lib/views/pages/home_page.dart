@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/utils/app_colors.dart';
+import 'package:flutter_ecommerce_app/view_models/favorite_cubit/favorite_cubit.dart';
 import 'package:flutter_ecommerce_app/view_models/home_cubit/home_cubit.dart';
 import 'package:flutter_ecommerce_app/views/widgets/category_tab_view.dart';
 import 'package:flutter_ecommerce_app/views/widgets/home_tab_view.dart';
@@ -23,12 +24,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        final cubit = HomeCubit();
-        cubit.getHomeData();
-        return cubit;
-      },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) {
+            final cubit = HomeCubit();
+            cubit.getHomeData();
+            return cubit;
+          },
+        ),
+         BlocProvider(
+      create: (context) => FavoriteCubit(),)
+      ],
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -38,7 +45,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 indicatorColor: Theme.of(context).primaryColor,
                 controller: _tabController,
                 unselectedLabelColor: AppColors.grey,
-                labelColor:AppColors.black,
+                labelColor: AppColors.black,
                 indicator: const UnderlineTabIndicator(
                   borderSide: BorderSide(width: 3.0, color: Colors.deepPurple),
                   insets: EdgeInsets.symmetric(horizontal: -30.0),

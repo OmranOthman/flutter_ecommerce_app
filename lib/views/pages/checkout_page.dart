@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_ecommerce_app/models/location_item_model.dart';
 import 'package:flutter_ecommerce_app/models/payment_card_model.dart';
 import 'package:flutter_ecommerce_app/utils/app_colors.dart';
@@ -48,8 +49,8 @@ class CheckoutPage extends StatelessWidget {
         },
       );
     } else {
-      return const EmptyShippingAndPayment(
-        title: 'Add Payment Method',
+      return  EmptyShippingAndPayment(
+        title: 'Add Payment Method'.tr,
         isPayment: true,
       );
     }

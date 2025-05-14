@@ -7,7 +7,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<AuthCubit>(context);
+    // final cubit = BlocProvider.of<AuthCubit>(context);
 
     return Scaffold(
       body: Center(
