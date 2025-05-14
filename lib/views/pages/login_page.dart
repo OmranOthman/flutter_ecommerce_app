@@ -9,23 +9,76 @@ import 'package:flutter_ecommerce_app/views/widgets/bottom_sheet/create_new_pass
 import 'package:flutter_ecommerce_app/views/widgets/bottom_sheet/forgot_password_bottom_sheet.dart';
 import 'package:flutter_ecommerce_app/views/widgets/label_with_textfield.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AuthCubit(),
+      child: LoginView(),
+    );
+  }
 }
 
-class _LoginPageState extends State<LoginPage> {
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
   final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+
   bool _obscureText = true;
+
+  void _showForgotPasswordBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => ForgotPasswordBottomSheet(
+        emailController: emailController,
+      ),
+    );
+  }
+
+  void _showCreateNewPasswordBottomSheet() {
+    final newPasswordController = TextEditingController();
+    final confirmPasswordController = TextEditingController();
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return SafeArea(
+          child: CreateNewPasswordBottomSheet(
+            newPasswordController: newPasswordController,
+            confirmPasswordController: confirmPasswordController,
+            onDispose: () {
+              // تأخير التخلص من الـ controllers لضمان عدم استخدامها بعد التخلص
+              Future.delayed(const Duration(milliseconds: 300), () {
+                if (newPasswordController.hasListeners) {
+                  newPasswordController.dispose();
+                }
+                if (confirmPasswordController.hasListeners) {
+                  confirmPasswordController.dispose();
+                }
+              });
+            },
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<AuthCubit>(context);
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -41,21 +94,14 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 50),
                   Text(
                     'Login Account',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleLarge,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'Please, login with registered account!',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .labelLarge!
-                        .copyWith(
-                      color: AppColors.grey,
-                    ),
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                          color: AppColors.grey,
+                        ),
                   ),
                   const SizedBox(height: 24),
                   LabelWithTextField(
@@ -96,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                   BlocConsumer<AuthCubit, AuthState>(
                     bloc: cubit,
                     listenWhen: (previous, current) =>
-                    current is AuthDone || current is AuthError,
+                        current is AuthDone || current is AuthError,
                     listener: (context, state) {
                       if (state is AuthDone) {
                         Navigator.of(context).pushNamed(AppRoutes.homeRoute);
@@ -109,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     },
                     buildWhen: (previous, current) =>
-                    current is AuthLoading ||
+                        current is AuthLoading ||
                         current is AuthError ||
                         current is AuthDone,
                     builder: (context, state) {
@@ -147,19 +193,15 @@ class _LoginPageState extends State<LoginPage> {
                         Text(
                           'Or using other method',
                           style:
-                          Theme
-                              .of(context)
-                              .textTheme
-                              .labelLarge!
-                              .copyWith(
-                            color: AppColors.grey,
-                          ),
+                              Theme.of(context).textTheme.labelLarge!.copyWith(
+                                    color: AppColors.grey,
+                                  ),
                         ),
                         const SizedBox(height: 16),
                         BlocConsumer<AuthCubit, AuthState>(
                           bloc: cubit,
                           listenWhen: (previous, current) =>
-                          current is GoogleAuthDone ||
+                              current is GoogleAuthDone ||
                               current is GoogleAuthError,
                           listener: (context, state) {
                             if (state is GoogleAuthDone) {
@@ -174,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
                             }
                           },
                           buildWhen: (previous, current) =>
-                          current is GoogleAuthenticating ||
+                              current is GoogleAuthenticating ||
                               current is GoogleAuthError ||
                               current is GoogleAuthDone,
                           builder: (context, state) {
@@ -186,9 +228,9 @@ class _LoginPageState extends State<LoginPage> {
                             return SocialMediaButton(
                               text: 'Login with Google',
                               imgUrl:
-                              'https://cdn.iconscout.com/icon/free/png-512/free-google-icon-download-in-svg-png-gif-file-formats--logo-social-media-1507807.png?f=webp&w=512',
+                                  'https://cdn.iconscout.com/icon/free/png-512/free-google-icon-download-in-svg-png-gif-file-formats--logo-social-media-1507807.png?f=webp&w=512',
                               onTap: () async =>
-                              await cubit.authenticateWithGoogle(),
+                                  await cubit.authenticateWithGoogle(),
                             );
                           },
                         ),
@@ -196,12 +238,12 @@ class _LoginPageState extends State<LoginPage> {
                         BlocConsumer<AuthCubit, AuthState>(
                           bloc: cubit,
                           listenWhen: (previous, current) =>
-                          current is FacebookAuthDone ||
+                              current is FacebookAuthDone ||
                               current is FacebookAuthError,
                           listener: (context, state) {
                             if (state is FacebookAuthDone) {
-                              Navigator.of(context).pushNamed(
-                                  AppRoutes.homeRoute);
+                              Navigator.of(context)
+                                  .pushNamed(AppRoutes.homeRoute);
                             } else if (state is FacebookAuthError) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -219,9 +261,9 @@ class _LoginPageState extends State<LoginPage> {
                             return SocialMediaButton(
                               text: 'Login with Facebook',
                               imgUrl:
-                              'https://cdn.iconscout.com/icon/free/png-512/free-facebook-logo-icon-download-in-svg-png-gif-file-formats--fb-new-color-social-media-logos-icons-1350125.png?f=webp&w=512',
+                                  'https://cdn.iconscout.com/icon/free/png-512/free-facebook-logo-icon-download-in-svg-png-gif-file-formats--fb-new-color-social-media-logos-icons-1350125.png?f=webp&w=512',
                               onTap: () async =>
-                              await cubit.authenticateWithFacebook(),
+                                  await cubit.authenticateWithFacebook(),
                             );
                           },
                         ),
@@ -234,44 +276,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-    );
-  }
-  void _showForgotPasswordBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) => ForgotPasswordBottomSheet(
-        emailController: emailController,
-      ),
-    );
-  }
-
-  void _showCreateNewPasswordBottomSheet() {
-    final newPasswordController = TextEditingController();
-    final confirmPasswordController = TextEditingController();
-
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) {
-        return SafeArea(
-          child: CreateNewPasswordBottomSheet(
-            newPasswordController: newPasswordController,
-            confirmPasswordController: confirmPasswordController,
-            onDispose: () {
-              // تأخير التخلص من الـ controllers لضمان عدم استخدامها بعد التخلص
-              Future.delayed(const Duration(milliseconds: 300), () {
-                if (newPasswordController.hasListeners) {
-                  newPasswordController.dispose();
-                }
-                if (confirmPasswordController.hasListeners) {
-                  confirmPasswordController.dispose();
-                }
-              });
-            },
-          ),
-        );
-      },
     );
   }
 }

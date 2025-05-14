@@ -10,12 +10,27 @@ class FavoritesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favoriteCubit = BlocProvider.of<FavoriteCubit>(context);
+    return BlocProvider<FavoriteCubit>(
+      create: (context) {
+        final cubit = FavoriteCubit();
+        cubit.getFavoriteProducts();
+        return cubit;
+      },
+      child: FavoritesView(),
+    );
+  }
+}
 
+class FavoritesView extends StatelessWidget {
+  const FavoritesView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final favoriteCubit = BlocProvider.of<FavoriteCubit>(context);
     return BlocBuilder<FavoriteCubit, FavoriteState>(
       bloc: favoriteCubit,
       buildWhen: (previous, current) =>
-      current is FavoriteLoaded ||
+          current is FavoriteLoaded ||
           current is FavoriteLoading ||
           current is FavoriteError,
       builder: (context, state) {
@@ -72,23 +87,32 @@ class FavoritesPage extends StatelessWidget {
                           children: [
                             Text(
                               product.name,
-                              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                             Text(
                               product.category,
-                              style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                                color: Colors.grey,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(
+                                    color: Colors.grey,
+                                  ),
                             ),
                             Text(
                               '\$${product.price}',
-                              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
                             ),
                           ],
                         ),
@@ -96,7 +120,8 @@ class FavoritesPage extends StatelessWidget {
                       // Favorite Button
                       BlocConsumer<FavoriteCubit, FavoriteState>(
                         bloc: favoriteCubit,
-                        listenWhen: (previous, current) => current is FavoriteRemoveError,
+                        listenWhen: (previous, current) =>
+                            current is FavoriteRemoveError,
                         listener: (context, state) {
                           if (state is FavoriteRemoveError) {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -105,8 +130,10 @@ class FavoritesPage extends StatelessWidget {
                           }
                         },
                         buildWhen: (previous, current) =>
-                        (current is FavoriteRemoving && current.productId == product.id) ||
-                            (current is FavoriteRemoved && current.productId == product.id) ||
+                            (current is FavoriteRemoving &&
+                                current.productId == product.id) ||
+                            (current is FavoriteRemoved &&
+                                current.productId == product.id) ||
                             current is FavoriteRemoveError,
                         builder: (context, state) {
                           if (state is FavoriteRemoving) {
@@ -116,7 +143,8 @@ class FavoritesPage extends StatelessWidget {
                             );
                           }
                           return IconButton(
-                            icon: const Icon(Icons.favorite, color: AppColors.red),
+                            icon: const Icon(Icons.favorite,
+                                color: AppColors.red),
                             onPressed: () async {
                               await favoriteCubit.removeFavorite(product.id);
                             },
