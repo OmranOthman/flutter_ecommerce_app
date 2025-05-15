@@ -5,7 +5,6 @@ import 'package:flutter_ecommerce_app/app/presentation/app.dart';
 import 'package:flutter_ecommerce_app/app/routers/app_router.dart';
 import 'package:flutter_ecommerce_app/dependency_injections.dart';
 import 'package:flutter_ecommerce_app/utils/app_routes.dart';
-import 'package:flutter_ecommerce_app/view_models/auth_cubit/auth_cubit.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
