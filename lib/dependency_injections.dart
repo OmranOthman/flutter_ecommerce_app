@@ -1,3 +1,7 @@
+import 'package:flutter_ecommerce_app/features/auth/data/datasources/auth_local_data_source.dart';
+import 'package:flutter_ecommerce_app/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:flutter_ecommerce_app/features/auth/domain/repositories/auth_repository.dart';
+import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/on_boarding_cubit/on_boarding_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:flutter_ecommerce_app/app/data/datasources/app_local_data_source.dart';
@@ -19,34 +23,33 @@ Future<void> init() async {
   di.registerSingleton<SharedPreferences>(sharedPreferences);
 
   di.registerLazySingleton<InternetConnection>(() => InternetConnection());
-  
+
   di.registerLazySingleton<NetworkInfo>(
     () => NetworkInfoImpl(di<InternetConnection>()),
   );
-  
-  di.registerLazySingleton<Dio>(
-    () =>
-        Dio()
-          ..interceptors.add(
-            PrettyDioLogger(
-              requestHeader: false,
-              requestBody: true,
-              responseBody: true,
-              responseHeader: false,
-              error: true,
-              compact: true,
-              maxWidth: 90,
 
-              // filter: (options, args){
-              //     // don't print requests with uris containing '/posts'
-              //     if(options.path.contains('/posts')){
-              //       return false;
-              //     }
-              //     // don't print responses with unit8 list data
-              //     return !args.isResponse || !args.hasUint8ListData;
-              //   }
-            ),
-          ),
+  di.registerLazySingleton<Dio>(
+    () => Dio()
+      ..interceptors.add(
+        PrettyDioLogger(
+          requestHeader: false,
+          requestBody: true,
+          responseBody: true,
+          responseHeader: false,
+          error: true,
+          compact: true,
+          maxWidth: 90,
+
+          // filter: (options, args){
+          //     // don't print requests with uris containing '/posts'
+          //     if(options.path.contains('/posts')){
+          //       return false;
+          //     }
+          //     // don't print responses with unit8 list data
+          //     return !args.isResponse || !args.hasUint8ListData;
+          //   }
+        ),
+      ),
   );
 
   initLocalDataSource();
@@ -60,19 +63,23 @@ void initLocalDataSource() {
     () => AppLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
   );
 
+  di.registerLazySingleton<AuthLocalDataSource>(
+    () => AuthLocalDataSourceImpl(
+        sharedPreferences: di<SharedPreferences>()),
+  );
 }
 
-void initRemoteDataSource() {
-
- 
-}
+void initRemoteDataSource() {}
 
 void initRepositories() {
   di.registerLazySingleton<AppRepository>(
     () => AppRepositoryImpl(appLocalDataSource: di<AppLocalDataSource>()),
   );
 
-
+  di.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(
+        authLocalDataSource: di<AuthLocalDataSource>()),
+  );
 }
 
 void initBlocs() {
@@ -80,4 +87,7 @@ void initBlocs() {
     () => AppBloc(appRepository: di<AppRepository>()),
   );
 
+  di.registerFactory<OnBoardingCubit>(
+    () => OnBoardingCubit(authRepository: di<AuthRepository>()),
+  );
 }
