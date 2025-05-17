@@ -6,8 +6,10 @@ class AppRoutes {
   static const String checkoutRoute = '/checkout';
   static const String addNewCardRoute = '/add-new-card';
   static const String chooseLocation = '/choose-location';
-  static const String securityRoute = '/security';
-  static const String notificationsRoute = '/notifications';
+  static const String settingSecurityRoute = '/security';
+  static const String settingNotificationsRoute = '/notifications';
   static const String settingsRoute = '/settings';
-  static const String editProfileRoute = '/edit-profile';
+  static const String settingEditProfileRoute = '/edit-profile';
+  static const String settingChangePasswordRoute = '/change-password';
+  static const String settingLanguageRoute = '/language';
 }

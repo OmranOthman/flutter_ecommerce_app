@@ -40,6 +40,15 @@ class AppView extends StatelessWidget {
             supportedLocales: const [
               Locale('en', 'US'),
               // Locale('ar'),
+           // themeMode: ThemeMode.light,
+            themeMode: state.themeMode,
+            theme: AppTheme.theme[AppThemeData.lightTheme],
+             darkTheme: AppTheme.theme[AppThemeData.darkTheme],
+             locale: state.locale,
+            //locale: Locale('ar'),
+            supportedLocales: const [
+              Locale('en', 'US'),
+             // Locale('ar'),
             ],
             localizationsDelegates: const [
               AppLocalizations.delegate,
