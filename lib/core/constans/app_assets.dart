@@ -3,18 +3,12 @@ class AppAssets {
   static AppImages images = AppImages();
 }
 
-class AppIcons {
-  String show = 'show'.pngIcon;
-    String favorite = 'favorite'.pngIcon;
-      String forward = 'forward'.pngIcon;
-}
+class AppIcons {}
 
 class AppImages {
-  String logo = 'logo'.pngImage;
-  String logoIcon = 'logo_icon'.pngImage;
-  String foodie = 'foodie'.pngImage;
-  String welcomeLogo = 'welcome_logo'.pngImage;
-  String foodImage = 'food'.pngImage;
+  String onboarding1 = 'onboarding1'.pngImage;
+  String onboarding2 = 'onboarding2'.pngImage;
+  String onboarding3 = 'onboarding3'.pngImage;
 }
 
 extension AppAssetsStringExt on String {

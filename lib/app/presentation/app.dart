@@ -1,11 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_ecommerce_app/utils/app_routes.dart';
+import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_ecommerce_app/app/presentation/app_bloc/app_bloc.dart';
 import 'package:flutter_ecommerce_app/app/routers/app_router.dart';
-import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/app/theme/app_theme.dart';
 import 'package:flutter_ecommerce_app/dependency_Injections.dart';
 
@@ -29,9 +28,18 @@ class AppView extends StatelessWidget {
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: '',
-              initialRoute:  AppRoutes.loginRoute,
-                onGenerateRoute: AppRouter.onGenerateRoute,
+            initialRoute: RoutePath.splashRoute,
+            onGenerateRoute: AppRouter.onGenerateRoute,
             navigatorKey: AppRouter.navigatorKey,
+            // themeMode: ThemeMode.light,
+            themeMode: state.themeMode,
+            theme: AppTheme.theme[AppThemeData.lightTheme],
+            darkTheme: AppTheme.theme[AppThemeData.darkTheme],
+            locale: state.locale,
+            // locale: Locale('ar'),
+            supportedLocales: const [
+              Locale('en', 'US'),
+              // Locale('ar'),
            // themeMode: ThemeMode.light,
             themeMode: state.themeMode,
             theme: AppTheme.theme[AppThemeData.lightTheme],

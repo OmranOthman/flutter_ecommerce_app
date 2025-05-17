@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
+import 'package:flutter_ecommerce_app/features/auth/presentation/pages/onboarding_page.dart';
+import 'package:flutter_ecommerce_app/features/auth/presentation/pages/splash_page.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/widget/custom_bottom_navbar.dart';
 import 'package:flutter_ecommerce_app/features/new_cart/presentation/view_model/add_new_card_cubit/payment_methods_cubit.dart';
 import 'package:flutter_ecommerce_app/features/product_details/presentation/view_model/product_details_cubit/product_details_cubit.dart';
@@ -31,6 +34,12 @@ class AppRouter {
     // final args = settings.arguments;
 
   switch (settings.name) {
+
+       case RoutePath.splashRoute:
+        return SplashPage.route(settings: settings);
+
+          case RoutePath.onBoardingRoute:
+        return OnboardingPage.route(settings: settings);
       case AppRoutes.homeRoute:
         return MaterialPageRoute(
           builder: (_) => const CustomBottomNavbar(),
