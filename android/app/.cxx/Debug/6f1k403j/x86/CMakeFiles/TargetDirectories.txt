@@ -1,0 +1,2 @@
+C:/Users/OMRAN/Desktop/project E-Commerce/flutter_ecommerce_app/android/app/.cxx/Debug/6f1k403j/x86/CMakeFiles/edit_cache.dir
+C:/Users/OMRAN/Desktop/project E-Commerce/flutter_ecommerce_app/android/app/.cxx/Debug/6f1k403j/x86/CMakeFiles/rebuild_cache.dir
