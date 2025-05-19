@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/view_model/checkout_cubit/checkout_cubit.dart';
+import 'package:flutter_ecommerce_app/features/checkout/presentation/widget/order_confirmation_bottom_sheet.dart';
 import 'package:flutter_ecommerce_app/features/new_cart/presentation/view_model/add_new_card_cubit/payment_methods_cubit.dart';
 import 'package:flutter_ecommerce_app/models/location_item_model.dart';
 import 'package:flutter_ecommerce_app/models/payment_card_model.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_ecommerce_app/features/checkout/presentation/widget/chec
 import 'package:flutter_ecommerce_app/features/checkout/presentation/widget/empty_shipping_payment.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/widget/label_with_value_row.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/widget/payment_method_item.dart';
+import 'package:flutter_ecommerce_app/views/widgets/main_button.dart';
 
 class CheckoutPage extends StatelessWidget {
   const CheckoutPage({super.key});
@@ -121,7 +123,7 @@ class CheckoutView extends StatelessWidget {
     final cubit = BlocProvider.of<CheckoutCubit>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Checkout')),
+      appBar: AppBar(title: const Text('Payment'),centerTitle: true,),
       body: BlocBuilder<CheckoutCubit, CheckoutState>(
         bloc: cubit,
         buildWhen: (previous, current) =>
@@ -177,8 +179,8 @@ class CheckoutView extends StatelessWidget {
                               ),
                               child: CachedNetworkImage(
                                 imageUrl: cartItem.product.imgUrl,
-                                height: 125,
-                                width: 125,
+                                height: 86,
+                                width: 86,
                               ),
                             ),
                             const SizedBox(width: 16.0),
@@ -210,28 +212,13 @@ class CheckoutView extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        '\$${cartItem.totalPrice.toStringAsFixed(1)}',
+                                        '\$${cartItem.totalPrice.toStringAsFixed(2)}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineSmall!
                                             .copyWith(fontWeight: FontWeight.bold),
                                       ),
                                     ],
-                                  ),
-                                  Text.rich(
-                                    TextSpan(
-                                      text: 'Quantity: ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium!
-                                          .copyWith(color: AppColors.grey),
-                                      children: [
-                                        TextSpan(
-                                          text: cartItem.quantity.toString(),
-                                          style: Theme.of(context).textTheme.titleMedium,
-                                        ),
-                                      ],
-                                    ),
                                   ),
                                 ],
                               ),
@@ -244,36 +231,21 @@ class CheckoutView extends StatelessWidget {
                     const CheckoutHeadlinesItem(title: 'Payment Methods'),
                     const SizedBox(height: 16.0),
                     _buildPaymentMethodItem(chosenPaymentCard, context),
-                    const SizedBox(height: 16.0),
-                    Divider(color: AppColors.grey2),
-                    const SizedBox(height: 16.0),
-                    LabelWithValueRow(
-                      label: 'Subtotal',
-                      value: '\$${state.subtotal.toStringAsFixed(1)}',
-                    ),
-                    const SizedBox(height: 12),
-                    LabelWithValueRow(
-                      label: 'Shipping',
-                      value: '\$${state.shippingValue.toStringAsFixed(1)}',
-                    ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 32.0),
                     LabelWithValueRow(
                       label: 'Total Amount',
-                      value: '\$${state.totalAmount.toStringAsFixed(1)}',
+                      value: '\$${state.totalAmount.toStringAsFixed(2)}',
                     ),
                     const SizedBox(height: 40.0),
                     SizedBox(
                       width: double.infinity,
                       height: 60,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).primaryColor,
-                          foregroundColor: AppColors.white,
-                        ),
-                        child: const Text('Proceed to Buy'),
+                      child: MainButton(
+                        text: 'Checkout Now',
+                          onTap: () => OrderConfirmationBottomSheet.show(context: context)
                       ),
                     ),
+                    const SizedBox(height: 40.0),
                   ],
                 ),
               ),

@@ -3,11 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/pages/onboarding_page.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/pages/splash_page.dart';
+import 'package:flutter_ecommerce_app/features/auth/presentation/pages/verification_page.dart';
+import 'package:flutter_ecommerce_app/features/cart/presentation/pages/cart_page.dart';
+import 'package:flutter_ecommerce_app/features/home/presentation/pages/notifications_page.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/widget/custom_bottom_navbar.dart';
 import 'package:flutter_ecommerce_app/features/new_cart/presentation/view_model/add_new_card_cubit/payment_methods_cubit.dart';
+import 'package:flutter_ecommerce_app/features/order/presentation/pages/order_tracking_page.dart';
 import 'package:flutter_ecommerce_app/features/product_details/presentation/view_model/product_details_cubit/product_details_cubit.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_change_password_page.dart';
+import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_help_and_support_page.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_language_page.dart';
+import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_legal_and_policies_page.dart';
 import 'package:flutter_ecommerce_app/utils/app_routes.dart';
 import 'package:flutter_ecommerce_app/features/new_cart/presentation/pages/add_new_card_page.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/pages/checkout_page.dart';
@@ -45,6 +51,11 @@ class AppRouter {
           builder: (_) => const CustomBottomNavbar(),
           settings: settings,
         );
+        case AppRoutes.notificationRoute:
+        return MaterialPageRoute(
+          builder: (_) => const NotificationsPage(),
+          settings: settings,
+        );
 
       case AppRoutes.loginRoute:
         return MaterialPageRoute(
@@ -55,6 +66,11 @@ class AppRouter {
       case AppRoutes.registerRoute:
         return MaterialPageRoute(
           builder: (_) => RegisterPage(),
+          settings: settings,
+        );
+        case AppRoutes.verificationRoute:
+        return MaterialPageRoute(
+          builder: (_) => VerificationPage(),
           settings: settings,
         );
 
@@ -90,6 +106,16 @@ class AppRouter {
           ),
           settings: settings,
         );
+    case AppRoutes.cartRoute:
+      return MaterialPageRoute(
+        builder: (_) => const CartPage(),
+        settings: settings,
+      );
+      case AppRoutes.trackingRoute:
+      return MaterialPageRoute(
+        builder: (_) => const OrderTrackingPage(),
+        settings: settings,
+      );
       case AppRoutes.settingSecurityRoute:
         return MaterialPageRoute(
           builder: (_) => const SettingSecurityPage(),
@@ -116,11 +142,19 @@ class AppRouter {
         builder: (_) => SettingChangePasswordPage(onDispose: () {  },),
         settings: settings,
       );
-
-
     case AppRoutes.settingLanguageRoute:
       return MaterialPageRoute(
         builder: (_) => const SettingLanguagePage(),
+        settings: settings,
+      );
+      case AppRoutes.settingLegalAndPoliciesRoute:
+      return MaterialPageRoute(
+        builder: (_) => const SettingLegalAndPoliciesPage(),
+        settings: settings,
+      );
+      case AppRoutes.settingHelpAndSupportRoute:
+      return MaterialPageRoute(
+        builder: (_) => const SettingHelpAndSupportPage(),
         settings: settings,
       );
 

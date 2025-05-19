@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
-import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_language_page.dart';
 import 'package:flutter_ecommerce_app/utils/app_routes.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/widget/settings_bottom.dart';
 
@@ -104,13 +103,16 @@ class SettingsView extends StatelessWidget {
             SettingsBottom(
               icon: Icons.policy_outlined,
               title: "Legal and Policies",
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, AppRoutes.settingLegalAndPoliciesRoute);
+              },
             ),
             SettingsBottom(
               icon: Icons.help_outline,
               title: "Help & Support",
-              onTap: () {},
-            ),
+              onTap: () {
+                Navigator.pushNamed(context, AppRoutes.settingHelpAndSupportRoute);
+              },            ),
             BlocConsumer<AuthCubit, AuthState>(
               bloc: cubit,
               listenWhen: (previous, current) =>

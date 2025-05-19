@@ -37,14 +37,16 @@ class _AddNewCardViewState extends State<AddNewCardView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add New Card'),
+        centerTitle: true,
       ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Form(
             key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: ListView (
+              //crossAxisAlignment: CrossAxisAlignment.start,
+
               children: [
                 LabelWithTextField(
                   label: 'Card Number',
@@ -56,24 +58,25 @@ class _AddNewCardViewState extends State<AddNewCardView> {
                 LabelWithTextField(
                   label: 'Card Holder Name',
                   controller: _cardHolderNameController,
-                  prefixIcon: Icons.person,
-                  hintText: 'Enter card holder name',
+                  prefixIcon: Icons.person_outline,
+                  hintText: 'Enter Holder Name',
                 ),
                 const SizedBox(height: 20),
                 LabelWithTextField(
-                  label: 'Expiry Date',
+                  label: 'Expired',
                   controller: _expiryDateController,
                   prefixIcon: Icons.date_range,
-                  hintText: 'Enter expiry date',
+                  hintText: 'MM/YY',
                 ),
                 const SizedBox(height: 20),
                 LabelWithTextField(
-                  label: 'CVV',
+                  label: 'CVV Code',
                   controller: _cvvController,
-                  prefixIcon: Icons.password,
-                  hintText: 'Enter cvv',
+                  prefixIcon: Icons.lock_outline,
+                  hintText: 'CVV',
                 ),
                 const Spacer(),
+                const SizedBox(height: 100),
                 SizedBox(
                   width: double.infinity,
                   height: 50,

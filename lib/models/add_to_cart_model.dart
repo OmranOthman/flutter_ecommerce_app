@@ -5,12 +5,16 @@ class AddToCartModel {
   final ProductItemModel product;
   final ProductSize size;
   final int quantity;
+  final bool isSelected;
+
 
   const AddToCartModel({
     required this.id,
     required this.product,
     required this.size,
     required this.quantity,
+    this.isSelected = true, // القيمة الافتراضية تكون true
+
   });
 
   double get totalPrice => product.price * quantity;
@@ -20,12 +24,14 @@ class AddToCartModel {
     ProductItemModel? product,
     ProductSize? size,
     int? quantity,
+    bool? isSelected,
   }) {
     return AddToCartModel(
       id: id ?? this.id,
       product: product ?? this.product,
       size: size ?? this.size,
       quantity: quantity ?? this.quantity,
+      isSelected: isSelected ?? this.isSelected,
     );
   }
 

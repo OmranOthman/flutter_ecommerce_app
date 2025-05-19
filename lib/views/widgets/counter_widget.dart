@@ -40,7 +40,8 @@ class CounterWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
-          width: 110,
+          width: 90,
+          height: 32,
           child: DecoratedBox(
             decoration: BoxDecoration(
               color: AppColors.grey2,
@@ -67,7 +68,7 @@ class CounterWidget extends StatelessWidget {
                           child: Text(
                             '-',
                             style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context).primaryColor,
                             ),
@@ -77,7 +78,7 @@ class CounterWidget extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    width: 42,
+                    width: 30,
                     alignment: Alignment.center,
                     child: Text(
                       value.toString(),
@@ -87,7 +88,7 @@ class CounterWidget extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 32,
+                    width: 28,height: 28,
                     child: Material(
                       color: Colors.white,
                       shape: const CircleBorder(),
@@ -112,14 +113,6 @@ class CounterWidget extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        ),
-        const SizedBox(height: 6),
-        Text(
-          'Available in stock',
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.grey[600],
           ),
         ),
       ],

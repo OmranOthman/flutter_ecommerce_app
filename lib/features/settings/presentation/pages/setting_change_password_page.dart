@@ -150,7 +150,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                   ],
                 ),
                 MainButton(
-                  text: "Update Password",
+                  text: "Change Now",
                   onTap: () => context.read<SettingChangePasswordCubit>().submit(),
                 ),
               ],

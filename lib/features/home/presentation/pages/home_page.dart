@@ -54,7 +54,7 @@ class HomeView extends StatelessWidget {
         backgroundColor: AppColors.white,
         elevation: 0,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 14,top: 8),
+          padding: const EdgeInsets.only(left: 14, top: 8),
           child: const CircleAvatar(
             backgroundImage: CachedNetworkImageProvider(
                 'https://media.licdn.com/dms/image/v2/D4D35AQETK974HtDMyw/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1712976653786?e=1747382400&v=beta&t=UHj7T5TQ9EdKWvkHk93SpedMMnlMGrdRXyWywBL6CEo'),
@@ -71,21 +71,22 @@ class HomeView extends StatelessWidget {
             Text(
               'Let\'s go shopping!',
               style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                color: Colors.grey,
-              ),
+                    color: Colors.grey,
+                  ),
             ),
           ],
         ),
         actions: [
-
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.search),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.notifications),
-            ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.search),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.notificationRoute);
+            },
+            icon: const Icon(Icons.notifications),
+          ),
         ],
       ),
       body: SafeArea(

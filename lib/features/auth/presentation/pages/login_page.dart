@@ -60,7 +60,6 @@ class _LoginViewState extends State<LoginView> {
             newPasswordController: newPasswordController,
             confirmPasswordController: confirmPasswordController,
             onDispose: () {
-              // تأخير التخلص من الـ controllers لضمان عدم استخدامها بعد التخلص
               Future.delayed(const Duration(milliseconds: 300), () {
                 if (newPasswordController.hasListeners) {
                   newPasswordController.dispose();
@@ -133,7 +132,7 @@ class _LoginViewState extends State<LoginView> {
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: () {
-                        _showCreateNewPasswordBottomSheet();
+                        _showForgotPasswordBottomSheet();
                       },
                       child: const Text('Forgot Password'),
                     ),
@@ -229,8 +228,12 @@ class _LoginViewState extends State<LoginView> {
                               text: 'Login with Google',
                               imgUrl:
                                   'https://cdn.iconscout.com/icon/free/png-512/free-google-icon-download-in-svg-png-gif-file-formats--logo-social-media-1507807.png?f=webp&w=512',
-                              onTap: () async =>
-                                  await cubit.authenticateWithGoogle(),
+                              // onTap: () async =>
+                              //     await cubit.authenticateWithGoogle(),
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, AppRoutes.verificationRoute);
+                              },
                             );
                           },
                         ),

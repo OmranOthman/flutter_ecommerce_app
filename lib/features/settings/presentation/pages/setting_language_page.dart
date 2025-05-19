@@ -53,7 +53,22 @@ class _SettingLanguagePageState extends State<SettingLanguagePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Language'),
+        title: const Text("Language", style: TextStyle(fontSize: 16)),
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.more_vert),
+            onPressed: () {},
+          ),
+        ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Container(color: Colors.grey.withOpacity(0.3), height: 1),
+        ),
       ),
       body: Column(
         children: [

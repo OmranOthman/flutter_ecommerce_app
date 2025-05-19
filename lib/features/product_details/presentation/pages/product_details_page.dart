@@ -5,10 +5,12 @@ import 'package:flutter_ecommerce_app/features/favorite/presentation/view_model/
 import 'package:flutter_ecommerce_app/features/product_details/presentation/view_model/product_details_cubit/product_details_cubit.dart';
 import 'package:flutter_ecommerce_app/models/product_item_model.dart';
 import 'package:flutter_ecommerce_app/utils/app_colors.dart';
+import 'package:flutter_ecommerce_app/utils/app_routes.dart';
 import 'package:flutter_ecommerce_app/views/widgets/counter_widget.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   final String productId;
+
   const ProductDetailsPage({super.key, required this.productId});
 
   @override
@@ -18,7 +20,7 @@ class ProductDetailsPage extends StatelessWidget {
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
       bloc: cubit,
       buildWhen: (previous, current) =>
-      current is ProductDetailsLoading ||
+          current is ProductDetailsLoading ||
           current is ProductDetailsLoaded ||
           current is ProductDetailsError,
       builder: (context, state) {
@@ -42,9 +44,9 @@ class ProductDetailsPage extends StatelessWidget {
   }
 }
 
-
 class ProductDetailsView extends StatelessWidget {
   final ProductItemModel product;
+
   const ProductDetailsView({super.key, required this.product});
 
   @override
@@ -58,29 +60,11 @@ class ProductDetailsView extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text('Product Details'),
+        centerTitle: true,
         actions: [
-          BlocBuilder<FavoriteCubit, FavoriteState>(
-            builder: (context, favState) {
-              final favoriteCubit = context.read<FavoriteCubit>();
-              final isFavorite = favoriteCubit.favoriteProducts
-                  .any((favProduct) => favProduct.id == product.id);
-
-              return IconButton(
-                icon: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: AppColors.red,
-                ),
-                onPressed: () async {
-                  if (isFavorite) {
-                    await favoriteCubit.removeFavorite(product.id);
-                  } else {
-                    favoriteCubit.favoriteProducts.add(product);
-                    favoriteCubit.emit(FavoriteLoaded(favoriteCubit.favoriteProducts));
-                  }
-                },
-              );
-            },
-          ),
+          IconButton(onPressed: (){
+            Navigator.pushNamed(context, AppRoutes.cartRoute);
+          }, icon: Icon(Icons.shopping_bag_outlined))
         ],
       ),
       body: Stack(
@@ -140,7 +124,8 @@ class ProductDetailsView extends StatelessWidget {
     );
   }
 
-  Widget _buildTitleAndCounter(BuildContext context, ProductDetailsCubit cubit) {
+  Widget _buildTitleAndCounter(
+      BuildContext context, ProductDetailsCubit cubit) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -149,40 +134,57 @@ class ProductDetailsView extends StatelessWidget {
           children: [
             Text(
               product.name,
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 6),
             Row(
               children: [
                 const Icon(Icons.star, color: AppColors.yellow, size: 22),
                 const SizedBox(width: 5),
-                Text(product.averageRate.toString(), style: Theme.of(context).textTheme.titleMedium),
+                Text(product.averageRate.toString(),
+                    style: Theme.of(context).textTheme.titleMedium),
               ],
             ),
           ],
         ),
-        BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
-          bloc: cubit,
-          buildWhen: (previous, current) =>
-          current is QuantityCounterLoaded || current is ProductDetailsLoaded,
-          builder: (context, state) {
-            if (state is QuantityCounterLoaded) {
-              return CounterWidget(
-                value: state.value,
-                productId: product.id,
-                cubit: cubit,
-              );
-            } else if (state is ProductDetailsLoaded) {
-              return CounterWidget(
-                value: 1,
-                productId: product.id,
-                cubit: cubit,
-              );
-            } else {
-              return const SizedBox.shrink();
-            }
-          },
+        Column(
+          children: [
+            BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
+              bloc: cubit,
+              buildWhen: (previous, current) =>
+                  current is QuantityCounterLoaded ||
+                  current is ProductDetailsLoaded,
+              builder: (context, state) {
+                if (state is QuantityCounterLoaded) {
+                  return CounterWidget(
+                    value: state.value,
+                    productId: product.id,
+                    cubit: cubit,
+                  );
+                } else if (state is ProductDetailsLoaded) {
+                  return CounterWidget(
+                    value: 1,
+                    productId: product.id,
+                    cubit: cubit,
+                  );
+                } else {
+                  return const SizedBox.shrink();
+                }
+              },
+            ),
+            Text(
+              'Available in stock',
+              style: TextStyle(
+                fontSize: 10,
+                color: Colors.grey[600],
+              ),
+            ),
+          ],
         ),
+
       ],
     );
   }
@@ -198,37 +200,38 @@ class ProductDetailsView extends StatelessWidget {
         BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
           bloc: cubit,
           buildWhen: (previous, current) =>
-          current is SizeSelected || current is ProductDetailsLoaded,
+              current is SizeSelected || current is ProductDetailsLoaded,
           builder: (context, state) {
             return Row(
               children: ProductSize.values
                   .map(
                     (size) => Padding(
-                  padding: const EdgeInsets.only(top: 6.0, right: 8.0),
-                  child: InkWell(
-                    onTap: () => cubit.selectSize(size),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: state is SizeSelected && state.size == size
-                            ? Theme.of(context).primaryColor
-                            : AppColors.grey2,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Text(
-                          size.name,
-                          style: TextStyle(
+                      padding: const EdgeInsets.only(top: 6.0, right: 8.0),
+                      child: InkWell(
+                        onTap: () => cubit.selectSize(size),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
                             color: state is SizeSelected && state.size == size
-                                ? AppColors.white
-                                : AppColors.black,
+                                ? Theme.of(context).primaryColor
+                                : AppColors.grey2,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Text(
+                              size.name,
+                              style: TextStyle(
+                                color:
+                                    state is SizeSelected && state.size == size
+                                        ? AppColors.white
+                                        : AppColors.black,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              )
+                  )
                   .toList(),
             );
           },
@@ -248,8 +251,8 @@ class ProductDetailsView extends StatelessWidget {
               isExpanded
                   ? description
                   : description.length > 100
-                  ? '${description.substring(0, 100)}...'
-                  : description,
+                      ? '${description.substring(0, 100)}...'
+                      : description,
               style: const TextStyle(color: AppColors.black45),
             ),
             if (description.length > 100)
@@ -280,22 +283,23 @@ class ProductDetailsView extends StatelessWidget {
         BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
           bloc: cubit,
           buildWhen: (previous, current) =>
-          current is QuantityCounterLoaded || current is ProductDetailsLoaded,
+              current is QuantityCounterLoaded ||
+              current is ProductDetailsLoaded,
           builder: (context, state) {
             final total = cubit.totalPrice;
             return Text.rich(
               TextSpan(
                 text: '\$ ',
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).primaryColor,
-                ),
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).primaryColor,
+                    ),
                 children: [
                   TextSpan(
                     text: total.toStringAsFixed(2),
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                 ],
               ),
@@ -305,7 +309,7 @@ class ProductDetailsView extends StatelessWidget {
         BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
           bloc: cubit,
           buildWhen: (previous, current) =>
-          current is ProductAddedToCart || current is ProductAddingToCart,
+              current is ProductAddedToCart || current is ProductAddingToCart,
           builder: (context, state) {
             if (state is ProductAddingToCart) {
               return ElevatedButton(
@@ -342,7 +346,8 @@ class ProductDetailsView extends StatelessWidget {
                 backgroundColor: AppColors.primary,
                 foregroundColor: AppColors.white,
               ),
-              label: const Text('Add to Cart', style: TextStyle(color: AppColors.white70)),
+              label: const Text('Add to Cart',
+                  style: TextStyle(color: AppColors.white70)),
               icon: const Icon(Icons.shopping_bag_outlined),
             );
           },

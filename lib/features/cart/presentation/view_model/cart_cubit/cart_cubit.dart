@@ -5,52 +5,66 @@ part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitial());
-  int quantity = 1;
+  //int quantity = 1;
 
   List<AddToCartModel> _cartItems = [...dummyCart];
 
   Future<void> getCartItems() async {
     emit(CartLoading());
     try {
-      emit(CartLoaded(_cartItems, _subtotal(_cartItems)));
+      emit(CartLoaded(_cartItems, _calculateSubtotal()));
     } catch (e) {
       emit(CartError(e.toString()));
     }
   }
 
-  Future<void> incrementCounter(AddToCartModel cartItem, [int? initialValue]) async {
-    if (initialValue != null) {
-      quantity = initialValue;
+  void toggleItemSelection(String itemId, bool selected) {
+    final index = _cartItems.indexWhere((item) => item.id == itemId);
+    if (index != -1) {
+      _cartItems[index] = _cartItems[index].copyWith(isSelected: selected);
+      emit(CartLoaded(_cartItems, _calculateSubtotal()));
     }
-    quantity++;
+  }
+
+  double _calculateSubtotal() {
+    return _cartItems.fold<double>(0, (sum, item) {
+      return sum + (item.isSelected ? item.product.price * item.quantity : 0);
+    });
+  }
+
+  Future<void> incrementCounter(AddToCartModel cartItem) async {
     try {
       emit(QuantityCounterLoading());
-      final updatedCartItem = cartItem.copyWith(quantity: quantity);
+
+      final updatedQuantity = cartItem.quantity + 1;
+      final updatedCartItem = cartItem.copyWith(quantity: updatedQuantity);
+
       _updateCartItem(updatedCartItem);
       emit(QuantityCounterLoaded(
-        value: quantity,
+        value: updatedQuantity,
         productId: updatedCartItem.product.id,
       ));
-      emit(SubtotalUpdated(_subtotal(_cartItems)));
+      emit(CartLoaded(_cartItems, _calculateSubtotal()));
     } catch (e) {
       emit(QuantityCounterError(e.toString()));
     }
   }
 
-  Future<void> decrementCounter(AddToCartModel cartItem, [int? initialValue]) async {
-    if (initialValue != null) {
-      quantity = initialValue;
-    }
-    if (quantity > 1) quantity--;
+  Future<void> decrementCounter(AddToCartModel cartItem) async {
     try {
+      if (cartItem.quantity <= 1) return;
+
       emit(QuantityCounterLoading());
-      final updatedCartItem = cartItem.copyWith(quantity: quantity);
+
+      final updatedQuantity = cartItem.quantity - 1;
+      final updatedCartItem = cartItem.copyWith(quantity: updatedQuantity);
+
       _updateCartItem(updatedCartItem);
       emit(QuantityCounterLoaded(
-        value: quantity,
+        value: updatedQuantity,
         productId: updatedCartItem.product.id,
       ));
-      emit(SubtotalUpdated(_subtotal(_cartItems)));
+      emit(CartLoaded(_cartItems, _calculateSubtotal()));
     } catch (e) {
       emit(QuantityCounterError(e.toString()));
     }
