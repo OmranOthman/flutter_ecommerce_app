@@ -19,7 +19,6 @@ class LightThemeMode {
     return base.copyWith(
       brightness: Brightness.light,
       primaryColor: AppColors.lightModePrimaryColor,
-
       scaffoldBackgroundColor: AppColors.lightModeScaffoldBackgroundColor,
       cardTheme: const CardTheme(
         color: AppColors.lightModeCardColor,
@@ -29,11 +28,7 @@ class LightThemeMode {
         primary: AppColors.lightModePrimaryColor,
       ),
       inputDecorationTheme: InputDecorationTheme(
-        // isDense: true,
-        fillColor: AppColors.whiteColor,
-        filled: true,
-        contentPadding: const EdgeInsets.all(AppDistances.mediumPadding),
-        prefixIconColor: Colors.grey,
+     filled: true,
         hintStyle: const TextStyle(
           fontSize: 14,
           height: 1,
@@ -43,27 +38,30 @@ class LightThemeMode {
         border: OutlineInputBorder(
           borderSide: const BorderSide(color: AppColors.lightModeBorderColor),
           gapPadding: 0,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius:
+              BorderRadius.circular(AppDistances.textFieldBorderRadius),
         ),
         enabledBorder: OutlineInputBorder(
-             borderSide: const BorderSide(color: AppColors.lightModeBorderColor),
+          borderSide: const BorderSide(color: AppColors.lightModeBorderColor),
           gapPadding: 0,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius:
+              BorderRadius.circular(AppDistances.textFieldBorderRadius),
         ),
         disabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: AppColors.lightModeDeepGrayTextColor,
           ),
           gapPadding: 0,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius:
+              BorderRadius.circular(AppDistances.textFieldBorderRadius),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: AppColors.lightModePrimaryColor),
           gapPadding: 0,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius:
+              BorderRadius.circular(AppDistances.textFieldBorderRadius),
         ),
       ),
-
       iconTheme: iconThemeData,
       expansionTileTheme: const ExpansionTileThemeData(shape: Border()),
       badgeTheme: BadgeThemeData(

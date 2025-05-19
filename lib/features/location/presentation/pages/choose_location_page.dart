@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/features/location/presentation/view_model/choose_location_cubit/choose_location_cubit.dart';
 import 'package:flutter_ecommerce_app/utils/app_colors.dart';
-import 'package:flutter_ecommerce_app/views/widgets/main_button.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 import 'package:flutter_ecommerce_app/features/location/presentation/widget/location_item_widget.dart';
-
 
 class ChooseLocationPage extends StatelessWidget {
   const ChooseLocationPage({super.key});
@@ -17,7 +16,6 @@ class ChooseLocationPage extends StatelessWidget {
     );
   }
 }
-
 
 class ChooseLocationView extends StatefulWidget {
   const ChooseLocationView({super.key});
@@ -40,36 +38,39 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Choose your location',
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+                        fontWeight: FontWeight.w600,
+                      ),
                 ),
                 const SizedBox(height: 12),
                 Text(
                   'Let\'s find an unforgettable event. Choose a location below to get started:',
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: AppColors.grey,
-                  ),
+                        color: AppColors.grey,
+                      ),
                 ),
                 const SizedBox(height: 36),
                 TextField(
                   controller: locationController,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.location_on),
-                    suffixIcon: BlocConsumer<ChooseLocationCubit, ChooseLocationState>(
+                    suffixIcon:
+                        BlocConsumer<ChooseLocationCubit, ChooseLocationState>(
                       bloc: cubit,
                       buildWhen: (previous, current) =>
-                      current is AddingLocation ||
+                          current is AddingLocation ||
                           current is LocationAdded ||
                           current is LocationAddingFailure,
                       listenWhen: (previous, current) =>
-                      current is LocationAdded || current is ConfirmAddressLoaded,
+                          current is LocationAdded ||
+                          current is ConfirmAddressLoaded,
                       listener: (context, state) {
                         if (state is LocationAdded) {
                           locationController.clear();
@@ -92,7 +93,8 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                               cubit.addLocation(locationController.text);
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Enter your location!')),
+                                const SnackBar(
+                                    content: Text('Enter your location!')),
                               );
                             }
                           },
@@ -118,19 +120,20 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                 Text(
                   'Select Location',
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+                        fontWeight: FontWeight.w600,
+                      ),
                 ),
                 const SizedBox(height: 16),
                 BlocBuilder<ChooseLocationCubit, ChooseLocationState>(
                   bloc: cubit,
                   buildWhen: (previous, current) =>
-                  current is FetchLocationsFailure ||
+                      current is FetchLocationsFailure ||
                       current is FetchedLocations ||
                       current is FetchingLocations,
                   builder: (context, state) {
                     if (state is FetchingLocations) {
-                      return const Center(child: CircularProgressIndicator.adaptive());
+                      return const Center(
+                          child: CircularProgressIndicator.adaptive());
                     } else if (state is FetchedLocations) {
                       final locations = state.locations;
                       return ListView.builder(
@@ -141,22 +144,27 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                           final location = locations[index];
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 16.0),
-                            child: BlocBuilder<ChooseLocationCubit, ChooseLocationState>(
+                            child: BlocBuilder<ChooseLocationCubit,
+                                ChooseLocationState>(
                               bloc: cubit,
-                              buildWhen: (previous, current) => current is LocationChosen,
+                              buildWhen: (previous, current) =>
+                                  current is LocationChosen,
                               builder: (context, state) {
                                 if (state is LocationChosen) {
                                   final chosenLocation = state.location;
                                   return LocationItemWidget(
-                                    onTap: () => cubit.selectLocation(location.id),
+                                    onTap: () =>
+                                        cubit.selectLocation(location.id),
                                     location: location,
-                                    borderColor: chosenLocation.id == location.id
-                                        ? AppColors.primary
-                                        : AppColors.grey,
+                                    borderColor:
+                                        chosenLocation.id == location.id
+                                            ? AppColors.primary
+                                            : AppColors.grey,
                                   );
                                 }
                                 return LocationItemWidget(
-                                  onTap: () => cubit.selectLocation(location.id),
+                                  onTap: () =>
+                                      cubit.selectLocation(location.id),
                                   location: location,
                                 );
                               },
@@ -175,16 +183,16 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                 BlocBuilder<ChooseLocationCubit, ChooseLocationState>(
                   bloc: cubit,
                   buildWhen: (previous, current) =>
-                  current is ConfirmAddressLoading ||
+                      current is ConfirmAddressLoading ||
                       current is ConfirmAddressLoaded ||
                       current is ConfirmAddressFailure,
                   builder: (context, state) {
-                    if (state is ConfirmAddressLoading) {
-                      return  MainButton(isLoading: true);
-                    }
-                    return MainButton(
+                    // if (state is ConfirmAddressLoading) {
+                    //   return CustomButton(isLoading: true);
+                    // }
+                    return CustomButton(
                       text: 'Confirm Address',
-                      onTap: () => cubit.confirmAddress(),
+                      onPressed: () => cubit.confirmAddress(),
                     );
                   },
                 ),

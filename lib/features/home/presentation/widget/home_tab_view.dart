@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/view_model/home_cubit/home_cubit.dart';
-import 'package:flutter_ecommerce_app/utils/app_routes.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/widget/product_item.dart';
 
 class HomeTabView extends StatelessWidget {
@@ -129,7 +129,7 @@ class HomeTabView extends StatelessWidget {
                       return InkWell(
                         onTap: () =>
                             Navigator.of(context, rootNavigator: true).pushNamed(
-                              AppRoutes.productDetailsRoute,
+                              RoutePath.productDetailsRoute,
                               arguments: state.products[index].id,
                             ),
                         child: ProductItem(

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_app/views/widgets/main_button.dart';
-import 'package:flutter_ecommerce_app/features/auth/presentation/widget/label_with_textfield.dart';
-
+import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 
 class ForgotPasswordBottomSheet extends StatelessWidget {
   final TextEditingController emailController;
@@ -29,18 +27,18 @@ class ForgotPasswordBottomSheet extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 16),
-          LabelWithTextField(
-            readOnly: true,
-            label: 'Email or Phone Number',
-            suffixIcon: const Icon(Icons.check_circle, color: Colors.green),
-            controller: emailController,
-            prefixIcon: Icons.email_outlined,
-            hintText: 'Enter your email',
-          ),
+          // LabelWithTextField(
+          //   readOnly: true,
+          //   label: 'Email or Phone Number',
+          //   suffixIcon: const Icon(Icons.check_circle, color: Colors.green),
+          //   controller: emailController,
+          //   prefixIcon: Icons.email_outlined,
+          //   hintText: 'Enter your email',
+          // ),
           const SizedBox(height: 20),
-          MainButton(
+          CustomButton(
             text: "Send Code",
-            onTap: () {
+            onPressed: () {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

@@ -1,17 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/features/new_cart/presentation/view_model/add_new_card_cubit/payment_methods_cubit.dart';
 import 'package:flutter_ecommerce_app/utils/app_colors.dart';
-import 'package:flutter_ecommerce_app/utils/app_routes.dart';
-import 'package:flutter_ecommerce_app/views/widgets/main_button.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 
 class PaymentMethodBottomSheet extends StatelessWidget {
   const PaymentMethodBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
     final paymentMethodsCubit = BlocProvider.of<PaymentMethodsCubit>(context);
 
     return SingleChildScrollView(
@@ -111,7 +111,7 @@ class PaymentMethodBottomSheet extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Navigator.of(context)
-                      .pushNamed(AppRoutes.addNewCardRoute,
+                      .pushNamed(RoutePath.addNewCardRoute,
                           arguments: paymentMethodsCubit)
                       .then(
                         (value) async =>
@@ -149,15 +149,15 @@ class PaymentMethodBottomSheet extends StatelessWidget {
                   }
                 },
                 builder: (context, state) {
-                  if (state is ConfirmPaymentLoading) {
-                    return MainButton(
-                      isLoading: true,
-                      onTap: null,
-                    );
-                  }
-                  return MainButton(
+                  // if (state is ConfirmPaymentLoading) {
+                  //   return CustomButton(
+                  //     isLoading: true,
+                  //     onPressed: null,
+                  //   );
+                  // }
+                  return CustomButton(
                     text: 'Confirm Payemnt',
-                    onTap: () {
+                    onPressed: () {
                       paymentMethodsCubit.confirmPaymentMethod();
                     },
                   );

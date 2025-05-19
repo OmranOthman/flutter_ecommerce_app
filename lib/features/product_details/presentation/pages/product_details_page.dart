@@ -5,7 +5,6 @@ import 'package:flutter_ecommerce_app/features/favorite/presentation/view_model/
 import 'package:flutter_ecommerce_app/features/product_details/presentation/view_model/product_details_cubit/product_details_cubit.dart';
 import 'package:flutter_ecommerce_app/models/product_item_model.dart';
 import 'package:flutter_ecommerce_app/utils/app_colors.dart';
-import 'package:flutter_ecommerce_app/utils/app_routes.dart';
 import 'package:flutter_ecommerce_app/views/widgets/counter_widget.dart';
 
 class ProductDetailsPage extends StatelessWidget {
@@ -62,9 +61,9 @@ class ProductDetailsView extends StatelessWidget {
         title: const Text('Product Details'),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: (){
-            Navigator.pushNamed(context, AppRoutes.cartRoute);
-          }, icon: Icon(Icons.shopping_bag_outlined))
+          // IconButton(onPressed: (){
+          //   Navigator.pushNamed(context, AppRoutes.cartRoute);
+          // }, icon: Icon(Icons.shopping_bag_outlined))
         ],
       ),
       body: Stack(

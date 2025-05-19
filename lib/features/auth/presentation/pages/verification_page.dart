@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_app/utils/app_routes.dart';
-import 'package:flutter_ecommerce_app/views/widgets/main_button.dart';
 
 class VerificationPage extends StatefulWidget {
   const VerificationPage({super.key});
@@ -88,12 +86,12 @@ class _VerificationPageState extends State<VerificationPage> {
           const SizedBox(height: 30),
           SizedBox(
             width: double.infinity,
-            child: MainButton(
-              text: "Go to Homepage",
-              onTap: () {
-                Navigator.pushNamed(context, AppRoutes.homeRoute);
-              },
-            ),
+            // child: MainButton(
+            //   text: "Go to Homepage",
+            //   onTap: () {
+            //     Navigator.pushNamed(context, AppRoutes.homeRoute);
+            //   },
+            // ),
           ),
           const SizedBox(height: 20),
         ],
@@ -145,10 +143,10 @@ class _VerificationPageState extends State<VerificationPage> {
 
             SizedBox(
               width: double.infinity,
-              child: MainButton(
-                onTap: _checkVerificationCode,
-                text: "Submit",
-              ),
+              // child: MainButton(
+              //   onTap: _checkVerificationCode,
+              //   text: "Submit",
+              // ),
             ),
             const SizedBox(height: 20),
 

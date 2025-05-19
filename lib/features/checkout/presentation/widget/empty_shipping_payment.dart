@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/view_model/checkout_cubit/checkout_cubit.dart';
 import 'package:flutter_ecommerce_app/features/new_cart/presentation/view_model/add_new_card_cubit/payment_methods_cubit.dart';
 import 'package:flutter_ecommerce_app/utils/app_colors.dart';
-import 'package:flutter_ecommerce_app/utils/app_routes.dart';
 
 class EmptyShippingAndPayment extends StatelessWidget {
   final String title;
@@ -23,12 +23,12 @@ class EmptyShippingAndPayment extends StatelessWidget {
       onTap: () {
         if (isPayment) {
           Navigator.of(context)
-              .pushNamed(AppRoutes.addNewCardRoute, arguments: paymentCubit)
+              .pushNamed(RoutePath.addNewCardRoute, arguments: paymentCubit)
               .then(
                 (value) async => await checkoutCubit.getCheckoutContent(),
               );
         } else {
-          Navigator.of(context).pushNamed(AppRoutes.chooseLocation);
+          Navigator.of(context).pushNamed(RoutePath.chooseLocation);
         }
       },
       child: Container(

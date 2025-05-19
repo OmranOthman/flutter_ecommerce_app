@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_app/utils/app_routes.dart';
-import 'package:flutter_ecommerce_app/views/widgets/main_button.dart';
 
 class OrderConfirmationBottomSheet {
   static void show({
@@ -37,13 +35,13 @@ class OrderConfirmationBottomSheet {
               ),
             ),
             const SizedBox(height: 30),
-            MainButton(
-              text: 'Order Tracking',
-              onTap: () {
-                Navigator.pushNamed(
-                    context, AppRoutes.trackingRoute);
-              },
-            ),
+            // MainButton(
+            //   text: 'Order Tracking',
+            //   onTap: () {
+            //     Navigator.pushNamed(
+            //         context, AppRoutes.trackingRoute);
+            //   },
+            // ),
             const SizedBox(height: 10),
           ],
         ),

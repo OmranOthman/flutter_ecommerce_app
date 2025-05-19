@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/widget/notification_card.dart';
-import 'package:flutter_ecommerce_app/utils/app_routes.dart';
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({super.key});
@@ -17,12 +16,12 @@ class NotificationsPage extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, AppRoutes.settingNotificationsRoute);
-            },
-            icon: const Icon(Icons.settings),
-          ),
+          // IconButton(
+          //   onPressed: () {
+          //     Navigator.pushNamed(context, AppRoutes.settingNotificationsRoute);
+          //   },
+          //   icon: const Icon(Icons.settings),
+          // ),
         ],
         centerTitle: true,
         leading: IconButton(

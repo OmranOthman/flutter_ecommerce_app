@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/view_model/setting_edit_profile_cubit/edit_profile_cubit.dart';
-import 'package:flutter_ecommerce_app/views/widgets/main_button.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 
 class SettingEditProfilePage extends StatelessWidget {
   const SettingEditProfilePage({
@@ -66,7 +66,7 @@ class EditProfileView extends StatelessWidget {
           //   prefixIcon: Icons.email_outlined,
           //   hintText: 'Enter you email',
           // ),
-          MainButton(
+          CustomButton(
             text: "Save Changes",
           )
         ],

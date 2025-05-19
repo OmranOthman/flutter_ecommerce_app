@@ -2,19 +2,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
+import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/view_model/checkout_cubit/checkout_cubit.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/widget/order_confirmation_bottom_sheet.dart';
 import 'package:flutter_ecommerce_app/features/new_cart/presentation/view_model/add_new_card_cubit/payment_methods_cubit.dart';
 import 'package:flutter_ecommerce_app/models/location_item_model.dart';
 import 'package:flutter_ecommerce_app/models/payment_card_model.dart';
 import 'package:flutter_ecommerce_app/utils/app_colors.dart';
-import 'package:flutter_ecommerce_app/utils/app_routes.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/widget/payment_method_bottom_sheet.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/widget/checkout_headlines_item.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/widget/empty_shipping_payment.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/widget/label_with_value_row.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/widget/payment_method_item.dart';
-import 'package:flutter_ecommerce_app/views/widgets/main_button.dart';
 
 class CheckoutPage extends StatelessWidget {
   const CheckoutPage({super.key});
@@ -149,7 +148,7 @@ class CheckoutView extends StatelessWidget {
                       title: 'Address',
                       onTap: () {
                         Navigator.of(context)
-                            .pushNamed(AppRoutes.chooseLocation)
+                            .pushNamed(RoutePath.chooseLocation)
                             .then((value) async {
                           await cubit.getCheckoutContent();
                         });
@@ -240,10 +239,10 @@ class CheckoutView extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       height: 60,
-                      child: MainButton(
-                        text: 'Checkout Now',
-                          onTap: () => OrderConfirmationBottomSheet.show(context: context)
-                      ),
+                      // child: MainButton(
+                      //   text: 'Checkout Now',
+                      //     onTap: () => OrderConfirmationBottomSheet.show(context: context)
+                      // ),
                     ),
                     const SizedBox(height: 40.0),
                   ],

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
+import 'package:flutter_ecommerce_app/dependency_injections.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
-import 'package:flutter_ecommerce_app/utils/app_routes.dart';
+// import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_language_page.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/widget/settings_bottom.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -10,7 +12,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthCubit(),
+      create: (context) => di<AuthCubit>(),
       child: SettingsView(),
     );
   }
@@ -61,7 +63,7 @@ class SettingsView extends StatelessWidget {
               icon: Icons.person_outline,
               title: "Edit Profile",
               onTap: () {
-                Navigator.pushNamed(context, AppRoutes.settingEditProfileRoute);
+                Navigator.pushNamed(context, RoutePath.settingEditProfileRoute);
               },
             ),
             SettingsBottom(
@@ -69,7 +71,7 @@ class SettingsView extends StatelessWidget {
               title: "Change Password",
               onTap: () {
                 Navigator.pushNamed(
-                    context, AppRoutes.settingChangePasswordRoute);
+                    context, RoutePath.settingChangePasswordRoute);
               },
             ),
             SettingsBottom(
@@ -77,14 +79,14 @@ class SettingsView extends StatelessWidget {
               title: "Notifications",
               onTap: () {
                 Navigator.pushNamed(
-                    context, AppRoutes.settingNotificationsRoute);
+                    context, RoutePath.settingNotificationsRoute);
               },
             ),
             SettingsBottom(
               icon: Icons.security_outlined,
               title: "Security",
               onTap: () {
-                Navigator.pushNamed(context, AppRoutes.settingSecurityRoute);
+                Navigator.pushNamed(context, RoutePath.settingSecurityRoute);
               },
             ),
             SettingsBottom(
@@ -92,7 +94,7 @@ class SettingsView extends StatelessWidget {
               title: "Language",
               trailingText: "English",
               onTap: () {
-                Navigator.pushNamed(context, AppRoutes.settingLanguageRoute);
+                Navigator.pushNamed(context, RoutePath.settingLanguageRoute);
               },
             ),
             const Padding(
@@ -103,49 +105,46 @@ class SettingsView extends StatelessWidget {
             SettingsBottom(
               icon: Icons.policy_outlined,
               title: "Legal and Policies",
-              onTap: () {
-                Navigator.pushNamed(context, AppRoutes.settingLegalAndPoliciesRoute);
-              },
+              onTap: () {},
             ),
             SettingsBottom(
               icon: Icons.help_outline,
               title: "Help & Support",
-              onTap: () {
-                Navigator.pushNamed(context, AppRoutes.settingHelpAndSupportRoute);
-              },            ),
+              onTap: () {},
+            ),
             BlocConsumer<AuthCubit, AuthState>(
               bloc: cubit,
-              listenWhen: (previous, current) =>
-                  current is AuthLoggedOut || current is AuthLogOutError,
+              // listenWhen: (previous, current) =>
+              //     current is AuthLoggedOut || current is AuthLogOutError,
               listener: (context, state) {
-                if (state is AuthLoggedOut) {
-                  Navigator.of(context, rootNavigator: true)
-                      .pushNamedAndRemoveUntil(
-                          AppRoutes.loginRoute, (route) => false);
-                } else if (state is AuthLogOutError) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(state.message)),
-                  );
-                }
+                // if (state is AuthLoggedOut) {
+                //   Navigator.of(context, rootNavigator: true)
+                //       .pushNamedAndRemoveUntil(
+                //           RoutePath.loginRoute, (route) => false);
+                // } else if (state is AuthLogOutError) {
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //     SnackBar(content: Text(state.message)),
+                //   );
+                // }
               },
-              buildWhen: (previous, current) => current is AuthLoggingOut,
+              // buildWhen: (previous, current) => current is AuthLoggingOut,
               builder: (context, state) {
-                if (state is AuthLoggingOut) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ),
-                  );
-                }
+                // if (state is AuthLoggingOut) {
+                //   return Padding(
+                //     padding:
+                //         const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                //     child: Container(
+                //       padding: const EdgeInsets.all(16),
+                //       decoration: BoxDecoration(
+                //         color: Colors.white,
+                //         borderRadius: BorderRadius.circular(14),
+                //       ),
+                //       child: const Center(
+                //         child: CircularProgressIndicator(),
+                //       ),
+                //     ),
+                //   );
+                // }
                 return SettingsBottom(
                   icon: Icons.logout,
                   title: 'Logout',
@@ -193,7 +192,7 @@ class SettingsView extends StatelessWidget {
                                 GestureDetector(
                                   onTap: () async {
                                     Navigator.of(context).pop();
-                                    await cubit.logout();
+                                  
                                   },
                                   child: const Text(
                                     'Log Out',

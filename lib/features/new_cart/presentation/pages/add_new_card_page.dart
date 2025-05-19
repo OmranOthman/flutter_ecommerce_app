@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/features/new_cart/presentation/view_model/add_new_card_cubit/payment_methods_cubit.dart';
 import 'package:flutter_ecommerce_app/utils/app_colors.dart';
-import 'package:flutter_ecommerce_app/features/auth/presentation/widget/label_with_textfield.dart';
 
 class AddNewCardPage extends StatelessWidget {
   const AddNewCardPage({super.key});
@@ -37,46 +36,43 @@ class _AddNewCardViewState extends State<AddNewCardView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add New Card'),
-        centerTitle: true,
       ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Form(
             key: _formKey,
-            child: ListView (
-              //crossAxisAlignment: CrossAxisAlignment.start,
-
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                LabelWithTextField(
-                  label: 'Card Number',
-                  controller: _cardNumberController,
-                  prefixIcon: Icons.credit_card,
-                  hintText: 'Enter card number',
-                ),
+                // LabelWithTextField(
+                //   label: 'Card Number',
+                //   controller: _cardNumberController,
+                //   prefixIcon: Icons.credit_card,
+                //   hintText: 'Enter card number',
+                // ),
                 const SizedBox(height: 20),
-                LabelWithTextField(
-                  label: 'Card Holder Name',
-                  controller: _cardHolderNameController,
-                  prefixIcon: Icons.person_outline,
-                  hintText: 'Enter Holder Name',
-                ),
+                // LabelWithTextField(
+                //   label: 'Card Holder Name',
+                //   controller: _cardHolderNameController,
+                //   prefixIcon: Icons.person,
+                //   hintText: 'Enter card holder name',
+                // ),
                 const SizedBox(height: 20),
-                LabelWithTextField(
-                  label: 'Expired',
-                  controller: _expiryDateController,
-                  prefixIcon: Icons.date_range,
-                  hintText: 'MM/YY',
-                ),
+                // LabelWithTextField(
+                //   label: 'Expiry Date',
+                //   controller: _expiryDateController,
+                //   prefixIcon: Icons.date_range,
+                //   hintText: 'Enter expiry date',
+                // ),
                 const SizedBox(height: 20),
-                LabelWithTextField(
-                  label: 'CVV Code',
-                  controller: _cvvController,
-                  prefixIcon: Icons.lock_outline,
-                  hintText: 'CVV',
-                ),
+                // LabelWithTextField(
+                //   label: 'CVV',
+                //   controller: _cvvController,
+                //   prefixIcon: Icons.password,
+                //   hintText: 'Enter cvv',
+                // ),
                 const Spacer(),
-                const SizedBox(height: 100),
                 SizedBox(
                   width: double.infinity,
                   height: 50,

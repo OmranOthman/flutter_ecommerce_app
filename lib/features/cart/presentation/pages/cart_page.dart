@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/features/cart/presentation/view_model/cart_cubit/cart_cubit.dart';
 import 'package:flutter_ecommerce_app/models/add_to_cart_model.dart';
 import 'package:flutter_ecommerce_app/utils/app_colors.dart';
-import 'package:flutter_ecommerce_app/utils/app_routes.dart';
 import 'package:flutter_ecommerce_app/features/cart/presentation/widget/cart_item_widget.dart';
-import 'package:flutter_ecommerce_app/views/widgets/main_button.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -120,10 +118,10 @@ class CartView extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             height: 50,
-            child: MainButton(
-              text: "Checkout",
-              onTap: () => _showCheckoutBottomSheet(context, subtotal + 10),
-            ),
+            // child: MainButton(
+            //   text: "Checkout",
+            //   onTap: () => _showCheckoutBottomSheet(context, subtotal + 10),
+            // ),
           ),
         ],
       ),
@@ -197,13 +195,13 @@ class CheckoutBottomSheet extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               height: 50,
-              child: MainButton(
-                text: 'Proceed to Checkout',
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, AppRoutes.checkoutRoute);
-                },
-              ),
+              // child: MainButton(
+              //   text: 'Proceed to Checkout',
+              //   onTap: () {
+              //     Navigator.pop(context);
+              //     Navigator.pushNamed(context, AppRoutes.checkoutRoute);
+              //   },
+              // ),
             ),
           ],
         ),
