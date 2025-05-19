@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_ecommerce_app/features/auth/presentation/widget/label_with_textfield.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/view_model/setting_change_password_cubit/setting_change_password_cubit.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/view_model/setting_change_password_cubit/setting_change_password_state.dart';
-import 'package:flutter_ecommerce_app/views/widgets/main_button.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 
 class SettingChangePasswordPage extends StatelessWidget {
-  const SettingChangePasswordPage({super.key, required Null Function() onDispose});
+  const SettingChangePasswordPage(
+      {super.key, required Null Function() onDispose});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,6 @@ class SettingChangePasswordPage extends StatelessWidget {
   }
 }
 
-
 class ChangePasswordView extends StatefulWidget {
   const ChangePasswordView({super.key});
 
@@ -66,10 +65,14 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
     });
 
     _newPasswordController.addListener(() {
-      context.read<SettingChangePasswordCubit>().newPasswordChanged(_newPasswordController.text);
+      context
+          .read<SettingChangePasswordCubit>()
+          .newPasswordChanged(_newPasswordController.text);
     });
     _confirmPasswordController.addListener(() {
-      context.read<SettingChangePasswordCubit>().confirmPasswordChanged(_confirmPasswordController.text);
+      context
+          .read<SettingChangePasswordCubit>()
+          .confirmPasswordChanged(_confirmPasswordController.text);
     });
   }
 
@@ -85,7 +88,9 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SettingChangePasswordCubit, SettingChangePasswordState>(
-      listenWhen: (previous, current) => previous.errorMessage != current.errorMessage || previous.success != current.success,
+      listenWhen: (previous, current) =>
+          previous.errorMessage != current.errorMessage ||
+          previous.success != current.success,
       listener: (context, state) {
         if (state.errorMessage != null) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -106,7 +111,8 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
           Navigator.pop(context);
         }
       },
-      child: BlocBuilder<SettingChangePasswordCubit, SettingChangePasswordState>(
+      child:
+          BlocBuilder<SettingChangePasswordCubit, SettingChangePasswordState>(
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.all(16.0),
@@ -116,42 +122,51 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
               children: [
                 Column(
                   children: [
-                    LabelWithTextField(
-                      label: 'New Password',
-                      controller: _newPasswordController,
-                      prefixIcon: Icons.lock_outline,
-                      hintText: 'Enter new password',
-                      obsecureText: state.obscureNewPassword,
-                      focusNode: _newPasswordFocusNode,
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          state.obscureNewPassword ? Icons.visibility : Icons.visibility_off,
-                          color: Colors.grey,
-                        ),
-                        onPressed: () => context.read<SettingChangePasswordCubit>().toggleObscureNewPassword(),
-                      ),
-                    ),
+                    // LabelWithTextField(
+                    //   label: 'New Password',
+                    //   controller: _newPasswordController,
+                    //   prefixIcon: Icons.lock_outline,
+                    //   hintText: 'Enter new password',
+                    //   obsecureText: state.obscureNewPassword,
+                    //   focusNode: _newPasswordFocusNode,
+                    //   suffixIcon: IconButton(
+                    //     icon: Icon(
+                    //       state.obscureNewPassword
+                    //           ? Icons.visibility
+                    //           : Icons.visibility_off,
+                    //       color: Colors.grey,
+                    //     ),
+                    //     onPressed: () => context
+                    //         .read<SettingChangePasswordCubit>()
+                    //         .toggleObscureNewPassword(),
+                    //   ),
+                    // ),
                     const SizedBox(height: 24),
-                    LabelWithTextField(
-                      label: 'Confirm Password',
-                      controller: _confirmPasswordController,
-                      prefixIcon: Icons.lock_outline,
-                      hintText: 'Confirm new password',
-                      obsecureText: state.obscureConfirmPassword,
-                      focusNode: _confirmPasswordFocusNode,
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          state.obscureConfirmPassword ? Icons.visibility : Icons.visibility_off,
-                          color: Colors.grey,
-                        ),
-                        onPressed: () => context.read<SettingChangePasswordCubit>().toggleObscureConfirmPassword(),
-                      ),
-                    ),
+                    // LabelWithTextField(
+                    //   label: 'Confirm Password',
+                    //   controller: _confirmPasswordController,
+                    //   prefixIcon: Icons.lock_outline,
+                    //   hintText: 'Confirm new password',
+                    //   obsecureText: state.obscureConfirmPassword,
+                    //   focusNode: _confirmPasswordFocusNode,
+                    //   suffixIcon: IconButton(
+                    //     icon: Icon(
+                    //       state.obscureConfirmPassword
+                    //           ? Icons.visibility
+                    //           : Icons.visibility_off,
+                    //       color: Colors.grey,
+                    //     ),
+                    //     onPressed: () => context
+                    //         .read<SettingChangePasswordCubit>()
+                    //         .toggleObscureConfirmPassword(),
+                    //   ),
+                    // ),
                   ],
                 ),
-                MainButton(
+                CustomButton(
                   text: "Update Password",
-                  onTap: () => context.read<SettingChangePasswordCubit>().submit(),
+                  onPressed: () =>
+                      context.read<SettingChangePasswordCubit>().submit(),
                 ),
               ],
             ),
@@ -161,4 +176,3 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
     );
   }
 }
-

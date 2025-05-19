@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constans/app_assets.dart';
 import 'package:flutter_ecommerce_app/core/constans/app_distances.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 import 'package:flutter_ecommerce_app/dependency_injections.dart';
-import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/on_boarding_cubit/on_boarding_cubit.dart';
-import 'package:flutter_ecommerce_app/utils/app_routes.dart';
+import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
 
 class OnboardingPage extends StatelessWidget {
   static Route<dynamic> route({required RouteSettings settings}) =>
@@ -18,7 +18,7 @@ class OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => di<OnBoardingCubit>(),
+      create: (context) => di<AuthCubit>(),
       child: OnboardingView(),
     );
   }
@@ -35,7 +35,7 @@ class OnboardingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    OnBoardingCubit onBoardingCubit = BlocProvider.of<OnBoardingCubit>(context);
+    AuthCubit authCubit = BlocProvider.of<AuthCubit>(context);
     Size size = MediaQuery.sizeOf(context);
     return Scaffold(
       body: SafeArea(
@@ -69,9 +69,9 @@ class OnboardingView extends StatelessWidget {
             CustomButton(
                 onPressed: () {
                   if (pageController.page == images.length - 1) {
-                    onBoardingCubit.saveFirstTimeOpenApp();
+                    authCubit.saveFirstTimeOpenApp();
                     Navigator.of(context).pushNamedAndRemoveUntil(
-                      AppRoutes.loginRoute,
+                      RoutePath.loginRoute,
                       (route) => false,
                     );
                   } else {
@@ -80,7 +80,7 @@ class OnboardingView extends StatelessWidget {
                         curve: Curves.linear);
                   }
                 },
-                textButton: "Next")
+                text: "Next")
           ],
         ),
       )),

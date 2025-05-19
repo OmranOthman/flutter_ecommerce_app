@@ -8,7 +8,6 @@ import 'package:flutter_ecommerce_app/features/new_cart/presentation/view_model/
 import 'package:flutter_ecommerce_app/features/product_details/presentation/view_model/product_details_cubit/product_details_cubit.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_change_password_page.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_language_page.dart';
-import 'package:flutter_ecommerce_app/utils/app_routes.dart';
 import 'package:flutter_ecommerce_app/features/new_cart/presentation/pages/add_new_card_page.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/pages/checkout_page.dart';
 import 'package:flutter_ecommerce_app/features/location/presentation/pages/choose_location_page.dart';
@@ -40,35 +39,35 @@ class AppRouter {
 
           case RoutePath.onBoardingRoute:
         return OnboardingPage.route(settings: settings);
-      case AppRoutes.homeRoute:
+      case RoutePath.homeRoute:
         return MaterialPageRoute(
           builder: (_) => const CustomBottomNavbar(),
           settings: settings,
         );
 
-      case AppRoutes.loginRoute:
+      case RoutePath.loginRoute:
         return MaterialPageRoute(
           builder: (_) => LoginPage(),
           settings: settings,
         );
 
-      case AppRoutes.registerRoute:
+      case RoutePath.registerRoute:
         return MaterialPageRoute(
           builder: (_) => RegisterPage(),
           settings: settings,
         );
 
-      case AppRoutes.checkoutRoute:
+      case RoutePath.checkoutRoute:
         return MaterialPageRoute(
           builder: (_) => const CheckoutPage(),
           settings: settings,
         );
-      case AppRoutes.chooseLocation:
+      case RoutePath.chooseLocation:
         return MaterialPageRoute(
           builder: (_) => ChooseLocationPage(),
           settings: settings,
         );
-      case AppRoutes.addNewCardRoute:
+      case RoutePath.addNewCardRoute:
       final paymentCubit = settings.arguments as PaymentMethodsCubit;
         return MaterialPageRoute(
           builder: (_) => BlocProvider.value(
@@ -77,7 +76,7 @@ class AppRouter {
           ),
           settings: settings,
         );
-      case AppRoutes.productDetailsRoute:
+      case RoutePath.productDetailsRoute:
         final String productId = settings.arguments as String;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -90,35 +89,35 @@ class AppRouter {
           ),
           settings: settings,
         );
-      case AppRoutes.settingSecurityRoute:
+      case RoutePath.settingSecurityRoute:
         return MaterialPageRoute(
           builder: (_) => const SettingSecurityPage(),
           settings: settings,
         );
 
-      case AppRoutes.settingNotificationsRoute:
+      case RoutePath.settingNotificationsRoute:
         return MaterialPageRoute(
           builder: (_) => const SettingNotificationPage(),
           settings: settings,
         );
-        case AppRoutes.settingsRoute:
+        case RoutePath.settingsRoute:
         return MaterialPageRoute(
           builder: (_) => const SettingsPage(),
           settings: settings,
         );
-        case AppRoutes.settingEditProfileRoute:
+        case RoutePath.settingEditProfileRoute:
         return MaterialPageRoute(
           builder: (_) => const SettingEditProfilePage(),
           settings: settings,
         );
-    case AppRoutes.settingChangePasswordRoute:
+    case RoutePath.settingChangePasswordRoute:
       return MaterialPageRoute(
         builder: (_) => SettingChangePasswordPage(onDispose: () {  },),
         settings: settings,
       );
 
 
-    case AppRoutes.settingLanguageRoute:
+    case RoutePath.settingLanguageRoute:
       return MaterialPageRoute(
         builder: (_) => const SettingLanguagePage(),
         settings: settings,

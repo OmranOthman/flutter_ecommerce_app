@@ -1,31 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/core/constans/app_distances.dart';
+import 'package:flutter_ecommerce_app/utils/app_colors.dart';
 
 class CustomButton extends StatelessWidget {
-  final void Function()? onPressed;
-  final String textButton;
-  final double? height;
-  final double? radius;
+  final VoidCallback? onPressed;
+  final Color backgroundColor;
+  final String text;
+  final bool isLoading;
+  final double height;
+
   const CustomButton({
     super.key,
-    required this.onPressed,
-    required this.textButton,
-    this.height,
-    this.radius,
+    this.onPressed,
+    this.backgroundColor = AppColors.primary,
+    this.height=60,
+    required this.text,
+
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return MaterialButton(
-      color: Theme.of(context).primaryColor,
-      elevation: 0,
-      height: height ?? size.height * 0.060,
+      onPressed: isLoading ? null : onPressed,
+      color:backgroundColor ,
+      height: height,
       minWidth: double.infinity,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(radius ?? 24),
-      ),
-      onPressed: onPressed,
-      child: Text(textButton, style: Theme.of(context).textTheme.labelMedium),
+          borderRadius:
+              BorderRadius.circular(AppDistances.borderRadius)),
+      child: isLoading
+          ? const Center(
+              child: CircularProgressIndicator.adaptive(),
+            )
+          : Text(
+              text,
+              style: const TextStyle(color: Colors.white70, fontSize: 15),
+            ),
     );
   }
 }

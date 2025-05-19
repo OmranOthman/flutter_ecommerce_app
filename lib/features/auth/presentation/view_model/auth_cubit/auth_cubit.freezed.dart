@@ -4,7 +4,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'on_boarding_cubit.dart';
+part of 'auth_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,11 +14,11 @@ part of 'on_boarding_cubit.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$OnBoardingState {
+mixin _$AuthState {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is OnBoardingState);
+        (other.runtimeType == runtimeType && other is AuthState);
   }
 
   @override
@@ -26,19 +26,18 @@ mixin _$OnBoardingState {
 
   @override
   String toString() {
-    return 'OnBoardingState()';
+    return 'AuthState()';
   }
 }
 
 /// @nodoc
-class $OnBoardingStateCopyWith<$Res> {
-  $OnBoardingStateCopyWith(
-      OnBoardingState _, $Res Function(OnBoardingState) __);
+class $AuthStateCopyWith<$Res> {
+  $AuthStateCopyWith(AuthState _, $Res Function(AuthState) __);
 }
 
 /// @nodoc
 
-class _Init implements OnBoardingState {
+class _Init implements AuthState {
   const _Init();
 
   @override
@@ -52,7 +51,7 @@ class _Init implements OnBoardingState {
 
   @override
   String toString() {
-    return 'OnBoardingState.init()';
+    return 'AuthState.init()';
   }
 }
 

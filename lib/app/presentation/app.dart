@@ -31,7 +31,9 @@ class AppView extends StatelessWidget {
             initialRoute: RoutePath.splashRoute,
             onGenerateRoute: AppRouter.onGenerateRoute,
             navigatorKey: AppRouter.navigatorKey,
-            themeMode: state.themeMode,
+            // themeMode: state.themeMode,
+            themeMode: ThemeMode.light,
+          
             theme: AppTheme.theme[AppThemeData.lightTheme],
             darkTheme: AppTheme.theme[AppThemeData.darkTheme],
             locale: state.locale,

@@ -75,7 +75,7 @@ class ProductDetailsView extends StatelessWidget {
                     await favoriteCubit.removeFavorite(product.id);
                   } else {
                     favoriteCubit.favoriteProducts.add(product);
-                    favoriteCubit.emit(FavoriteLoaded(favoriteCubit.favoriteProducts));
+                    // favoriteCubit.emit(FavoriteLoaded(favoriteCubit.favoriteProducts));
                   }
                 },
               );

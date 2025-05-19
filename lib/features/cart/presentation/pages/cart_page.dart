@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dash/flutter_dash.dart';
+import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/models/add_to_cart_model.dart';
 import 'package:flutter_ecommerce_app/utils/app_colors.dart';
-import 'package:flutter_ecommerce_app/utils/app_routes.dart';
 import 'package:flutter_ecommerce_app/features/cart/presentation/view_model/cart_cubit/cart_cubit.dart';
 import 'package:flutter_ecommerce_app/features/cart/presentation/widget/cart_item_widget.dart';
 
@@ -141,7 +141,7 @@ class CartView extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.of(context, rootNavigator: true)
-                                .pushNamed(AppRoutes.checkoutRoute);
+                                .pushNamed(RoutePath.checkoutRoute);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).primaryColor,

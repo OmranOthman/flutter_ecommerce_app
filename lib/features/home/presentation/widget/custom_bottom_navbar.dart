@@ -1,13 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/settings_page.dart';
 import 'package:flutter_ecommerce_app/utils/app_colors.dart';
-import 'package:flutter_ecommerce_app/utils/app_routes.dart';
 import 'package:flutter_ecommerce_app/features/cart/presentation/pages/cart_page.dart';
 import 'package:flutter_ecommerce_app/features/favorite/presentation/pages/favorites_page.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/pages/home_page.dart';
-import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_profile_page.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class CustomBottomNavbar extends StatefulWidget {

@@ -33,6 +33,7 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final bool autofocus;
   final bool? enabled;
+  final bool? filled;
   const CustomTextFormField({
     super.key,
     this.hintText,
@@ -64,6 +65,7 @@ class CustomTextFormField extends StatelessWidget {
     this.enabled,
     this.hintTextDirection,
     this.style,
+    this.filled = true,
   });
   @override
   Widget build(BuildContext context) {
@@ -74,9 +76,9 @@ class CustomTextFormField extends StatelessWidget {
         ...label == null
             ? []
             : [
-              Text(label.toString(), style: labelStyle),
-              const SizedBox(height: AppDistances.smallPadding),
-            ],
+                Text(label.toString(), style: labelStyle),
+                const SizedBox(height: AppDistances.smallPadding),
+              ],
         TextFormField(
           textDirection: textDirection,
           enabled: enabled,
@@ -90,8 +92,7 @@ class CustomTextFormField extends StatelessWidget {
           onFieldSubmitted: onFieldSubmitted,
           onEditingComplete: onEditingComplete,
           onTapOutside: (event) => focusNode?.unfocus(),
-          style:
-              style ??
+          style: style ??
               const TextStyle(
                 height: 1,
                 fontWeight: FontWeight.w400,
@@ -107,19 +108,23 @@ class CustomTextFormField extends StatelessWidget {
           cursorColor: AppColors.martiniqueColor,
           textAlign: textAlign,
           decoration: InputDecoration(
-            fillColor: enabled == false ? AppColors.altoColor : null,
-          
+            filled: filled,
+            // fillColor: enabled == false ? AppColors.altoColor : null,
+            fillColor: Colors.grey.shade100,
+            contentPadding: contentPadding ??
+                EdgeInsets.symmetric(horizontal: AppDistances.mediumPadding),
             hintTextDirection: hintTextDirection,
             prefixIcon: prefixIcon,
-            prefixIconConstraints: BoxConstraints.tight(const Size(30, 30)),
+
+            // prefixIconConstraints: BoxConstraints.tight(const Size(30, 30)),
             hintText: hintText,
             suffixIcon: suffixIcon,
-            suffixIconConstraints: const BoxConstraints(
-              maxHeight: 30,
-              minHeight: 30,
-              maxWidth: 75,
-              minWidth: 75,
-            ),
+            // suffixIconConstraints: const BoxConstraints(
+            //   maxHeight: 30,
+            //   minHeight: 30,
+            //   maxWidth: 75,
+            //   minWidth: 75,
+            // ),
           ),
           validator: validator,
           onTap: onTap,

@@ -1,3 +1,11 @@
 {
-
+    "this_field_is_required": "هذا الحقل مطلوب",
+    "enter_your_email": "ادخل البريد الإلكتروني",
+    "enter_your_password": "Enter your password",
+    "password": "كلمة المرور",
+    "email": "البريد الإلكتروني",
+    "username": "اسم المستخدم",
+    "enter_your_username": "ادخل اسم المستخدم",
+    "please_login_with_registered_account": "من فضلك قم بتسجيل الدخول بالحساب المسجل!",
+    "login": "تسجيل الدخول"
 }

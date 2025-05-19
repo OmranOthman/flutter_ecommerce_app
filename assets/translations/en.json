@@ -1,3 +1,11 @@
 {
-
+    "this_field_is_required": "This field is required",
+    "enter_your_email": "Enter your email",
+    "enter_your_password": "Enter your password",
+    "password": "Password",
+    "email": "Email",
+    "username": "Username",
+    "enter_your_username": "Enter your username",
+    "please_login_with_registered_account": "Please, login with registered account!",
+    "login": "Login"
 }

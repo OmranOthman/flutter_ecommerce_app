@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/app/theme/app_theme.dart';
 import 'package:flutter_ecommerce_app/app/theme/text_theme.dart';
 import 'package:flutter_ecommerce_app/core/constans/app_colors.dart';
+import 'package:flutter_ecommerce_app/core/constans/app_distances.dart';
 
 class DarkThemeMode {
   static ThemeData buildDarkTheme() {
@@ -24,6 +25,43 @@ class DarkThemeMode {
       iconTheme: iconThemeData,
       colorScheme: const ColorScheme.dark(
         primary: AppColors.darkModePrimaryColor,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+       filled: true,
+   
+      
+        hintStyle: const TextStyle(
+          fontSize: 14,
+          height: 1,
+          color: Colors.grey,
+          fontWeight: FontWeight.w400,
+        ),
+        border: OutlineInputBorder(
+          borderSide: const BorderSide(color: AppColors.lightModeBorderColor),
+          gapPadding: 0,
+          borderRadius:
+              BorderRadius.circular(AppDistances.textFieldBorderRadius),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: AppColors.lightModeBorderColor),
+          gapPadding: 0,
+          borderRadius:
+              BorderRadius.circular(AppDistances.textFieldBorderRadius),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: AppColors.lightModeDeepGrayTextColor,
+          ),
+          gapPadding: 0,
+          borderRadius:
+              BorderRadius.circular(AppDistances.textFieldBorderRadius),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: AppColors.lightModePrimaryColor),
+          gapPadding: 0,
+          borderRadius:
+              BorderRadius.circular(AppDistances.textFieldBorderRadius),
+        ),
       ),
       badgeTheme: BadgeThemeData(
         backgroundColor: AppColors.mojoColor,

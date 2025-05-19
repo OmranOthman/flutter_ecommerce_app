@@ -6,7 +6,6 @@ import 'package:flutter_ecommerce_app/features/home/presentation/view_model/home
 import 'package:flutter_ecommerce_app/utils/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/widget/category_tab_view.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/widget/home_tab_view.dart';
-import 'package:flutter_ecommerce_app/utils/app_routes.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
