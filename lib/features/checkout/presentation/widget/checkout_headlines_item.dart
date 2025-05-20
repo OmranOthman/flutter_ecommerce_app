@@ -20,19 +20,24 @@ class CheckoutHeadlinesItem extends StatelessWidget {
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             if (numOfProducts != null)
               Text(
                 '($numOfProducts)',
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
           ],
         ),
         if (onTap != null)
           TextButton(
             onPressed: onTap,
-            child: const Text('Edit'),
+            child: Text(
+              'Edit',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
           ),
       ],
     );

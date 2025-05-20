@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/dependency_injections.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
-// import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_language_page.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/widget/settings_bottom.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -54,11 +53,14 @@ class SettingsView extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 10, bottom: 8),
-              child: Text("General",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Padding(
+              padding: const EdgeInsets.only(top: 10, bottom: 8),
+              child: Text(
+                "General",
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              ),
             ),
+
             SettingsBottom(
               icon: Icons.person_outline,
               title: "Edit Profile",
@@ -97,20 +99,26 @@ class SettingsView extends StatelessWidget {
                 Navigator.pushNamed(context, RoutePath.settingLanguageRoute);
               },
             ),
-            const Padding(
+             Padding(
               padding: EdgeInsets.only(top: 14, bottom: 6),
               child: Text("Preferences",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            ),
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+            ), ),
             SettingsBottom(
               icon: Icons.policy_outlined,
               title: "Legal and Policies",
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, RoutePath.settingLegalAndPoliciesRoute);
+
+              },
             ),
             SettingsBottom(
               icon: Icons.help_outline,
               title: "Help & Support",
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, RoutePath.settingHelpRoute);
+
+              },
             ),
             BlocConsumer<AuthCubit, AuthState>(
               bloc: cubit,
@@ -192,7 +200,7 @@ class SettingsView extends StatelessWidget {
                                 GestureDetector(
                                   onTap: () async {
                                     Navigator.of(context).pop();
-                                  
+
                                   },
                                   child: const Text(
                                     'Log Out',

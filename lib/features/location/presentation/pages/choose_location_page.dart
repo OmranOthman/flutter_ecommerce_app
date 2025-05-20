@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/location/presentation/view_model/choose_location_cubit/choose_location_cubit.dart';
-import 'package:flutter_ecommerce_app/utils/app_colors.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 import 'package:flutter_ecommerce_app/features/location/presentation/widget/location_item_widget.dart';
 
@@ -61,26 +61,34 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                   controller: locationController,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.location_on),
-                    suffixIcon:
-                        BlocConsumer<ChooseLocationCubit, ChooseLocationState>(
+                    suffixIcon: BlocConsumer<ChooseLocationCubit, ChooseLocationState>(
                       bloc: cubit,
                       buildWhen: (previous, current) =>
-                          current is AddingLocation ||
+                      current is AddingLocation ||
                           current is LocationAdded ||
                           current is LocationAddingFailure,
                       listenWhen: (previous, current) =>
-                          current is LocationAdded ||
+                      current is LocationAdded ||
+                          current is LocationAddingFailure ||
                           current is ConfirmAddressLoaded,
                       listener: (context, state) {
                         if (state is LocationAdded) {
                           locationController.clear();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Location added successfully')),
+                          );
+                        } else if (state is LocationAddingFailure) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(state.errorMessage)),
+                          );
                         } else if (state is ConfirmAddressLoaded) {
                           Navigator.of(context).pop();
                         }
                       },
                       builder: (context, state) {
                         if (state is AddingLocation) {
-                          return const Center(
+                          return const Padding(
+                            padding: EdgeInsets.all(12.0),
                             child: CircularProgressIndicator.adaptive(
                               backgroundColor: AppColors.grey,
                             ),
@@ -93,14 +101,14 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                               cubit.addLocation(locationController.text);
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Enter your location!')),
+                                const SnackBar(content: Text('Enter your location!')),
                               );
                             }
                           },
                         );
                       },
                     ),
+
                     suffixIconColor: AppColors.grey,
                     prefixIconColor: AppColors.grey,
                     hintText: 'Write location: city-country',
@@ -158,7 +166,7 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                                     location: location,
                                     borderColor:
                                         chosenLocation.id == location.id
-                                            ? AppColors.primary
+                                            ? Theme.of(context).primaryColor
                                             : AppColors.grey,
                                   );
                                 }
@@ -192,7 +200,7 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                     // }
                     return CustomButton(
                       text: 'Confirm Address',
-                      onPressed: () => cubit.confirmAddress(),
+                      onTap: () => cubit.confirmAddress(),
                     );
                   },
                 ),

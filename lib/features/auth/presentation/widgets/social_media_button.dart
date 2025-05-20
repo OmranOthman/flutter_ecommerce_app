@@ -1,21 +1,20 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_app/utils/app_colors.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 
 class SocialMediaButton extends StatelessWidget {
   final String? text;
-  final String? imgUrl;
+  final String? img;
   final VoidCallback? onTap;
   final bool isLoading;
 
   SocialMediaButton({
     super.key,
     this.text,
-    this.imgUrl,
+    this.img,
     this.onTap,
     this.isLoading = false,
   }) {
-    assert((text != null && imgUrl != null) || isLoading == true);
+    assert((text != null && img != null) || isLoading == true);
   }
 
   @override
@@ -31,19 +30,25 @@ class SocialMediaButton extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: isLoading ? const CircularProgressIndicator.adaptive() : Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CachedNetworkImage(
-                imageUrl: imgUrl!,
-                width: 25,
-                height: 25,
-                fit: BoxFit.fill,
-              ),
-              const SizedBox(width: 16),
-              Text(text!),
-            ],
-          ),
+          child: isLoading
+              ? const CircularProgressIndicator.adaptive()
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      img!,
+                      height: 25,
+                      width: 25,
+                      fit: BoxFit.fill,
+                    ),
+                    const SizedBox(width: 16),
+                    Text(
+                      text!,
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                          color: AppColors.black, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
         ),
       ),
     );

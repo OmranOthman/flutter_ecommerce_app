@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_text_form_field.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/view_model/setting_change_password_cubit/setting_change_password_cubit.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/view_model/setting_change_password_cubit/setting_change_password_state.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
@@ -122,50 +123,50 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
               children: [
                 Column(
                   children: [
-                    // LabelWithTextField(
-                    //   label: 'New Password',
-                    //   controller: _newPasswordController,
-                    //   prefixIcon: Icons.lock_outline,
-                    //   hintText: 'Enter new password',
-                    //   obsecureText: state.obscureNewPassword,
-                    //   focusNode: _newPasswordFocusNode,
-                    //   suffixIcon: IconButton(
-                    //     icon: Icon(
-                    //       state.obscureNewPassword
-                    //           ? Icons.visibility
-                    //           : Icons.visibility_off,
-                    //       color: Colors.grey,
-                    //     ),
-                    //     onPressed: () => context
-                    //         .read<SettingChangePasswordCubit>()
-                    //         .toggleObscureNewPassword(),
-                    //   ),
-                    // ),
+                    CustomTextFormField(
+                      label: 'New Password',
+                      controller: _newPasswordController,
+                      prefixIcon: Icon(Icons.lock_outline),
+                      hintText: 'Enter new password',
+                      obscureText: state.obscureNewPassword,
+                      focusNode: _newPasswordFocusNode,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          state.obscureNewPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () => context
+                            .read<SettingChangePasswordCubit>()
+                            .toggleObscureNewPassword(),
+                      ),
+                    ),
                     const SizedBox(height: 24),
-                    // LabelWithTextField(
-                    //   label: 'Confirm Password',
-                    //   controller: _confirmPasswordController,
-                    //   prefixIcon: Icons.lock_outline,
-                    //   hintText: 'Confirm new password',
-                    //   obsecureText: state.obscureConfirmPassword,
-                    //   focusNode: _confirmPasswordFocusNode,
-                    //   suffixIcon: IconButton(
-                    //     icon: Icon(
-                    //       state.obscureConfirmPassword
-                    //           ? Icons.visibility
-                    //           : Icons.visibility_off,
-                    //       color: Colors.grey,
-                    //     ),
-                    //     onPressed: () => context
-                    //         .read<SettingChangePasswordCubit>()
-                    //         .toggleObscureConfirmPassword(),
-                    //   ),
-                    // ),
+                    CustomTextFormField(
+                      label: 'Confirm Password',
+                      controller: _confirmPasswordController,
+                      prefixIcon: Icon(Icons.lock_outline),
+                      hintText: 'Confirm new password',
+                      obscureText: state.obscureConfirmPassword,
+                      focusNode: _confirmPasswordFocusNode,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          state.obscureConfirmPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () => context
+                            .read<SettingChangePasswordCubit>()
+                            .toggleObscureConfirmPassword(),
+                      ),
+                    ),
                   ],
                 ),
                 CustomButton(
                   text: "Update Password",
-                  onPressed: () =>
+                  onTap: () =>
                       context.read<SettingChangePasswordCubit>().submit(),
                 ),
               ],

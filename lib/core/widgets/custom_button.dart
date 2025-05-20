@@ -1,42 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_app/core/constans/app_distances.dart';
-import 'package:flutter_ecommerce_app/utils/app_colors.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
+
 
 class CustomButton extends StatelessWidget {
-  final VoidCallback? onPressed;
-  final Color backgroundColor;
-  final String text;
-  final bool isLoading;
   final double height;
+  final VoidCallback? onTap;
+  final Color? backgroundColor;
+  final Color foregroundColor;
+  final String? text;
+  final bool isLoading;
 
-  const CustomButton({
+  CustomButton({
     super.key,
-    this.onPressed,
-    this.backgroundColor = AppColors.primary,
-    this.height=60,
-    required this.text,
-
+    this.height = 60,
+    this.onTap,
+    this.backgroundColor,
+    this.foregroundColor = AppColors.white,
+    this.text,
     this.isLoading = false,
-  });
+  }) {
+    assert(text != null || isLoading == true);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      onPressed: isLoading ? null : onPressed,
-      color:backgroundColor ,
+    return SizedBox(
+      width: double.infinity,
       height: height,
-      minWidth: double.infinity,
-      shape: RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.circular(AppDistances.borderRadius)),
-      child: isLoading
-          ? const Center(
-              child: CircularProgressIndicator.adaptive(),
-            )
-          : Text(
-              text,
-              style: const TextStyle(color: Colors.white70, fontSize: 15),
-            ),
+      child: ElevatedButton(
+        onPressed: onTap,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Theme.of(context).primaryColor,
+          foregroundColor: foregroundColor,
+        ),
+        child: isLoading
+            ? const Center(
+          child: CircularProgressIndicator.adaptive(),
+        )
+            : Text(
+          text!,
+          style: Theme.of(context).textTheme.labelLarge!.copyWith(
+              color: AppColors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
     );
   }
 }

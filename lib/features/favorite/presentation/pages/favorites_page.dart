@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/favorite/presentation/view_model/favorite_cubit/favorite_cubit.dart';
-import 'package:flutter_ecommerce_app/utils/app_colors.dart';
 
 class FavoritesPage extends StatelessWidget {
   const FavoritesPage({super.key});
@@ -15,7 +15,7 @@ class FavoritesPage extends StatelessWidget {
         cubit.getFavoriteProducts();
         return cubit;
       },
-      child: FavoritesView(),
+      child: const FavoritesView(),
     );
   }
 }
@@ -28,9 +28,9 @@ class FavoritesView extends StatelessWidget {
     final favoriteCubit = BlocProvider.of<FavoriteCubit>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "My Favorite",
-          style: TextStyle(fontSize: 16),
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         centerTitle: true,
         actions: [
@@ -43,7 +43,7 @@ class FavoritesView extends StatelessWidget {
       body: BlocBuilder<FavoriteCubit, FavoriteState>(
         bloc: favoriteCubit,
         buildWhen: (previous, current) =>
-            current is FavoriteLoaded ||
+        current is FavoriteLoaded ||
             current is FavoriteLoading ||
             current is FavoriteError,
         builder: (context, state) {
@@ -54,8 +54,11 @@ class FavoritesView extends StatelessWidget {
           } else if (state is FavoriteLoaded) {
             final favoriteProducts = state.favoriteProducts;
             if (favoriteProducts.isEmpty) {
-              return const Center(
-                child: Text('No favorite products'),
+              return Center(
+                child: Text(
+                  'No favorite products',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
               );
             }
             return RefreshIndicator(
@@ -69,10 +72,9 @@ class FavoritesView extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final product = favoriteProducts[index];
                   return SizedBox(
-                    height: 120, // Fixed height for list items
+                    height: 120,
                     child: Row(
                       children: [
-                        // Product Image
                         Container(
                           width: 100,
                           decoration: BoxDecoration(
@@ -92,7 +94,6 @@ class FavoritesView extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 16),
-                        // Product Details
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,51 +101,46 @@ class FavoritesView extends StatelessWidget {
                             children: [
                               Text(
                                 product.name,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium!
-                                    .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
                               Text(
                                 product.category,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelMedium!
-                                    .copyWith(
-                                      color: Colors.grey,
-                                    ),
+                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  color: AppColors.grey,
+                                ),
                               ),
                               Text(
                                 '\$${product.price}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall!
-                                    .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ],
                           ),
                         ),
-                        // Favorite Button
                         BlocConsumer<FavoriteCubit, FavoriteState>(
                           bloc: favoriteCubit,
                           listenWhen: (previous, current) =>
-                              current is FavoriteRemoveError,
+                          current is FavoriteRemoveError,
                           listener: (context, state) {
                             if (state is FavoriteRemoveError) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(state.error)),
+                                SnackBar(
+                                  content: Text(
+                                    state.error,
+                                    style: Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ),
                               );
                             }
                           },
                           buildWhen: (previous, current) =>
-                              (current is FavoriteRemoving &&
-                                  current.productId == product.id) ||
+                          (current is FavoriteRemoving &&
+                              current.productId == product.id) ||
                               (current is FavoriteRemoved &&
                                   current.productId == product.id) ||
                               current is FavoriteRemoveError,
@@ -172,7 +168,10 @@ class FavoritesView extends StatelessWidget {
             );
           } else if (state is FavoriteError) {
             return Center(
-              child: Text(state.error),
+              child: Text(
+                state.error,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
             );
           } else {
             return const SizedBox();

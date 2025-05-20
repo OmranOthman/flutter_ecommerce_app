@@ -31,16 +31,25 @@ class SettingNotificationPage extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
-        children: const [
-          ToggleItem(
-            title: "Payment",
-            value: false,
+      body: SingleChildScrollView(
+        child: Container(
+          margin: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.95),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Colors.grey.shade300),
           ),
-          ToggleItem(title: "Tracking"),
-          ToggleItem(title: "Complete Order"),
-          ToggleItem(title: "Notification"),
-        ],
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              ToggleItem(title: "Payment", isLast: false),
+              ToggleItem(title: "Tracking", isLast: false),
+              ToggleItem(title: "Complete Order", isLast: false),
+              ToggleItem(title: "Notification", isLast: true),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/models/add_to_cart_model.dart';
-import 'package:flutter_ecommerce_app/utils/app_colors.dart';
 
 class CounterWidget extends StatelessWidget {
   final int value;

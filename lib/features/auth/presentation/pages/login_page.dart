@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
-import 'package:flutter_ecommerce_app/core/constans/app_distances.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_assets.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_distances.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_text_form_field.dart';
 import 'package:flutter_ecommerce_app/dependency_injections.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
-import 'package:flutter_ecommerce_app/utils/app_colors.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/widgets/social_media_button.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/widgets/create_new_password_bottom_sheet.dart';
@@ -89,7 +90,7 @@ class _LoginViewState extends State<LoginView> {
                 const SizedBox(height: 50),
                 Text(
                   'login'.tr,
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: Theme.of(context).textTheme.headlineLarge,
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -123,8 +124,7 @@ class _LoginViewState extends State<LoginView> {
                         keyboardType: TextInputType.visiblePassword,
                         label: 'password'.tr,
                         hintText: 'enter_your_password'.tr,
-                        obscureText:_obscureText ,
-                     
+                        obscureText: _obscureText,
                         prefixIcon: Icon(
                           Icons.lock_outline,
                         ),
@@ -147,8 +147,6 @@ class _LoginViewState extends State<LoginView> {
                           return null;
                         },
                       ),
-                  
-                    
                     ],
                   ),
                 ),
@@ -158,13 +156,19 @@ class _LoginViewState extends State<LoginView> {
                     onPressed: () {
                       _showCreateNewPasswordBottomSheet();
                     },
-                    child: const Text('Forgot Password'),
+                    child: Text(
+                      'Forgot Password',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .copyWith(color: Theme.of(context).primaryColor),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
                 CustomButton(
                   text: 'Login',
-                  onPressed: () async {
+                  onTap: () async {
                     if (_formKey.currentState!.validate()) {
                       Navigator.of(context).pushNamed(RoutePath.homeRoute);
                     }
@@ -175,12 +179,27 @@ class _LoginViewState extends State<LoginView> {
                   alignment: Alignment.center,
                   child: Column(
                     children: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(RoutePath.registerRoute);
-                        },
-                        child: const Text('Don\'t have an account? Register'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Don't have an account?",
+                            style: Theme.of(context).textTheme.bodySmall,
+
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed(RoutePath.registerRoute);
+                            },
+                            child: Text(
+                              'Register',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(color: Theme.of(context).primaryColor,),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 8),
                       Text(
@@ -192,17 +211,15 @@ class _LoginViewState extends State<LoginView> {
                       const SizedBox(height: 16),
                       SocialMediaButton(
                           text: 'Login with Google',
-                          imgUrl:
-                              'https://cdn.iconscout.com/icon/free/png-512/free-google-icon-download-in-svg-png-gif-file-formats--logo-social-media-1507807.png?f=webp&w=512',
+                          img: AppAssets.images.logoGoogle,
                           onTap: () {
                             Navigator.of(context)
-                                .pushNamed(RoutePath.homeRoute);
+                                .pushNamed(RoutePath.verificationRoute);
                           }),
                       const SizedBox(height: 16),
                       SocialMediaButton(
                           text: 'Login with Facebook',
-                          imgUrl:
-                              'https://cdn.iconscout.com/icon/free/png-512/free-facebook-logo-icon-download-in-svg-png-gif-file-formats--fb-new-color-social-media-logos-icons-1350125.png?f=webp&w=512',
+                          img: AppAssets.images.logoFacebook,
                           onTap: () {
                             Navigator.of(context)
                                 .pushNamed(RoutePath.homeRoute);

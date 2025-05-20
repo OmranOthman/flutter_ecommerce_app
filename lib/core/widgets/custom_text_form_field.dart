@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ecommerce_app/core/constans/app_colors.dart';
-import 'package:flutter_ecommerce_app/core/constans/app_distances.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_distances.dart';
 
-class CustomTextFormField extends StatelessWidget {
+class CustomTextFormField extends StatefulWidget {
   final String? hintText;
   final Widget? prefixIcon;
   final String? initialValue;
@@ -34,6 +34,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool autofocus;
   final bool? enabled;
   final bool? filled;
+
   const CustomTextFormField({
     super.key,
     this.hintText,
@@ -67,67 +68,123 @@ class CustomTextFormField extends StatelessWidget {
     this.style,
     this.filled = true,
   });
+
+  @override
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
+}
+
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
+  late FocusNode _focusNode;
+  late TextEditingController _controller;
+
+  bool get _hasFocus => _focusNode.hasFocus;
+  bool get _hasText => _controller.text.isNotEmpty;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = widget.focusNode ?? FocusNode();
+    _controller = widget.controller ?? TextEditingController();
+
+    _focusNode.addListener(_updateState);
+    _controller.addListener(_updateState);
+  }
+
+  void _updateState() => setState(() {});
+
+  @override
+  void dispose() {
+    if (widget.focusNode == null) _focusNode.dispose();
+    if (widget.controller == null) _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final bool isActive = _hasFocus || _hasText;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ...label == null
-            ? []
-            : [
-                Text(label.toString(), style: labelStyle),
-                const SizedBox(height: AppDistances.smallPadding),
-              ],
-        TextFormField(
-          textDirection: textDirection,
-          enabled: enabled,
-          onSaved: onSaved,
-          autofocus: autofocus,
-          readOnly: readOnly,
-          controller: controller,
-          autovalidateMode: autovalidateMode,
-          focusNode: focusNode,
-          textInputAction: textInputActio,
-          onFieldSubmitted: onFieldSubmitted,
-          onEditingComplete: onEditingComplete,
-          onTapOutside: (event) => focusNode?.unfocus(),
-          style: style ??
-              const TextStyle(
-                height: 1,
-                fontWeight: FontWeight.w400,
-                fontSize: 16,
-              ),
-          onChanged: onChanged,
-          inputFormatters: inputFormatters,
-          initialValue: initialValue,
-          obscureText: obscureText,
-          keyboardType: keyboardType,
-          minLines: minLines,
-          maxLines: maxLines,
-          cursorColor: AppColors.martiniqueColor,
-          textAlign: textAlign,
-          decoration: InputDecoration(
-            filled: filled,
-            // fillColor: enabled == false ? AppColors.altoColor : null,
-            fillColor: Colors.grey.shade100,
-            contentPadding: contentPadding ??
-                EdgeInsets.symmetric(horizontal: AppDistances.mediumPadding),
-            hintTextDirection: hintTextDirection,
-            prefixIcon: prefixIcon,
-
-            // prefixIconConstraints: BoxConstraints.tight(const Size(30, 30)),
-            hintText: hintText,
-            suffixIcon: suffixIcon,
-            // suffixIconConstraints: const BoxConstraints(
-            //   maxHeight: 30,
-            //   minHeight: 30,
-            //   maxWidth: 75,
-            //   minWidth: 75,
-            // ),
+        if (widget.label != null) ...[
+          Text(
+            widget.label!,
+            style: Theme.of(context).textTheme.labelLarge,
           ),
-          validator: validator,
-          onTap: onTap,
+          const SizedBox(height: AppDistances.smallPadding),
+        ],
+        TextFormField(
+          textDirection: widget.textDirection,
+          enabled: widget.enabled,
+          onSaved: widget.onSaved,
+          autofocus: widget.autofocus,
+          readOnly: widget.readOnly,
+          controller: _controller,
+          autovalidateMode: widget.autovalidateMode,
+          focusNode: _focusNode,
+          textInputAction: TextInputAction.next,
+          onFieldSubmitted: widget.onFieldSubmitted,
+          onEditingComplete: widget.onEditingComplete,
+          onTapOutside: (event) => _focusNode.unfocus(),
+          style: widget.style ?? Theme.of(context).textTheme.bodyLarge,
+          onChanged: widget.onChanged,
+          inputFormatters: widget.inputFormatters,
+          initialValue: widget.initialValue,
+          obscureText: widget.obscureText,
+          keyboardType: widget.keyboardType,
+          minLines: widget.minLines,
+          maxLines: widget.maxLines,
+          cursorColor: AppColors.martiniqueColor,
+          textAlign: widget.textAlign,
+          onTap: widget.onTap,
+          decoration: InputDecoration(
+            filled: widget.filled,
+            contentPadding: widget.contentPadding ??
+                const EdgeInsets.symmetric(horizontal: AppDistances.mediumPadding),
+            hintTextDirection: widget.hintTextDirection,
+            hintText: widget.hintText,
+            hintStyle: Theme.of(context).textTheme.labelLarge!.copyWith(
+              color: AppColors.grey,
+            ),
+            suffixIcon: widget.suffixIcon != null
+                ? IconTheme(
+              data: IconThemeData(
+                color: AppColors.grey.withOpacity(0.5),
+              ),
+              child: widget.suffixIcon!,
+            )
+                : null,
+            prefixIcon: widget.prefixIcon != null
+                ? IconTheme(
+              data: IconThemeData(
+                color: isActive
+                    ? Theme.of(context).primaryColor
+                    : AppColors.grey,
+              ),
+              child: widget.prefixIcon!,
+            )
+                : null,
+
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+               color:  Theme.of(context).primaryColor,
+              ),
+              borderRadius: BorderRadius.circular(16),
+            ),
+
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: AppColors.grey.withOpacity(0.5),
+              ),
+              borderRadius: BorderRadius.circular(16),
+            ),
+
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+          validator: widget.validator,
         ),
       ],
     );

@@ -29,30 +29,30 @@ class NotificationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 0, // إزالة الظل
-      color: Colors.transparent, // جعل الخلفية شفافة
-      margin: EdgeInsets.zero, // إزالة الهوامش
+      elevation: 0,
+      color: Colors.transparent,
+      margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0), // إزالة حواف مدورة
-        side: BorderSide.none, // إزالة الحدود
+        borderRadius: BorderRadius.circular(0),
+        side: BorderSide.none,
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeader(),
+            _buildHeader(context),
             const SizedBox(height: 8),
-            _buildMessage(),
+            _buildMessage(context),
             if (hasAction && actionTextAccept != null && actionTextReject != null)
-              _buildActionButtons(),
+              _buildActionButtons(context),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Row(
       children: [
         Icon(icon, color: iconColor, size: 24),
@@ -60,37 +60,35 @@ class NotificationCard extends StatelessWidget {
         Expanded(
           child: Text(
             title,
-            style: const TextStyle(
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
               fontWeight: FontWeight.bold,
-              fontSize: 16,
             ),
           ),
         ),
         Text(
           time,
-          style: TextStyle(
-            color: Colors.grey[600],
-            fontSize: 12,
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+            color: Colors.grey[400],
           ),
         ),
       ],
     );
   }
 
-  Widget _buildMessage() {
+  Widget _buildMessage(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 36),
       child: Text(
         message,
-        style: TextStyle(
-          color: Colors.grey[700],
+        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+          color: Colors.grey[400],
           height: 1.4,
         ),
       ),
     );
   }
 
-  Widget _buildActionButtons() {
+  Widget _buildActionButtons(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: Row(
@@ -100,7 +98,9 @@ class NotificationCard extends StatelessWidget {
             onPressed: onActionReject,
             child: Text(
               actionTextReject!,
-              style: const TextStyle(color: Colors.red),
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Colors.red,
+              ),
             ),
           ),
           const SizedBox(width: 8),
@@ -108,7 +108,9 @@ class NotificationCard extends StatelessWidget {
             onPressed: onActionAccept,
             child: Text(
               actionTextAccept!,
-              style: const TextStyle(color: Colors.blue),
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Colors.blue,
+              ),
             ),
           ),
         ],

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 
 class OrderConfirmationBottomSheet {
   static void show({
@@ -21,27 +24,28 @@ class OrderConfirmationBottomSheet {
           children: [
             const Icon(Icons.check_circle, color: Colors.green, size: 150),
             const SizedBox(height: 20),
-            const Text(
+            Text(
               'Order Successfully',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 15),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Your order will be packed by the clerk, will arrive at your house in 3 to 4 days',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: AppColors.grey,
+                ),
               ),
             ),
             const SizedBox(height: 30),
-            // MainButton(
-            //   text: 'Order Tracking',
-            //   onTap: () {
-            //     Navigator.pushNamed(
-            //         context, AppRoutes.trackingRoute);
-            //   },
-            // ),
+            CustomButton(
+              text: 'Order Tracking',
+              onTap: () {
+                Navigator.pushNamed(context, RoutePath.trackingRoute);
+              },
+            ),
             const SizedBox(height: 10),
           ],
         ),

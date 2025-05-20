@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_text_form_field.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/view_model/setting_edit_profile_cubit/edit_profile_cubit.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 
@@ -53,19 +54,17 @@ class EditProfileView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
         children: [
           CircleAvatar(),
-          // LabelWithTextField(
-          //   label: 'Username',
-          //   controller: usernameController,
-          //   prefixIcon: Icons.person_outline,
-          //   hintText: 'Enter you username',
-          // ),
-          // const SizedBox(height: 24),
-          // LabelWithTextField(
-          //   label: 'Email or Phone Number',
-          //   controller: emailController,
-          //   prefixIcon: Icons.email_outlined,
-          //   hintText: 'Enter you email',
-          // ),
+          CustomTextFormField(
+            label: 'Username',
+            prefixIcon: Icon(Icons.person_outline),
+            hintText: 'Enter you username',
+          ),
+          const SizedBox(height: 24),
+          CustomTextFormField(
+            label: 'Email or Phone Number',
+            prefixIcon: Icon(Icons.email_outlined),
+            hintText: 'Enter you email',
+          ),
           CustomButton(
             text: "Save Changes",
           )

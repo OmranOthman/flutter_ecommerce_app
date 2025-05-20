@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_assets.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 
 class VerificationPage extends StatefulWidget {
   const VerificationPage({super.key});
@@ -8,7 +12,8 @@ class VerificationPage extends StatefulWidget {
 }
 
 class _VerificationPageState extends State<VerificationPage> {
-  final List<TextEditingController> _controllers = List.generate(5, (index) => TextEditingController());
+  final List<TextEditingController> _controllers =
+      List.generate(5, (index) => TextEditingController());
   final List<FocusNode> _focusNodes = List.generate(5, (index) => FocusNode());
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final String _email = "magdalena83@mail.com";
@@ -36,7 +41,8 @@ class _VerificationPageState extends State<VerificationPage> {
   void _showErrorSnackBar() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: const Text("Verification code is incorrect. Please try again."),
+        content:
+            const Text("Verification code is incorrect. Please try again."),
         backgroundColor: Colors.red,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
@@ -71,7 +77,7 @@ class _VerificationPageState extends State<VerificationPage> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset("assets/images/success.png"),
+          Image.asset(AppAssets.images.success),
           const SizedBox(height: 20),
           const Text(
             "Register Success",
@@ -86,12 +92,12 @@ class _VerificationPageState extends State<VerificationPage> {
           const SizedBox(height: 30),
           SizedBox(
             width: double.infinity,
-            // child: MainButton(
-            //   text: "Go to Homepage",
-            //   onTap: () {
-            //     Navigator.pushNamed(context, AppRoutes.homeRoute);
-            //   },
-            // ),
+            child: CustomButton(
+              text: "Go to Homepage",
+              onTap: () {
+                Navigator.pushNamed(context, RoutePath.homeRoute);
+              },
+            ),
           ),
           const SizedBox(height: 20),
         ],
@@ -121,43 +127,52 @@ class _VerificationPageState extends State<VerificationPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Image.asset("assets/images/verification.png"),
+            Image.asset(AppAssets.images.verification),
             const SizedBox(height: 40),
-            const Text(
+             Text(
               "Verification Code",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
             const SizedBox(height: 10),
             Text(
               "We have sent the code verification to",
-              style: TextStyle(fontSize: 16, color: Colors.grey[400]),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .copyWith(color: AppColors.grey3),
             ),
-            Text(" $_email"),
+            const SizedBox(height: 5),
+            Text(" $_email", style: Theme.of(context).textTheme.bodySmall,),
             const SizedBox(height: 40),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(5, (index) => _buildCodeField(index)),
             ),
             const SizedBox(height: 40),
-
             SizedBox(
               width: double.infinity,
-              // child: MainButton(
-              //   onTap: _checkVerificationCode,
-              //   text: "Submit",
-              // ),
+              child: CustomButton(
+                onTap: _checkVerificationCode,
+                text: "Submit",
+              ),
             ),
             const SizedBox(height: 20),
-
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Didn't receive the code?"),
+                  Text(
+                    "Didn't receive the code?",
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
                   TextButton(
                     onPressed: () {},
-                    child: const Text("Resend"),
+                    child: const Text(
+                      "Resend",
+                      style: TextStyle(
+                        color: AppColors.primary,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -172,6 +187,7 @@ class _VerificationPageState extends State<VerificationPage> {
     return SizedBox(
       width: 50,
       child: TextField(
+        style: Theme.of(context).textTheme.headlineSmall,
         controller: _controllers[index],
         focusNode: _focusNodes[index],
         textAlign: TextAlign.center,
@@ -181,6 +197,13 @@ class _VerificationPageState extends State<VerificationPage> {
           counterText: "",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              color: Theme.of(context).primaryColor,
+              width: 1.5,
+            ),
           ),
         ),
         onChanged: (value) {

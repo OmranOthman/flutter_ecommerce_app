@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
+import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_assets.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_text_form_field.dart';
 import 'package:flutter_ecommerce_app/dependency_injections.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
-import 'package:flutter_ecommerce_app/utils/app_colors.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
+import 'package:flutter_ecommerce_app/features/auth/presentation/widgets/social_media_button.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -44,7 +47,7 @@ class _RegisterViewState extends State<RegisterView> {
             children: [
               const SizedBox(height: 50),
               Text('Create Account',
-                  style: Theme.of(context).textTheme.titleLarge),
+                  style: Theme.of(context).textTheme.headlineLarge),
               const SizedBox(height: 8),
               Text(
                 'Start shopping with create your account',
@@ -121,7 +124,7 @@ class _RegisterViewState extends State<RegisterView> {
                 isLoading: false,
                 // state is AuthLoading,
                 text: 'Create Account',
-                onPressed: () async {
+                onTap: () async {
                   if (_formKey.currentState!.validate()) {}
                 },
               ),
@@ -130,15 +133,42 @@ class _RegisterViewState extends State<RegisterView> {
                 alignment: Alignment.center,
                 child: Column(
                   children: [
-                    TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('You have an account? Login'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "You have an account?",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: Text(
+                            'Login',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(color: Theme.of(context).primaryColor,),
+                          ),
+                        ),
+                      ],
                     ),
-                 
-              
                   ],
                 ),
               ),
+              const SizedBox(height: 16),
+              SocialMediaButton(
+                  text: 'Login with Google',
+                  img: AppAssets.images.logoGoogle,
+                  onTap: () {
+                    Navigator.of(context).pushNamed(RoutePath.homeRoute);
+                  }),
+              const SizedBox(height: 16),
+              SocialMediaButton(
+                  text: 'Login with Facebook',
+                  img: AppAssets.images.logoFacebook,
+                  onTap: () {
+                    Navigator.of(context).pushNamed(RoutePath.homeRoute);
+                  }),
             ],
           ),
         ),

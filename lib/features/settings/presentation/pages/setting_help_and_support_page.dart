@@ -6,6 +6,8 @@ class SettingHelpAndSupportPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -33,11 +35,14 @@ class SettingHelpAndSupportPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Search Field
-            TextFieldSearch(hintText: "Search help topics",),
+            const TextFieldSearch(
+              hintText: "Search help topics",
+            ),
             const SizedBox(height: 24),
 
             // Dropdown Items
             _buildDropdownItem(
+              context,
               title: "Lorem ipsum dolor sit amet",
               content: "Amet minim mollit non deserunt ullamco est sit aliqua",
             ),
@@ -48,6 +53,7 @@ class SettingHelpAndSupportPage extends StatelessWidget {
             ),
 
             _buildDropdownItem(
+              context,
               title: "Lorem ipsum dolor sit amet",
               content: "dolor do amet sint. Velit officia consequat duis enim",
             ),
@@ -57,6 +63,7 @@ class SettingHelpAndSupportPage extends StatelessWidget {
               color: Colors.grey,
             ),
             _buildDropdownItem(
+              context,
               title: "Lorem ipsum dolor sit amet",
               content: "Lorem ipsum dolor sit amet",
             ),
@@ -66,24 +73,20 @@ class SettingHelpAndSupportPage extends StatelessWidget {
     );
   }
 
-  Widget _buildDropdownItem({required String title, required String content}) {
+  Widget _buildDropdownItem(BuildContext context, {required String title, required String content}) {
+    final theme = Theme.of(context);
+
     return ExpansionTile(
       title: Text(
         title,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-        ),
+        style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
       ),
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Text(
             content,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[600],
-            ),
+            style: theme.textTheme.bodyMedium?.copyWith(color: theme.textTheme.bodySmall?.color?.withOpacity(0.7)),
           ),
         ),
       ],

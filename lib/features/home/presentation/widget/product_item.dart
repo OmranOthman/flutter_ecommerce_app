@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/favorite/presentation/view_model/favorite_cubit/favorite_cubit.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/view_model/home_cubit/home_cubit.dart';
 import 'package:flutter_ecommerce_app/models/product_item_model.dart';
-import 'package:flutter_ecommerce_app/utils/app_colors.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductItemModel productItem;

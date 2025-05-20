@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class OrderTrackingPage extends StatelessWidget {
@@ -6,9 +7,14 @@ class OrderTrackingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Order Tracking"),
+        title: Text(
+          "Order Tracking",
+          style: textTheme.headlineMedium,
+        ),
         centerTitle: true,
       ),
       body: Stack(
@@ -27,12 +33,11 @@ class OrderTrackingPage extends StatelessWidget {
             maxChildSize: 0.85,
             builder: (context, scrollController) {
               return Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-                  boxShadow: [
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+                  boxShadow: const [
                     BoxShadow(
                       color: Colors.black12,
                       blurRadius: 10,
@@ -49,7 +54,7 @@ class OrderTrackingPage extends StatelessWidget {
                         height: 4,
                         margin: const EdgeInsets.only(bottom: 12),
                         decoration: BoxDecoration(
-                          color: Colors.grey[300],
+                          color: Theme.of(context).dividerColor,
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
@@ -58,27 +63,35 @@ class OrderTrackingPage extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: Colors.grey.shade300),
+                        border: Border.all(color: Theme.of(context).dividerColor),
                       ),
                       child: ListTile(
                         leading: const CircleAvatar(
                           radius: 24,
                           backgroundImage: AssetImage('/.png'),
                         ),
-                        title: const Text('Alexander Jr'),
-                        subtitle: const Text('Courier'),
+                        title: Text(
+                          'Alexander Jr',
+                          style: textTheme.bodyLarge,
+                        ),
+                        subtitle: Text(
+                          'Courier',
+                          style: textTheme.bodyMedium,
+                        ),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
                               icon: const Icon(Icons.public),
                               onPressed: () {},
+                              color: Theme.of(context).primaryColor,
                             ),
                             IconButton(
                               icon: const Icon(Icons.call_outlined),
                               onPressed: () {},
+                              color: Theme.of(context).primaryColor,
                             ),
                           ],
                         ),
@@ -86,26 +99,28 @@ class OrderTrackingPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
 
-                    const Text(
+                    Text(
                       'Progress of your Order',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 16),
 
                     // Timeline
                     _buildTimelineItem(
+                      context,
                       isFirst: true,
                       icon: Icons.store,
                       title: 'Unbox Bag',
                       subtitle: 'Shop • 02:50PM',
                     ),
                     _buildTimelineItem(
+                      context,
                       icon: Icons.local_shipping,
                       title: 'On the way',
                       subtitle: 'Delivery • 03:20PM',
                     ),
                     _buildTimelineItem(
+                      context,
                       isLast: true,
                       icon: Icons.location_pin,
                       title: '5482 Adobe Falls Rd #15, San Diego...',
@@ -122,13 +137,12 @@ class OrderTrackingPage extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          side: const BorderSide(color: Colors.deepPurple),
+                          side:  BorderSide(color: Theme.of(context).primaryColor,),
                           padding: const EdgeInsets.symmetric(vertical: 16),
                         ),
-                        child: const Text(
+                        child: Text(
                           'Mark as Done',
-                          style:
-                              TextStyle(fontSize: 16, color: Colors.deepPurple),
+                          style: textTheme.labelLarge?.copyWith(color: Theme.of(context).primaryColor,),
                         ),
                       ),
                     ),
@@ -142,13 +156,16 @@ class OrderTrackingPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTimelineItem({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    bool isFirst = false,
-    bool isLast = false,
-  }) {
+  Widget _buildTimelineItem(
+      BuildContext context, {
+        required IconData icon,
+        required String title,
+        required String subtitle,
+        bool isFirst = false,
+        bool isLast = false,
+      }) {
+    //final textTheme = Theme.of(context).textTheme;
+
     return TimelineTile(
       isFirst: isFirst,
       isLast: isLast,
@@ -156,15 +173,15 @@ class OrderTrackingPage extends StatelessWidget {
         width: 30,
         height: 30,
         indicator: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Color(0xFF6A4DFF),
+            color: Theme.of(context).primaryColor,
           ),
           child: Icon(icon, size: 16, color: Colors.white),
         ),
       ),
-      beforeLineStyle: const LineStyle(
-        color: Color(0xFF6A4DFF),
+      beforeLineStyle:  LineStyle(
+        color: Theme.of(context).primaryColor,
         thickness: 2,
       ),
       endChild: Padding(
@@ -172,9 +189,9 @@ class OrderTrackingPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+            Text(title, style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 4),
-            Text(subtitle, style: const TextStyle(color: Colors.grey)),
+            Text(subtitle, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).disabledColor)),
           ],
         ),
       ),

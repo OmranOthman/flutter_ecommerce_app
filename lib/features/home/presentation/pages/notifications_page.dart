@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/widget/notification_card.dart';
 
 class NotificationsPage extends StatelessWidget {
@@ -8,20 +9,17 @@ class NotificationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Notification",
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         actions: [
-          // IconButton(
-          //   onPressed: () {
-          //     Navigator.pushNamed(context, AppRoutes.settingNotificationsRoute);
-          //   },
-          //   icon: const Icon(Icons.settings),
-          // ),
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, RoutePath.settingNotificationsRoute);
+            },
+            icon: const Icon(Icons.settings_outlined),
+          ),
         ],
         centerTitle: true,
         leading: IconButton(
@@ -38,17 +36,13 @@ class NotificationsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
               child: Text(
                 "Recent",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),
-
             NotificationCard(
               icon: Icons.check_circle,
               iconColor: Colors.green,
@@ -57,7 +51,6 @@ class NotificationsPage extends StatelessWidget {
               time: "9:30 AM",
               hasAction: false,
             ),
-
             NotificationCard(
               icon: Icons.message,
               iconColor: Colors.blue,
@@ -70,7 +63,6 @@ class NotificationsPage extends StatelessWidget {
               onActionAccept: () {},
               onActionReject:() {},
             ),
-
             NotificationCard(
               icon: Icons.local_offer,
               iconColor: Colors.orange,

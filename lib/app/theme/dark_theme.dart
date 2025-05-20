@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/app/theme/app_theme.dart';
 import 'package:flutter_ecommerce_app/app/theme/text_theme.dart';
-import 'package:flutter_ecommerce_app/core/constans/app_colors.dart';
-import 'package:flutter_ecommerce_app/core/constans/app_distances.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_distances.dart';
 
 class DarkThemeMode {
   static ThemeData buildDarkTheme() {
@@ -28,8 +28,8 @@ class DarkThemeMode {
       ),
       inputDecorationTheme: InputDecorationTheme(
        filled: true,
-   
-      
+        fillColor: Colors.transparent,
+
         hintStyle: const TextStyle(
           fontSize: 14,
           height: 1,

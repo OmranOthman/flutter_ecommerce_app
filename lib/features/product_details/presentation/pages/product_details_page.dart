@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_ecommerce_app/features/favorite/presentation/view_model/favorite_cubit/favorite_cubit.dart';
+import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/product_details/presentation/view_model/product_details_cubit/product_details_cubit.dart';
 import 'package:flutter_ecommerce_app/models/product_item_model.dart';
-import 'package:flutter_ecommerce_app/utils/app_colors.dart';
 import 'package:flutter_ecommerce_app/views/widgets/counter_widget.dart';
 
 class ProductDetailsPage extends StatelessWidget {
@@ -59,11 +59,12 @@ class ProductDetailsView extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text('Product Details'),
-        centerTitle: true,
         actions: [
-          // IconButton(onPressed: (){
-          //   Navigator.pushNamed(context, AppRoutes.cartRoute);
-          // }, icon: Icon(Icons.shopping_bag_outlined))
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(RoutePath.cartRoute);
+              },
+              icon: Icon(Icons.shopping_bag_outlined))
         ],
       ),
       body: Stack(
@@ -84,36 +85,38 @@ class ProductDetailsView extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(top: size.height * 0.47),
-            child: Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
+            child: SingleChildScrollView(
+              child: Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50),
+                  ),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(36.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildTitleAndCounter(context, cubit),
-                    const SizedBox(height: 16),
-                    _buildSizeSelector(context, cubit),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Description',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                child: Padding(
+                  padding: const EdgeInsets.all(36.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildTitleAndCounter(context, cubit),
+                      const SizedBox(height: 16),
+                      _buildSizeSelector(context, cubit),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'Description',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    _buildDescription(product.description),
-                    const Spacer(),
-                    _buildBottomRow(context, cubit),
-                  ],
+                      const SizedBox(height: 8.0),
+                      _buildDescription(product.description),
+                      const SizedBox(height: 16),
+                      _buildBottomRow(context, cubit),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -149,41 +152,29 @@ class ProductDetailsView extends StatelessWidget {
             ),
           ],
         ),
-        Column(
-          children: [
-            BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
-              bloc: cubit,
-              buildWhen: (previous, current) =>
-                  current is QuantityCounterLoaded ||
-                  current is ProductDetailsLoaded,
-              builder: (context, state) {
-                if (state is QuantityCounterLoaded) {
-                  return CounterWidget(
-                    value: state.value,
-                    productId: product.id,
-                    cubit: cubit,
-                  );
-                } else if (state is ProductDetailsLoaded) {
-                  return CounterWidget(
-                    value: 1,
-                    productId: product.id,
-                    cubit: cubit,
-                  );
-                } else {
-                  return const SizedBox.shrink();
-                }
-              },
-            ),
-            Text(
-              'Available in stock',
-              style: TextStyle(
-                fontSize: 10,
-                color: Colors.grey[600],
-              ),
-            ),
-          ],
+        BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
+          bloc: cubit,
+          buildWhen: (previous, current) =>
+              current is QuantityCounterLoaded ||
+              current is ProductDetailsLoaded,
+          builder: (context, state) {
+            if (state is QuantityCounterLoaded) {
+              return CounterWidget(
+                value: state.value,
+                productId: product.id,
+                cubit: cubit,
+              );
+            } else if (state is ProductDetailsLoaded) {
+              return CounterWidget(
+                value: 1,
+                productId: product.id,
+                cubit: cubit,
+              );
+            } else {
+              return const SizedBox.shrink();
+            }
+          },
         ),
-
       ],
     );
   }
@@ -314,7 +305,7 @@ class ProductDetailsView extends StatelessWidget {
               return ElevatedButton(
                 onPressed: null,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
+                  backgroundColor: Theme.of(context).primaryColor,
                   foregroundColor: AppColors.white,
                 ),
                 child: const CircularProgressIndicator.adaptive(),
@@ -323,7 +314,7 @@ class ProductDetailsView extends StatelessWidget {
               return ElevatedButton(
                 onPressed: null,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
+                  backgroundColor: Theme.of(context).primaryColor,
                   foregroundColor: AppColors.white,
                 ),
                 child: const Text('Added To Cart'),
@@ -342,12 +333,17 @@ class ProductDetailsView extends StatelessWidget {
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
+                backgroundColor: Theme.of(context).primaryColor,
                 foregroundColor: AppColors.white,
+                padding: const EdgeInsets.symmetric(
+                    vertical: 18.0, horizontal: 40.0),
               ),
-              label: const Text('Add to Cart',
-                  style: TextStyle(color: AppColors.white70)),
-              icon: const Icon(Icons.shopping_bag_outlined),
+              label: Text(
+                'Add to Cart',
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    color: AppColors.white, fontWeight: FontWeight.bold),
+              ),
+              icon: const Icon(Icons.shopping_bag_outlined,size: 22,),
             );
           },
         ),

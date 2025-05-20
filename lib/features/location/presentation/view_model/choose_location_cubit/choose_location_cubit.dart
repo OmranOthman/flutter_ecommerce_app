@@ -31,19 +31,31 @@ class ChooseLocationCubit extends Cubit<ChooseLocationState> {
   Future<void> addLocation(String location) async {
     emit(AddingLocation());
     try {
+      if (!location.contains('-') || location.split('-').length != 2) {
+        emit(LocationAddingFailure('Use format: city-country'));
+        return;
+      }
+
       final splittedLocations = location.split('-');
+      final city = splittedLocations[0].trim();
+      final country = splittedLocations[1].trim();
+
       final locationItem = LocationItemModel(
         id: DateTime.now().toIso8601String(),
-        city: splittedLocations[0],
-        country: splittedLocations[1],
+        city: city,
+        country: country,
+        imgUrl: 'https://via.placeholder.com/150', // صورة مؤقتة
       );
+
       dummyLocations.add(locationItem);
       emit(LocationAdded());
       emit(FetchedLocations(List.from(dummyLocations)));
+      emit(LocationChosen(locationItem));
     } catch (e) {
       emit(LocationAddingFailure(e.toString()));
     }
   }
+
 
   Future<void> selectLocation(String id) async {
     selectedLocationId = id;

@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/new_cart/presentation/view_model/add_new_card_cubit/payment_methods_cubit.dart';
-import 'package:flutter_ecommerce_app/utils/app_colors.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 
 class PaymentMethodBottomSheet extends StatelessWidget {
@@ -157,7 +157,7 @@ class PaymentMethodBottomSheet extends StatelessWidget {
                   // }
                   return CustomButton(
                     text: 'Confirm Payemnt',
-                    onPressed: () {
+                    onTap: () {
                       paymentMethodsCubit.confirmPaymentMethod();
                     },
                   );

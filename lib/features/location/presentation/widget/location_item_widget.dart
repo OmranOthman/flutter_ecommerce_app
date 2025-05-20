@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/models/location_item_model.dart';
-import 'package:flutter_ecommerce_app/utils/app_colors.dart';
 
 class LocationItemWidget extends StatelessWidget {
   final Color borderColor;

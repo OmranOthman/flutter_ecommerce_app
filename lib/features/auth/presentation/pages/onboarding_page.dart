@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
-import 'package:flutter_ecommerce_app/core/constans/app_assets.dart';
-import 'package:flutter_ecommerce_app/core/constans/app_distances.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_assets.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_distances.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 import 'package:flutter_ecommerce_app/dependency_injections.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
@@ -67,7 +67,7 @@ class OnboardingView extends StatelessWidget {
               ),
             ),
             CustomButton(
-                onPressed: () {
+                onTap: () {
                   if (pageController.page == images.length - 1) {
                     authCubit.saveFirstTimeOpenApp();
                     Navigator.of(context).pushNamedAndRemoveUntil(

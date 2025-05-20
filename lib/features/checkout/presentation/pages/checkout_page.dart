@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/view_model/checkout_cubit/checkout_cubit.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/widget/order_confirmation_bottom_sheet.dart';
 import 'package:flutter_ecommerce_app/features/new_cart/presentation/view_model/add_new_card_cubit/payment_methods_cubit.dart';
 import 'package:flutter_ecommerce_app/models/location_item_model.dart';
 import 'package:flutter_ecommerce_app/models/payment_card_model.dart';
-import 'package:flutter_ecommerce_app/utils/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/widget/payment_method_bottom_sheet.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/widget/checkout_headlines_item.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/widget/empty_shipping_payment.dart';
@@ -72,7 +73,7 @@ class CheckoutView extends StatelessWidget {
       );
     } else {
       return EmptyShippingAndPayment(
-        title: 'Add Payment Method'.tr,
+        title: 'Add Payment Method',
         isPayment: true,
       );
     }
@@ -97,11 +98,11 @@ class CheckoutView extends StatelessWidget {
             children: [
               Text(
                 chosenAddress.city,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
               Text(
                 '${chosenAddress.city}, ${chosenAddress.country}',
-                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: AppColors.grey,
                 ),
               ),
@@ -122,7 +123,13 @@ class CheckoutView extends StatelessWidget {
     final cubit = BlocProvider.of<CheckoutCubit>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Payment'),centerTitle: true,),
+      appBar: AppBar(
+        title: Text(
+          'Payment',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        centerTitle: true,
+      ),
       body: BlocBuilder<CheckoutCubit, CheckoutState>(
         bloc: cubit,
         buildWhen: (previous, current) =>
@@ -133,7 +140,12 @@ class CheckoutView extends StatelessWidget {
           if (state is CheckoutLoading) {
             return const Center(child: CircularProgressIndicator.adaptive());
           } else if (state is CheckoutError) {
-            return Center(child: Text(state.message));
+            return Center(
+              child: Text(
+                state.message,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            );
           } else if (state is CheckoutLoaded) {
             final cartItems = state.cartItems;
             final chosenPaymentCard = state.chosenPaymentCard;
@@ -189,7 +201,7 @@ class CheckoutView extends StatelessWidget {
                                 children: [
                                   Text(
                                     cartItem.product.name,
-                                    style: Theme.of(context).textTheme.titleMedium,
+                                    style: Theme.of(context).textTheme.bodyLarge,
                                   ),
                                   const SizedBox(height: 4.0),
                                   Row(
@@ -200,12 +212,12 @@ class CheckoutView extends StatelessWidget {
                                           text: 'Size: ',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .titleMedium!
+                                              .bodyMedium!
                                               .copyWith(color: AppColors.grey),
                                           children: [
                                             TextSpan(
                                               text: cartItem.size.name,
-                                              style: Theme.of(context).textTheme.titleMedium,
+                                              style: Theme.of(context).textTheme.bodyMedium,
                                             ),
                                           ],
                                         ),
@@ -214,8 +226,7 @@ class CheckoutView extends StatelessWidget {
                                         '\$${cartItem.totalPrice.toStringAsFixed(2)}',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headlineSmall!
-                                            .copyWith(fontWeight: FontWeight.bold),
+                                            .headlineSmall,
                                       ),
                                     ],
                                   ),
@@ -227,7 +238,9 @@ class CheckoutView extends StatelessWidget {
                       },
                     ),
                     const SizedBox(height: 16.0),
-                    const CheckoutHeadlinesItem(title: 'Payment Methods'),
+                    CheckoutHeadlinesItem(
+                      title: 'Payment Methods',
+                    ),
                     const SizedBox(height: 16.0),
                     _buildPaymentMethodItem(chosenPaymentCard, context),
                     const SizedBox(height: 32.0),
@@ -239,10 +252,10 @@ class CheckoutView extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       height: 60,
-                      // child: MainButton(
-                      //   text: 'Checkout Now',
-                      //     onTap: () => OrderConfirmationBottomSheet.show(context: context)
-                      // ),
+                      child: CustomButton(
+                        text: 'Checkout Now',
+                        onTap: () => OrderConfirmationBottomSheet.show(context: context),
+                      ),
                     ),
                     const SizedBox(height: 40.0),
                   ],
@@ -250,7 +263,12 @@ class CheckoutView extends StatelessWidget {
               ),
             );
           } else {
-            return const Center(child: Text('Something went wrong!'));
+            return Center(
+              child: Text(
+                'Something went wrong!',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            );
           }
         },
       ),

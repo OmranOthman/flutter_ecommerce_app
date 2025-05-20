@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_text_form_field.dart';
 
 class CreateNewPasswordBottomSheet extends StatefulWidget {
   final TextEditingController newPasswordController;
@@ -22,8 +23,8 @@ class _CreateNewPasswordBottomSheetState
     extends State<CreateNewPasswordBottomSheet> {
   late final FocusNode _newPasswordFocusNode;
   late final FocusNode _confirmPasswordFocusNode;
-  // bool _obscureNewPassword = true;
-  // bool _obscureConfirmPassword = true;
+  bool _obscureNewPassword = true;
+  bool _obscureConfirmPassword = true;
 
   @override
   void initState() {
@@ -87,57 +88,57 @@ class _CreateNewPasswordBottomSheetState
                   const SizedBox(height: 24),
 
                   // New Password Field
-                  // LabelWithTextField(
-                  //   label: 'New Password',
-                  //   controller: widget.newPasswordController,
-                  //   prefixIcon: Icons.lock_outline,
-                  //   hintText: 'Enter new password',
-                  //   obsecureText: _obscureNewPassword,
-                  //   focusNode: _newPasswordFocusNode,
-                  //   suffixIcon: IconButton(
-                  //     icon: Icon(
-                  //       _obscureNewPassword
-                  //           ? Icons.visibility
-                  //           : Icons.visibility_off,
-                  //       color: Colors.grey,
-                  //     ),
-                  //     onPressed: () {
-                  //       setState(() {
-                  //         _obscureNewPassword = !_obscureNewPassword;
-                  //       });
-                  //     },
-                  //   ),
-                  // ),
+                  CustomTextFormField(
+                    label: 'New Password',
+                    controller: widget.newPasswordController,
+                    prefixIcon: Icon(Icons.lock_outline),
+                    hintText: 'Enter new password',
+                    obscureText: _obscureNewPassword,
+                    focusNode: _newPasswordFocusNode,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureNewPassword
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscureNewPassword = !_obscureNewPassword;
+                        });
+                      },
+                    ),
+                  ),
                   const SizedBox(height: 16),
 
                   // Confirm Password Field
-                  // LabelWithTextField(
-                  //   label: 'Confirm Password',
-                  //   controller: widget.confirmPasswordController,
-                  //   prefixIcon: Icons.lock_outline,
-                  //   hintText: 'Confirm new password',
-                  //   obsecureText: _obscureConfirmPassword,
-                  //   focusNode: _confirmPasswordFocusNode,
-                  //   suffixIcon: IconButton(
-                  //     icon: Icon(
-                  //       _obscureConfirmPassword
-                  //           ? Icons.visibility
-                  //           : Icons.visibility_off,
-                  //       color: Colors.grey,
-                  //     ),
-                  //     onPressed: () {
-                  //       setState(() {
-                  //         _obscureConfirmPassword = !_obscureConfirmPassword;
-                  //       });
-                  //     },
-                  //   ),
-                  // ),
+                  CustomTextFormField(
+                    label: 'Confirm Password',
+                    controller: widget.confirmPasswordController,
+                    prefixIcon: Icon(Icons.lock_outline),
+                    hintText: 'Confirm new password',
+                    obscureText: _obscureConfirmPassword,
+                    focusNode: _confirmPasswordFocusNode,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureConfirmPassword
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscureConfirmPassword = !_obscureConfirmPassword;
+                        });
+                      },
+                    ),
+                  ),
                   const SizedBox(height: 32),
 
                   // Update Button
                   CustomButton(
                     text: "Update Password",
-                    onPressed: _validateAndSubmit,
+                    onTap: _validateAndSubmit,
                   ),
                 ],
               ),

@@ -31,12 +31,24 @@ class SettingSecurityPage extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
-        children: const [
-          ToggleItem(title: "Face ID"),
-          ToggleItem(title: "Remember Password"),
-          ToggleItem(title: "Touch ID"),
-        ],
+      body: SingleChildScrollView(
+        child: Container(
+          margin: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.95),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Colors.grey.shade300),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              ToggleItem(title: "Face ID", isLast: false),
+              ToggleItem(title: "Remember Password", isLast: false),
+              ToggleItem(title: "Touch ID", isLast: true),
+            ],
+          ),
+        ),
       ),
     );
   }

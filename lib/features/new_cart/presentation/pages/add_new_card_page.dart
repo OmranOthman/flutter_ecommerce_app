@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_text_form_field.dart';
 import 'package:flutter_ecommerce_app/features/new_cart/presentation/view_model/add_new_card_cubit/payment_methods_cubit.dart';
-import 'package:flutter_ecommerce_app/utils/app_colors.dart';
 
 class AddNewCardPage extends StatelessWidget {
   const AddNewCardPage({super.key});
@@ -35,7 +37,10 @@ class _AddNewCardViewState extends State<AddNewCardView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add New Card'),
+        title: Text(
+          'Add New Card',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
       ),
       body: SafeArea(
         child: Padding(
@@ -45,33 +50,49 @@ class _AddNewCardViewState extends State<AddNewCardView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // LabelWithTextField(
-                //   label: 'Card Number',
-                //   controller: _cardNumberController,
-                //   prefixIcon: Icons.credit_card,
-                //   hintText: 'Enter card number',
-                // ),
+                CustomTextFormField(
+                  label: 'Card Number',
+                  controller: _cardNumberController,
+                  prefixIcon: Icon(
+                    Icons.credit_card,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  hintText: 'Enter card number',
+                  keyboardType: TextInputType.number,
+                ),
                 const SizedBox(height: 20),
-                // LabelWithTextField(
-                //   label: 'Card Holder Name',
-                //   controller: _cardHolderNameController,
-                //   prefixIcon: Icons.person,
-                //   hintText: 'Enter card holder name',
-                // ),
+                CustomTextFormField(
+                  label: 'Card Holder Name',
+                  controller: _cardHolderNameController,
+                  prefixIcon: Icon(
+                    Icons.person,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  hintText: 'Enter card holder name',
+                ),
                 const SizedBox(height: 20),
-                // LabelWithTextField(
-                //   label: 'Expiry Date',
-                //   controller: _expiryDateController,
-                //   prefixIcon: Icons.date_range,
-                //   hintText: 'Enter expiry date',
-                // ),
+                CustomTextFormField(
+                  label: 'Expiry Date',
+                  controller: _expiryDateController,
+                  prefixIcon: Icon(
+                    Icons.date_range,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  hintText: 'MM/YY',
+                  keyboardType: TextInputType.datetime,
+                ),
                 const SizedBox(height: 20),
-                // LabelWithTextField(
-                //   label: 'CVV',
-                //   controller: _cvvController,
-                //   prefixIcon: Icons.password,
-                //   hintText: 'Enter cvv',
-                // ),
+                CustomTextFormField(
+                  label: 'CVV',
+                  controller: _cvvController,
+                  prefixIcon: Icon(
+                    Icons.password,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  hintText: '123',
+                  obscureText: true,
+                  keyboardType: TextInputType.number,
+                ),
                 const Spacer(),
                 SizedBox(
                   width: double.infinity,
@@ -86,7 +107,11 @@ class _AddNewCardViewState extends State<AddNewCardView> {
                       } else if (state is AddNewCardFailure) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(state.errorMessage),
+                            content: Text(
+                              state.errorMessage,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            backgroundColor: AppColors.red,
                           ),
                         );
                       }
@@ -96,14 +121,10 @@ class _AddNewCardViewState extends State<AddNewCardView> {
                         current is AddNewCardFailure ||
                         current is AddNewCardSuccess,
                     builder: (context, state) {
-                      if (state is AddNewCardLoading) {
-                        return const ElevatedButton(
-                          onPressed: null,
-                          child: CircularProgressIndicator.adaptive(),
-                        );
-                      }
-                      return ElevatedButton(
-                        onPressed: () {
+                      return CustomButton(
+                        onTap: state is AddNewCardLoading
+                            ? null
+                            : () {
                           if (_formKey.currentState!.validate()) {
                             cubit.addNewCard(
                               _cardNumberController.text,
@@ -113,12 +134,10 @@ class _AddNewCardViewState extends State<AddNewCardView> {
                             );
                           }
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
-                          foregroundColor: AppColors.white,
-                        ),
-                        child: const Text('Add Card'),
+                        isLoading: state is AddNewCardLoading,
+                        text: 'Add Card',
                       );
+
                     },
                   ),
                 ),

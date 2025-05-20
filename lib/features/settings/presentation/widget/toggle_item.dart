@@ -4,12 +4,14 @@ class ToggleItem extends StatelessWidget {
   final String title;
   final bool value;
   final ValueChanged<bool>? onChanged;
+  final bool isLast;
 
   const ToggleItem({
     super.key,
     required this.title,
     this.value = true,
     this.onChanged,
+    this.isLast = false,
   });
 
   @override
@@ -31,41 +33,39 @@ class ToggleItem extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black87,
-                  ),
+                  style: theme.textTheme.titleMedium,
                 ),
                 Switch(
                   value: value,
                   onChanged: onChanged,
-                  thumbColor: MaterialStateProperty.resolveWith<Color>((states) {
-                    return states.contains(MaterialState.selected)
+                  thumbColor: MaterialStateProperty.resolveWith<Color>(
+                        (states) => states.contains(MaterialState.selected)
                         ? theme.colorScheme.primary
-                        : Colors.grey.shade400;
-                  }),
-                  trackColor: MaterialStateProperty.resolveWith<Color>((states) {
-                    return states.contains(MaterialState.selected)
+                        : Colors.grey.shade400,
+                  ),
+                  trackColor: MaterialStateProperty.resolveWith<Color>(
+                        (states) => states.contains(MaterialState.selected)
                         ? theme.colorScheme.primary.withOpacity(0.3)
-                        : Colors.grey.shade400.withOpacity(0.5);
-                  }),
+                        : Colors.grey.shade400.withOpacity(0.5),
+                  ),
                 ),
               ],
             ),
           ),
-          Container(
-            height: 1,
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.transparent,
-                  Colors.grey.withOpacity(0.3),
-                  Colors.transparent,
-                ],
+          if (!isLast)
+            Container(
+              height: 1,
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.transparent,
+                    Colors.grey.withOpacity(0.3),
+                    Colors.transparent,
+                  ],
+                ),
               ),
             ),
-          ),
         ],
       ),
     );

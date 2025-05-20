@@ -6,7 +6,7 @@ class SettingsBottom extends StatelessWidget {
   final String? trailingText;
   final VoidCallback onTap;
   final bool isDestructive;
-  final bool showArrow; // ✅ أضفنا الخاصية هنا
+  final bool showArrow;
 
   const SettingsBottom({
     Key? key,
@@ -15,12 +15,20 @@ class SettingsBottom extends StatelessWidget {
     this.trailingText,
     required this.onTap,
     this.isDestructive = false,
-    this.showArrow = true, // ✅ القيمة الافتراضية
+    this.showArrow = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final color = isDestructive ? Colors.red : Colors.black;
+    final Color iconColor = isDestructive ? Colors.red : Colors.black;
+    final TextStyle titleStyle = Theme.of(context).textTheme.bodyMedium!.copyWith(
+      fontWeight: FontWeight.w500,
+      color: iconColor,
+    );
+
+    final TextStyle trailingStyle = Theme.of(context).textTheme.bodySmall!.copyWith(
+      color: Colors.grey,
+    );
 
     return InkWell(
       onTap: onTap,
@@ -42,25 +50,22 @@ class SettingsBottom extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(icon, color: color),
+            Icon(icon, color: iconColor),
             const SizedBox(width: 16),
             Expanded(
               child: Text(
                 title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: color,
-                ),
+                style: titleStyle,
               ),
             ),
             if (trailingText != null)
               Text(
                 trailingText!,
-                style: const TextStyle(color: Colors.grey),
+                style: trailingStyle,
               ),
-            if (showArrow) const SizedBox(width: 8), // ✅ شرط العرض
+            if (showArrow) const SizedBox(width: 8),
             if (showArrow)
-              const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey), // ✅ شرط السهم
+              const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
           ],
         ),
       ),

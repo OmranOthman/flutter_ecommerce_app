@@ -5,14 +5,13 @@ class SettingLegalAndPoliciesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Legal and Policies",
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+          style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         leading: IconButton(
@@ -36,36 +35,24 @@ class SettingLegalAndPoliciesPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10),
-            const Text(
+            Text(
               "Terms",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+              style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            const Text(
+            Text(
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-              style: TextStyle(
-                overflow: TextOverflow.clip,
-                height: 1.5,
-              ),
+              style: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
             ),
             const SizedBox(height: 20),
-            const Text(
+            Text(
               "Change to the Service and/or Terms:",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+              style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            const Text(
+            Text(
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-              style: TextStyle(
-                overflow: TextOverflow.clip,
-                height: 1.5,
-              ),
+              style: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
             ),
             const SizedBox(height: 50),
           ],
