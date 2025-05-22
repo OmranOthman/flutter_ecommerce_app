@@ -5,6 +5,7 @@ import 'package:flutter_ecommerce_app/features/order/presentation/pages/order_pa
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/settings_page.dart';
 import 'package:flutter_ecommerce_app/features/favorite/presentation/pages/favorites_page.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/pages/home_page.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class CustomBottomNavbar extends StatefulWidget {
@@ -29,7 +30,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
       PersistentTabConfig(
         screen: const HomePage(),
         item: ItemConfig(
-          icon: const Icon(CupertinoIcons.home),
+          icon: const Icon(Symbols.home),
           title: "Home",
           activeForegroundColor: Theme.of(context).primaryColor,
           inactiveForegroundColor: AppColors.grey,
@@ -39,7 +40,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
       PersistentTabConfig(
         screen: const OrderPage(),
         item: ItemConfig(
-          icon: const Icon(CupertinoIcons.car_detailed),
+          icon: const Icon(Symbols.delivery_truck_speed),
           title: "My Order",
           activeForegroundColor: Theme.of(context).primaryColor,
           inactiveForegroundColor: AppColors.grey,
@@ -49,7 +50,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
       PersistentTabConfig(
         screen: const FavoritesPage(),
         item: ItemConfig(
-          icon: const Icon(CupertinoIcons.heart),
+          icon: const Icon(Symbols.favorite),
           title: "Favorites",
           activeForegroundColor: Theme.of(context).primaryColor,
           inactiveForegroundColor: AppColors.grey,
@@ -59,7 +60,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
       PersistentTabConfig(
         screen: const SettingsPage(),
         item: ItemConfig(
-          icon: const Icon(CupertinoIcons.person),
+          icon: const Icon(Symbols.person),
           title: "Profile",
           activeForegroundColor: Theme.of(context).primaryColor,
           inactiveForegroundColor: AppColors.grey,

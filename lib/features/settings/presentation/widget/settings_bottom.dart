@@ -65,7 +65,7 @@ class SettingsBottom extends StatelessWidget {
               ),
             if (showArrow) const SizedBox(width: 8),
             if (showArrow)
-              const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+              const Icon(Icons.arrow_forward_ios, color: Colors.grey),
           ],
         ),
       ),

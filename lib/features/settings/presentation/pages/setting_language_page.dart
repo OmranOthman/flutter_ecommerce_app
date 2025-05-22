@@ -12,7 +12,7 @@ class SettingLanguagePage extends StatefulWidget {
 class _SettingLanguagePageState extends State<SettingLanguagePage> {
   final List<Language> languages = [
     Language(name: 'English', code: 'GB'),
-    Language(name: 'Arabic', code: 'SA'),
+    Language(name: 'Arabic', code: 'OM'),
   ];
 
   String searchQuery = '';
@@ -129,12 +129,12 @@ class _SettingLanguagePageState extends State<SettingLanguagePage> {
       ),
       child: ClipOval(
         child: Image.network(
-          'https://flagcdn.com/w40/${countryCode.toLowerCase()}.png',
+          'https://flagcdn.com/w160/${countryCode.toLowerCase()}.png',
           width: 36,
           height: 36,
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
           errorBuilder: (context, error, stackTrace) =>
-              const Icon(Icons.language),
+          const Icon(Icons.language),
         ),
       ),
     );

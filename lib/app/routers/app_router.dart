@@ -7,13 +7,13 @@ import 'package:flutter_ecommerce_app/features/auth/presentation/pages/verificat
 import 'package:flutter_ecommerce_app/features/cart/presentation/pages/cart_page.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/pages/notifications_page.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/widget/custom_bottom_navbar.dart';
-import 'package:flutter_ecommerce_app/features/new_cart/presentation/view_model/add_new_card_cubit/payment_methods_cubit.dart';
+import 'package:flutter_ecommerce_app/features/new_card/presentation/pages/add_new_card_page.dart';
+import 'package:flutter_ecommerce_app/features/new_card/presentation/view_model/add_new_card_cubit/payment_methods_cubit.dart';
 import 'package:flutter_ecommerce_app/features/order/presentation/pages/order_tracking_page.dart';
 import 'package:flutter_ecommerce_app/features/product_details/presentation/view_model/product_details_cubit/product_details_cubit.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_change_password_page.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_help_and_support_page.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_language_page.dart';
-import 'package:flutter_ecommerce_app/features/new_cart/presentation/pages/add_new_card_page.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/pages/checkout_page.dart';
 import 'package:flutter_ecommerce_app/features/location/presentation/pages/choose_location_page.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_edit_profile_page.dart';

@@ -14,6 +14,7 @@ class LightThemeMode {
     );
     const IconThemeData iconThemeData = IconThemeData(
       color: AppColors.lightModeWhiteColor,
+      size: 24
     );
 
     return base.copyWith(
