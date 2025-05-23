@@ -7,7 +7,7 @@ class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitial());
   //int quantity = 1;
 
-  List<AddToCartModel> _cartItems = [...dummyCart];
+  final List<AddToCartModel> _cartItems = [...dummyCart];
 
   Future<void> getCartItems() async {
     emit(CartLoading());
@@ -76,9 +76,4 @@ class CartCubit extends Cubit<CartState> {
       _cartItems[index] = updatedItem;
     }
   }
-
-  double _subtotal(List<AddToCartModel> cartItems) => cartItems.fold<double>(
-      0,
-          (previousValue, item) =>
-      previousValue + (item.product.price * item.quantity));
 }

@@ -57,7 +57,7 @@ class HomeView extends StatelessWidget {
           padding: const EdgeInsets.only(left: 14, top: 8),
           child: CircleAvatar(
             backgroundImage: CachedNetworkImageProvider(
-                'https://media.licdn.com/dms/image/v2/D4D35AQETK974HtDMyw/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1712976653786?e=1747382400&v=beta&t=UHj7T5TQ9EdKWvkHk93SpedMMnlMGrdRXyWywBL6CEo'),
+                ''),
             radius: 25,
           ),
         ),

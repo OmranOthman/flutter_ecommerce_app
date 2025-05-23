@@ -13,7 +13,7 @@ class AddToCartModel {
     required this.product,
     required this.size,
     required this.quantity,
-    this.isSelected = true, // القيمة الافتراضية تكون true
+    this.isSelected = true,
 
   });
 
