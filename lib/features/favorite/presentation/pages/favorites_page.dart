@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/favorite/presentation/view_model/favorite_cubit/favorite_cubit.dart';
@@ -36,12 +37,12 @@ class FavoritesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favoriteCubit = BlocProvider.of<FavoriteCubit>(context);
-    final homeCubit = BlocProvider.of<HomeCubit>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "My Favorites",
+          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         actions: [
@@ -52,8 +53,10 @@ class FavoritesView extends StatelessWidget {
             icon: Icon(
               Icons.notifications,
               color: Theme.of(context).primaryColor,
+              size: 24.sp,
             ),
-          ),        ],
+          ),
+        ],
       ),
       body: BlocBuilder<FavoriteCubit, FavoriteState>(
         bloc: favoriteCubit,
@@ -74,13 +77,19 @@ class FavoritesView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.favorite_border,
-                        size: 60, color: AppColors.grey),
-                    const SizedBox(height: 16),
+                        size: 60.r, color: AppColors.grey),
+                    SizedBox(height: 16.h),
                     Text('No favorites yet',
-                        style: Theme.of(context).textTheme.titleMedium),
-                    const SizedBox(height: 8),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(fontSize: 18.sp)),
+                    SizedBox(height: 8.h),
                     Text('Tap the heart icon to add products',
-                        style: Theme.of(context).textTheme.bodyMedium),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(fontSize: 14.sp)),
                   ],
                 ),
               );
@@ -90,11 +99,11 @@ class FavoritesView extends StatelessWidget {
                 await favoriteCubit.getFavoriteProducts();
               },
               child: GridView.builder(
-                padding: const EdgeInsets.all(16),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                padding: EdgeInsets.all(16.w),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16.w,
+                  mainAxisSpacing: 16.h,
                   childAspectRatio: 0.7,
                 ),
                 itemCount: favoriteProducts.length,
@@ -111,7 +120,10 @@ class FavoritesView extends StatelessWidget {
             return Center(
               child: Text(
                 state.error,
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(fontSize: 16.sp),
               ),
             );
           } else {
@@ -139,37 +151,34 @@ class _FavoriteProductItem extends StatelessWidget {
         Stack(
           children: [
             Container(
-              height: 170,
-              width: 154,
+              height: 170.h,
+              width: 154.w,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.0),
+                borderRadius: BorderRadius.circular(16.r),
                 color: AppColors.grey2,
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.w),
                 child: CachedNetworkImage(
                   imageUrl: product.imgUrl,
                   fit: BoxFit.contain,
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(
-                    Icons.error,
-                    color: Colors.red,
-                  ),
+                  placeholder: (context, url) =>
+                  const Center(child: CircularProgressIndicator.adaptive()),
+                  errorWidget: (context, url, error) =>
+                  const Icon(Icons.error, color: Colors.red),
                 ),
               ),
             ),
             Positioned(
-              top: 8.0,
-              right: 8.0,
+              top: 8.h,
+              right: 8.w,
               child: DecoratedBox(
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.black45,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: EdgeInsets.all(4.w),
                   child: BlocConsumer<FavoriteCubit, FavoriteState>(
                     listener: (context, state) {
                       if (state is FavoriteRemoveError) {
@@ -183,13 +192,18 @@ class _FavoriteProductItem extends StatelessWidget {
                     builder: (context, state) {
                       if (state is FavoriteRemoving &&
                           state.productId == product.id) {
-                        return const CircularProgressIndicator.adaptive();
+                        return SizedBox(
+                          height: 24.r,
+                          width: 24.r,
+                          child: const CircularProgressIndicator.adaptive(strokeWidth: 2),
+                        );
                       }
                       return InkWell(
                         onTap: onRemove,
-                        child: const Icon(
+                        child: Icon(
                           Icons.favorite,
                           color: Colors.red,
+                          size: 24.sp,
                         ),
                       );
                     },
@@ -199,23 +213,30 @@ class _FavoriteProductItem extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 4.0),
+        SizedBox(height: 4.h),
         Text(
           product.name,
           style: Theme.of(context).textTheme.titleMedium!.copyWith(
             fontWeight: FontWeight.w600,
+            fontSize: 16.sp,
           ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
         Text(
           product.category,
           style: Theme.of(context).textTheme.labelMedium!.copyWith(
             color: Colors.grey,
+            fontSize: 12.sp,
           ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
         Text(
           '\$${product.price}',
           style: Theme.of(context).textTheme.titleSmall!.copyWith(
             fontWeight: FontWeight.w600,
+            fontSize: 14.sp,
           ),
         ),
       ],

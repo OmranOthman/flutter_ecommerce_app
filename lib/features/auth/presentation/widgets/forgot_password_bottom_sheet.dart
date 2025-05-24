@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_text_form_field.dart';
 
@@ -13,30 +14,34 @@ class ForgotPasswordBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: EdgeInsets.all(24.w),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'Forgot Password',
-            style: Theme.of(context).textTheme.titleMedium,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontSize: 18.sp,
+            ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           Text(
             'Enter your email or phone number',
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontSize: 14.sp,
+            ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           CustomTextFormField(
             readOnly: true,
             label: 'Email or Phone Number',
-            suffixIcon: const Icon(Icons.check_circle, color: Colors.green),
+            suffixIcon: Icon(Icons.check_circle, color: Colors.green, size: 20.sp),
             controller: emailController,
-            prefixIcon: Icon(Icons.email_outlined),
+            prefixIcon: Icon(Icons.email_outlined, size: 20.sp),
             hintText: 'Enter your email',
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           CustomButton(
             text: "Send Code",
             onTap: () {

@@ -7,10 +7,7 @@ class NotificationCard extends StatelessWidget {
   final String message;
   final String time;
   final bool hasAction;
-  final String? actionTextAccept;
-  final String? actionTextReject;
-  final VoidCallback? onActionAccept;
-  final VoidCallback? onActionReject;
+
 
   const NotificationCard({
     super.key,
@@ -20,10 +17,7 @@ class NotificationCard extends StatelessWidget {
     required this.message,
     required this.time,
     required this.hasAction,
-    this.actionTextAccept,
-    this.actionTextReject,
-    this.onActionAccept,
-    this.onActionReject,
+
   });
 
   @override
@@ -44,9 +38,7 @@ class NotificationCard extends StatelessWidget {
             _buildHeader(context),
             const SizedBox(height: 8),
             _buildMessage(context),
-            if (hasAction && actionTextAccept != null && actionTextReject != null)
-              _buildActionButtons(context),
-          ],
+                    ],
         ),
       ),
     );
@@ -77,7 +69,7 @@ class NotificationCard extends StatelessWidget {
 
   Widget _buildMessage(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 36),
+      padding: const EdgeInsetsDirectional.only(start: 36),
       child: Text(
         message,
         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -88,33 +80,4 @@ class NotificationCard extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButtons(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          TextButton(
-            onPressed: onActionReject,
-            child: Text(
-              actionTextReject!,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Colors.red,
-              ),
-            ),
-          ),
-          const SizedBox(width: 8),
-          TextButton(
-            onPressed: onActionAccept,
-            child: Text(
-              actionTextAccept!,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Colors.blue,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

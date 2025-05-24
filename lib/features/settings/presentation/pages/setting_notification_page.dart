@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/widget/toggle_item.dart';
 
 class SettingNotificationPage extends StatelessWidget {
@@ -8,36 +9,36 @@ class SettingNotificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Notifications",
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 16.sp),
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, size: 20.sp),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.more_vert),
+            icon: Icon(Icons.more_vert, size: 20.sp),
             onPressed: () {},
           ),
         ],
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1),
+          preferredSize: Size.fromHeight(1.h),
           child: Container(
             color: Colors.grey.withOpacity(0.3),
-            height: 1,
+            height: 1.h,
           ),
         ),
       ),
       body: SingleChildScrollView(
         child: Container(
-          margin: const EdgeInsets.all(16),
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          margin: EdgeInsets.all(16.w),
+          padding: EdgeInsets.symmetric(vertical: 12.h),
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.95),
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
             border: Border.all(color: Colors.grey.shade300),
           ),
           child: Column(

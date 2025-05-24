@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/location/presentation/view_model/choose_location_cubit/choose_location_cubit.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
@@ -38,25 +39,29 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+            padding: EdgeInsets.symmetric(
+              horizontal: 24.w,
+              vertical: 8.h,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Choose your location',
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 22.sp,
+                  ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 Text(
                   'Let\'s find an unforgettable event. Choose a location below to get started:',
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                        color: AppColors.grey,
-                      ),
+                    color: AppColors.grey,
+                    fontSize: 16.sp,
+                  ),
                 ),
-                const SizedBox(height: 36),
+                SizedBox(height: 36.h),
                 TextField(
                   controller: locationController,
                   decoration: InputDecoration(
@@ -87,9 +92,9 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                       },
                       builder: (context, state) {
                         if (state is AddingLocation) {
-                          return const Padding(
-                            padding: EdgeInsets.all(12.0),
-                            child: CircularProgressIndicator.adaptive(
+                          return Padding(
+                            padding: EdgeInsets.all(12.w),
+                            child: const CircularProgressIndicator.adaptive(
                               backgroundColor: AppColors.grey,
                             ),
                           );
@@ -108,40 +113,39 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                         );
                       },
                     ),
-
                     suffixIconColor: AppColors.grey,
                     prefixIconColor: AppColors.grey,
                     hintText: 'Write location: city-country',
                     fillColor: AppColors.grey1,
                     filled: true,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(16.r),
                       borderSide: BorderSide.none,
                     ),
                     errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(16.r),
                       borderSide: const BorderSide(color: AppColors.red),
                     ),
                   ),
                 ),
-                const SizedBox(height: 36),
+                SizedBox(height: 36.h),
                 Text(
                   'Select Location',
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 22.sp,
+                  ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 BlocBuilder<ChooseLocationCubit, ChooseLocationState>(
                   bloc: cubit,
                   buildWhen: (previous, current) =>
-                      current is FetchLocationsFailure ||
+                  current is FetchLocationsFailure ||
                       current is FetchedLocations ||
                       current is FetchingLocations,
                   builder: (context, state) {
                     if (state is FetchingLocations) {
-                      return const Center(
-                          child: CircularProgressIndicator.adaptive());
+                      return const Center(child: CircularProgressIndicator.adaptive());
                     } else if (state is FetchedLocations) {
                       final locations = state.locations;
                       return ListView.builder(
@@ -151,28 +155,23 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                         itemBuilder: (context, index) {
                           final location = locations[index];
                           return Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: BlocBuilder<ChooseLocationCubit,
-                                ChooseLocationState>(
+                            padding: EdgeInsets.only(bottom: 16.h),
+                            child: BlocBuilder<ChooseLocationCubit, ChooseLocationState>(
                               bloc: cubit,
-                              buildWhen: (previous, current) =>
-                                  current is LocationChosen,
+                              buildWhen: (previous, current) => current is LocationChosen,
                               builder: (context, state) {
                                 if (state is LocationChosen) {
                                   final chosenLocation = state.location;
                                   return LocationItemWidget(
-                                    onTap: () =>
-                                        cubit.selectLocation(location.id),
+                                    onTap: () => cubit.selectLocation(location.id),
                                     location: location,
-                                    borderColor:
-                                        chosenLocation.id == location.id
-                                            ? Theme.of(context).primaryColor
-                                            : AppColors.grey,
+                                    borderColor: chosenLocation.id == location.id
+                                        ? Theme.of(context).primaryColor
+                                        : AppColors.grey,
                                   );
                                 }
                                 return LocationItemWidget(
-                                  onTap: () =>
-                                      cubit.selectLocation(location.id),
+                                  onTap: () => cubit.selectLocation(location.id),
                                   location: location,
                                 );
                               },
@@ -187,11 +186,11 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                     }
                   },
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24.h),
                 BlocBuilder<ChooseLocationCubit, ChooseLocationState>(
                   bloc: cubit,
                   buildWhen: (previous, current) =>
-                      current is ConfirmAddressLoading ||
+                  current is ConfirmAddressLoading ||
                       current is ConfirmAddressLoaded ||
                       current is ConfirmAddressFailure,
                   builder: (context, state) {

@@ -5,6 +5,7 @@ import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/favorite/presentation/view_model/favorite_cubit/favorite_cubit.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/view_model/home_cubit/home_cubit.dart';
 import 'package:flutter_ecommerce_app/models/product_item_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductItemModel productItem;
@@ -17,18 +18,19 @@ class ProductItem extends StatelessWidget {
     final favoriteCubit = BlocProvider.of<FavoriteCubit>(context);
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Stack(
           children: [
             Container(
-              height:170,
-              width: 154,
+              height: 170.h,
+              width: 154.w,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.0),
+                borderRadius: BorderRadius.circular(16.r),
                 color: AppColors.grey2,
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.w),
                 child: CachedNetworkImage(
                   imageUrl: productItem.imgUrl,
                   fit: BoxFit.contain,
@@ -43,15 +45,15 @@ class ProductItem extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 8.0,
-              right: 8.0,
+              top: 8.h,
+              right: 8.w,
               child: DecoratedBox(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.black45,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: EdgeInsets.all(4.w),
                   child: BlocBuilder<HomeCubit, HomeState>(
                     bloc: homeCubit,
                     buildWhen: (previous, current) =>
@@ -63,22 +65,27 @@ class ProductItem extends StatelessWidget {
                             current.productId == productItem.id),
                     builder: (context, state) {
                       if (state is SetFavoriteLoading) {
-                        return const CircularProgressIndicator.adaptive();
+                        return SizedBox(
+                          height: 20.h,
+                          width: 20.w,
+                          child: const CircularProgressIndicator.adaptive(),
+                        );
                       }
                       return InkWell(
                         onTap: () async {
-                          await homeCubit.setFavorite(
-                              productItem, favoriteCubit);
+                          await homeCubit.setFavorite(productItem, favoriteCubit);
                         },
                         child: (state is SetFavoriteSuccess
                             ? state.isFavorite
                             : productItem.isFavorite)
-                            ? const Icon(
+                            ? Icon(
                           Icons.favorite,
                           color: Colors.red,
+                          size: 20.sp,
                         )
-                            : const Icon(
+                            : Icon(
                           Icons.favorite_border,
+                          size: 20.sp,
                         ),
                       );
                     },
@@ -88,23 +95,26 @@ class ProductItem extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 4.0),
+        SizedBox(height: 4.h),
         Text(
           productItem.name,
           style: Theme.of(context).textTheme.titleMedium!.copyWith(
             fontWeight: FontWeight.w600,
+            fontSize: 14.sp,
           ),
         ),
         Text(
           productItem.category,
           style: Theme.of(context).textTheme.labelMedium!.copyWith(
             color: Colors.grey,
+            fontSize: 12.sp,
           ),
         ),
         Text(
           '\$${productItem.price}',
           style: Theme.of(context).textTheme.titleSmall!.copyWith(
             fontWeight: FontWeight.w600,
+            fontSize: 14.sp,
           ),
         ),
       ],

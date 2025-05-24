@@ -13,28 +13,41 @@ class CheckoutHeadlinesItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            if (numOfProducts != null)
-              Text(
-                '($numOfProducts)',
-                style: Theme.of(context).textTheme.headlineSmall,
+        Flexible(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                child: Text(
+                  title,
+                  style: textTheme.headlineSmall,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-          ],
+              if (numOfProducts != null) ...[
+                const SizedBox(width: 6),
+                Flexible(
+                  child: Text(
+                    '($numOfProducts)',
+                    style: textTheme.headlineSmall,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ],
+          ),
         ),
         if (onTap != null)
           TextButton(
             onPressed: onTap,
             child: Text(
               'Edit',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              style: textTheme.bodyMedium!.copyWith(
                 color: Theme.of(context).primaryColor,
               ),
             ),

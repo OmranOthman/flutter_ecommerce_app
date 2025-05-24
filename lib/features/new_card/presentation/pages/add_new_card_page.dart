@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_text_form_field.dart';
@@ -39,12 +40,12 @@ class _AddNewCardViewState extends State<AddNewCardView> {
       appBar: AppBar(
         title: Text(
           'Add New Card',
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 22.sp),
         ),
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: EdgeInsets.all(24.w),
           child: Form(
             key: _formKey,
             child: Column(
@@ -56,38 +57,42 @@ class _AddNewCardViewState extends State<AddNewCardView> {
                   prefixIcon: Icon(
                     Icons.credit_card,
                     color: Theme.of(context).primaryColor,
+                    size: 24.sp,
                   ),
                   hintText: 'Enter card number',
                   keyboardType: TextInputType.number,
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 CustomTextFormField(
                   label: 'Card Holder Name',
                   controller: _cardHolderNameController,
                   prefixIcon: Icon(
                     Icons.person,
                     color: Theme.of(context).primaryColor,
+                    size: 24.sp,
                   ),
                   hintText: 'Enter card holder name',
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 CustomTextFormField(
                   label: 'Expiry Date',
                   controller: _expiryDateController,
                   prefixIcon: Icon(
                     Icons.date_range,
                     color: Theme.of(context).primaryColor,
+                    size: 24.sp,
                   ),
                   hintText: 'MM/YY',
                   keyboardType: TextInputType.datetime,
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 CustomTextFormField(
                   label: 'CVV',
                   controller: _cvvController,
                   prefixIcon: Icon(
                     Icons.password,
                     color: Theme.of(context).primaryColor,
+                    size: 24.sp,
                   ),
                   hintText: '123',
                   obscureText: true,
@@ -96,7 +101,7 @@ class _AddNewCardViewState extends State<AddNewCardView> {
                 const Spacer(),
                 SizedBox(
                   width: double.infinity,
-                  height: 50,
+                  height: 50.h,
                   child: BlocConsumer<PaymentMethodsCubit, PaymentMethodsState>(
                     bloc: cubit,
                     listenWhen: (previous, current) =>
@@ -137,7 +142,6 @@ class _AddNewCardViewState extends State<AddNewCardView> {
                         isLoading: state is AddNewCardLoading,
                         text: 'Add Card',
                       );
-
                     },
                   ),
                 ),

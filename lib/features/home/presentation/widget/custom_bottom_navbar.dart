@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/order/presentation/pages/order_page.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/settings_page.dart';
@@ -29,41 +30,41 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
       PersistentTabConfig(
         screen: const HomePage(),
         item: ItemConfig(
-          icon: const Icon(Symbols.home),
+          icon: Icon(Symbols.home, size: 24.sp),
           title: "Home",
           activeForegroundColor: Theme.of(context).primaryColor,
           inactiveForegroundColor: AppColors.grey,
-          textStyle: Theme.of(context).textTheme.labelMedium ?? const TextStyle(),
+          textStyle: Theme.of(context).textTheme.labelMedium?.copyWith(fontSize: 12.sp) ?? TextStyle(fontSize: 12.sp),
         ),
       ),
       PersistentTabConfig(
         screen: const OrderPage(),
         item: ItemConfig(
-          icon: const Icon(Symbols.delivery_truck_speed),
+          icon: Icon(Symbols.delivery_truck_speed, size: 24.sp),
           title: "My Order",
           activeForegroundColor: Theme.of(context).primaryColor,
           inactiveForegroundColor: AppColors.grey,
-          textStyle: Theme.of(context).textTheme.labelMedium ?? const TextStyle(),
+          textStyle: Theme.of(context).textTheme.labelMedium?.copyWith(fontSize: 12.sp) ?? TextStyle(fontSize: 12.sp),
         ),
       ),
       PersistentTabConfig(
         screen: const FavoritesPage(),
         item: ItemConfig(
-          icon: const Icon(Symbols.favorite),
+          icon: Icon(Symbols.favorite, size: 24.sp),
           title: "Favorites",
           activeForegroundColor: Theme.of(context).primaryColor,
           inactiveForegroundColor: AppColors.grey,
-          textStyle: Theme.of(context).textTheme.labelMedium ?? const TextStyle(),
+          textStyle: Theme.of(context).textTheme.labelMedium?.copyWith(fontSize: 12.sp) ?? TextStyle(fontSize: 12.sp),
         ),
       ),
       PersistentTabConfig(
         screen: const SettingsPage(),
         item: ItemConfig(
-          icon: const Icon(Symbols.person),
+          icon: Icon(Symbols.person, size: 24.sp),
           title: "Profile",
           activeForegroundColor: Theme.of(context).primaryColor,
           inactiveForegroundColor: AppColors.grey,
-          textStyle: Theme.of(context).textTheme.labelMedium ?? const TextStyle(),
+          textStyle: Theme.of(context).textTheme.labelMedium?.copyWith(fontSize: 12.sp) ?? TextStyle(fontSize: 12.sp),
         ),
       ),
     ];
@@ -82,6 +83,8 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
           currentIndex = index;
         });
       },
+      // يمكنك تعديل خصائص أخرى هنا مثل navBarHeight أيضاً باستخدام ScreenUtil:
+      navBarHeight: 60.h,
     );
   }
 }

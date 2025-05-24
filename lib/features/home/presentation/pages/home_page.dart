@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/favorite/presentation/view_model/favorite_cubit/favorite_cubit.dart';
@@ -54,11 +55,10 @@ class HomeView extends StatelessWidget {
         backgroundColor: AppColors.white,
         elevation: 0,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 14, top: 8),
+          padding: EdgeInsets.only(left: 14.w, top: 8.h),
           child: CircleAvatar(
-            backgroundImage: CachedNetworkImageProvider(
-                ''),
-            radius: 25,
+            backgroundImage: CachedNetworkImageProvider(''),
+            radius: 25.r,
           ),
         ),
         title: Column(
@@ -66,12 +66,13 @@ class HomeView extends StatelessWidget {
           children: [
             Text(
               'Hi, Omran',
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 18.sp),
             ),
             Text(
               'Let\'s go shopping!',
-              style: Theme.of(context).textTheme.labelSmall!.copyWith(
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
                 color: AppColors.grey,
+                fontSize: 12.sp,
               ),
             ),
           ],
@@ -82,6 +83,7 @@ class HomeView extends StatelessWidget {
             icon: Icon(
               Icons.search,
               color: Theme.of(context).primaryColor,
+              size: 24.sp,
             ),
           ),
           IconButton(
@@ -91,13 +93,14 @@ class HomeView extends StatelessWidget {
             icon: Icon(
               Icons.notifications,
               color: Theme.of(context).primaryColor,
+              size: 24.sp,
             ),
           ),
         ],
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
             children: [
               TabBar(
@@ -105,21 +108,21 @@ class HomeView extends StatelessWidget {
                 controller: tabController,
                 unselectedLabelColor: AppColors.grey,
                 labelColor: Theme.of(context).primaryColor,
-                labelStyle: Theme.of(context).textTheme.bodyMedium,
-                unselectedLabelStyle: Theme.of(context).textTheme.bodySmall,
+                labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 16.sp),
+                unselectedLabelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 14.sp),
                 indicator: UnderlineTabIndicator(
                   borderSide: BorderSide(
                     width: 3.0,
                     color: Theme.of(context).primaryColor,
                   ),
-                  insets: const EdgeInsets.symmetric(horizontal: -30.0),
+                  insets: EdgeInsets.symmetric(horizontal: -30.w),
                 ),
                 tabs: const [
                   Tab(text: 'Home'),
                   Tab(text: 'Category'),
                 ],
               ),
-              const SizedBox(height: 24.0),
+              SizedBox(height: 24.h),
               Expanded(
                 child: TabBarView(
                   controller: tabController,

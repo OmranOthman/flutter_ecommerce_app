@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SettingsBottom extends StatelessWidget {
   final IconData icon;
@@ -23,10 +24,12 @@ class SettingsBottom extends StatelessWidget {
     final Color iconColor = isDestructive ? Colors.red : Colors.black;
     final TextStyle titleStyle = Theme.of(context).textTheme.bodyMedium!.copyWith(
       fontWeight: FontWeight.w500,
+      fontSize: 14.sp,
       color: iconColor,
     );
 
     final TextStyle trailingStyle = Theme.of(context).textTheme.bodySmall!.copyWith(
+      fontSize: 12.sp,
       color: Colors.grey,
     );
 
@@ -35,23 +38,23 @@ class SettingsBottom extends StatelessWidget {
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 16),
+        margin: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(14.r),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 2),
+              blurRadius: 10.r,
+              offset: Offset(0, 2.h),
             ),
           ],
         ),
         child: Row(
           children: [
-            Icon(icon, color: iconColor),
-            const SizedBox(width: 16),
+            Icon(icon, color: iconColor, size: 24.w),
+            SizedBox(width: 16.w),
             Expanded(
               child: Text(
                 title,
@@ -63,9 +66,9 @@ class SettingsBottom extends StatelessWidget {
                 trailingText!,
                 style: trailingStyle,
               ),
-            if (showArrow) const SizedBox(width: 8),
+            if (showArrow) SizedBox(width: 8.w),
             if (showArrow)
-              const Icon(Icons.arrow_forward_ios, color: Colors.grey),
+              Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 16.w),
           ],
         ),
       ),

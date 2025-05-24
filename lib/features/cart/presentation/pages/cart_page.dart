@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
@@ -25,21 +26,23 @@ class CartPage extends StatelessWidget {
 class CartView extends StatelessWidget {
   const CartView({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<CartCubit>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My Cart", style: TextStyle(fontSize: 16)),
+        title: Text(
+          "My Cart",
+          style: TextStyle(fontSize: 16.sp),
+        ),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, size: 24.sp),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.shopping_bag_outlined),
+            icon: Icon(Icons.shopping_bag_outlined, size: 24.sp),
             onPressed: () {},
           ),
         ],
@@ -55,7 +58,7 @@ class CartView extends StatelessWidget {
               children: [
                 Expanded(
                   child: ListView.separated(
-                    padding: const EdgeInsets.all(16),
+                    padding: EdgeInsets.all(16.w),
                     itemCount: cartItems.length,
                     itemBuilder: (context, index) {
                       final item = cartItems[index];
@@ -68,7 +71,7 @@ class CartView extends StatelessWidget {
                       );
                     },
                     separatorBuilder: (context, index) =>
-                        Divider(color: AppColors.grey2, height: 24),
+                        Divider(color: AppColors.grey2, height: 24.h),
                   ),
                 ),
                 _buildCheckoutFooter(context, state.subtotal),
@@ -85,44 +88,45 @@ class CartView extends StatelessWidget {
 
   Widget _buildCheckoutFooter(BuildContext context, double subtotal) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, -5),
+            blurRadius: 10.r,
+            offset: Offset(0, -5.h),
           ),
         ],
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           TextFormField(
             decoration: InputDecoration(
               hintText: 'Enter your promo code',
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8.r),
               ),
               suffixIcon: IconButton(
-                icon: const Icon(Icons.arrow_forward),
+                icon: Icon(Icons.arrow_forward, size: 24.sp),
                 onPressed: () {},
               ),
-              prefixIcon: Icon(Icons.percent),
-              ),
+              prefixIcon: Icon(Icons.percent, size: 24.sp),
             ),
-          const SizedBox(height: 24),
+          ),
+          SizedBox(height: 24.h),
           _buildTotalRow(context, 'Subtotal', subtotal),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           _buildTotalRow(context, 'Shipping', 10.0),
-          SizedBox(height: 24),
+          SizedBox(height: 24.h),
           _buildTotalRow(
             context,
             'Total Amount',
             subtotal + 10,
             isBold: true,
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           CustomButton(
             text: "Checkout",
             onTap: () {
@@ -143,15 +147,17 @@ class CartView extends StatelessWidget {
         Text(
           title,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-                color: AppColors.grey,
-              ),
+            fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+            color: AppColors.grey,
+            fontSize: 16.sp,
+          ),
         ),
         Text(
           '\$${amount.toStringAsFixed(2)}',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-              ),
+            fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+            fontSize: 16.sp,
+          ),
         ),
       ],
     );

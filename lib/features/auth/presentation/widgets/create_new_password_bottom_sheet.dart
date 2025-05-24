@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_text_form_field.dart';
 
@@ -56,8 +57,10 @@ class _CreateNewPasswordBottomSheetState
             color: Colors.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
         padding: EdgeInsets.only(
-          top: 23,
+          top: 23.h,
           bottom: MediaQuery.of(context).viewInsets.bottom,
+          left: 24.w,
+          right: 24.w,
         ),
         constraints: BoxConstraints(
           maxHeight: MediaQuery.of(context).size.height * 0.85,
@@ -67,31 +70,33 @@ class _CreateNewPasswordBottomSheetState
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 23.h),
                   Text(
                     'Create New Password',
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.sp,
+                    ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   Text(
                     'Enter your new password and confirm it',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontSize: 14.sp,
+                    ),
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24.h),
 
                   // New Password Field
                   CustomTextFormField(
                     label: 'New Password',
                     controller: widget.newPasswordController,
-                    prefixIcon: Icon(Icons.lock_outline),
+                    prefixIcon: Icon(Icons.lock_outline, size: 20.sp),
                     hintText: 'Enter new password',
                     obscureText: _obscureNewPassword,
                     focusNode: _newPasswordFocusNode,
@@ -101,6 +106,7 @@ class _CreateNewPasswordBottomSheetState
                             ? Icons.visibility
                             : Icons.visibility_off,
                         color: Colors.grey,
+                        size: 20.sp,
                       ),
                       onPressed: () {
                         setState(() {
@@ -109,13 +115,13 @@ class _CreateNewPasswordBottomSheetState
                       },
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
 
                   // Confirm Password Field
                   CustomTextFormField(
                     label: 'Confirm Password',
                     controller: widget.confirmPasswordController,
-                    prefixIcon: Icon(Icons.lock_outline),
+                    prefixIcon: Icon(Icons.lock_outline, size: 20.sp),
                     hintText: 'Confirm new password',
                     obscureText: _obscureConfirmPassword,
                     focusNode: _confirmPasswordFocusNode,
@@ -125,6 +131,7 @@ class _CreateNewPasswordBottomSheetState
                             ? Icons.visibility
                             : Icons.visibility_off,
                         color: Colors.grey,
+                        size: 20.sp,
                       ),
                       onPressed: () {
                         setState(() {
@@ -133,13 +140,14 @@ class _CreateNewPasswordBottomSheetState
                       },
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  SizedBox(height: 32.h),
 
                   // Update Button
                   CustomButton(
                     text: "Update Password",
                     onTap: _validateAndSubmit,
                   ),
+                  SizedBox(height: 24.h),
                 ],
               ),
             ),

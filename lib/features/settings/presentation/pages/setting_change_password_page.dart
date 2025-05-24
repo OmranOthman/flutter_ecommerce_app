@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_text_form_field.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/view_model/setting_change_password_cubit/setting_change_password_cubit.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/view_model/setting_change_password_cubit/setting_change_password_state.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 
 class SettingChangePasswordPage extends StatelessWidget {
-  const SettingChangePasswordPage(
-      {super.key, required Null Function() onDispose});
+  const SettingChangePasswordPage({super.key, required Null Function() onDispose});
 
   @override
   Widget build(BuildContext context) {
@@ -15,21 +15,24 @@ class SettingChangePasswordPage extends StatelessWidget {
       create: (_) => SettingChangePasswordCubit(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Change Password", style: TextStyle(fontSize: 16)),
+          title: Text(
+            "Change Password",
+            style: TextStyle(fontSize: 16.sp),
+          ),
           centerTitle: true,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: Icon(Icons.arrow_back, size: 24.w),
             onPressed: () => Navigator.pop(context),
           ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.more_vert),
+              icon: Icon(Icons.more_vert, size: 24.w),
               onPressed: () {},
             ),
           ],
           bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(1),
-            child: Container(color: Colors.grey.withOpacity(0.3), height: 1),
+            preferredSize: Size.fromHeight(1.h),
+            child: Container(color: Colors.grey.withOpacity(0.3), height: 1.h),
           ),
         ),
         body: const ChangePasswordView(),
@@ -66,14 +69,10 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
     });
 
     _newPasswordController.addListener(() {
-      context
-          .read<SettingChangePasswordCubit>()
-          .newPasswordChanged(_newPasswordController.text);
+      context.read<SettingChangePasswordCubit>().newPasswordChanged(_newPasswordController.text);
     });
     _confirmPasswordController.addListener(() {
-      context
-          .read<SettingChangePasswordCubit>()
-          .confirmPasswordChanged(_confirmPasswordController.text);
+      context.read<SettingChangePasswordCubit>().confirmPasswordChanged(_confirmPasswordController.text);
     });
   }
 
@@ -90,7 +89,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
   Widget build(BuildContext context) {
     return BlocListener<SettingChangePasswordCubit, SettingChangePasswordState>(
       listenWhen: (previous, current) =>
-          previous.errorMessage != current.errorMessage ||
+      previous.errorMessage != current.errorMessage ||
           previous.success != current.success,
       listener: (context, state) {
         if (state.errorMessage != null) {
@@ -112,11 +111,10 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
           Navigator.pop(context);
         }
       },
-      child:
-          BlocBuilder<SettingChangePasswordCubit, SettingChangePasswordState>(
+      child: BlocBuilder<SettingChangePasswordCubit, SettingChangePasswordState>(
         builder: (context, state) {
           return Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.w),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -126,48 +124,42 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                     CustomTextFormField(
                       label: 'New Password',
                       controller: _newPasswordController,
-                      prefixIcon: Icon(Icons.lock_outline),
+                      prefixIcon: Icon(Icons.lock_outline, size: 24.w),
                       hintText: 'Enter new password',
                       obscureText: state.obscureNewPassword,
                       focusNode: _newPasswordFocusNode,
                       suffixIcon: IconButton(
                         icon: Icon(
-                          state.obscureNewPassword
-                              ? Icons.visibility
-                              : Icons.visibility_off,
+                          state.obscureNewPassword ? Icons.visibility : Icons.visibility_off,
                           color: Colors.grey,
+                          size: 24.w,
                         ),
-                        onPressed: () => context
-                            .read<SettingChangePasswordCubit>()
-                            .toggleObscureNewPassword(),
+                        onPressed: () => context.read<SettingChangePasswordCubit>().toggleObscureNewPassword(),
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24.h),
                     CustomTextFormField(
                       label: 'Confirm Password',
                       controller: _confirmPasswordController,
-                      prefixIcon: Icon(Icons.lock_outline),
+                      prefixIcon: Icon(Icons.lock_outline, size: 24.w),
                       hintText: 'Confirm new password',
                       obscureText: state.obscureConfirmPassword,
                       focusNode: _confirmPasswordFocusNode,
                       suffixIcon: IconButton(
                         icon: Icon(
-                          state.obscureConfirmPassword
-                              ? Icons.visibility
-                              : Icons.visibility_off,
+                          state.obscureConfirmPassword ? Icons.visibility : Icons.visibility_off,
                           color: Colors.grey,
+                          size: 24.w,
                         ),
-                        onPressed: () => context
-                            .read<SettingChangePasswordCubit>()
-                            .toggleObscureConfirmPassword(),
+                        onPressed: () => context.read<SettingChangePasswordCubit>().toggleObscureConfirmPassword(),
                       ),
                     ),
                   ],
                 ),
                 CustomButton(
                   text: "Update Password",
-                  onTap: () =>
-                      context.read<SettingChangePasswordCubit>().submit(),
+                  onTap: () => context.read<SettingChangePasswordCubit>().submit(),
+                  height: 48.h,
                 ),
               ],
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
@@ -14,40 +15,51 @@ class OrderConfirmationBottomSheet {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => Container(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.check_circle, color: Colors.green, size: 150),
-            const SizedBox(height: 20),
-            Text(
-              'Order Successfully',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'Your order will be packed by the clerk, will arrive at your house in 3 to 4 days',
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.check_circle,
+                color: Colors.green,
+                size: 150.w,  // ScreenUtil scale
+              ),
+              SizedBox(height: 20.h),
+              Text(
+                'Order Successfully',
+                style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: AppColors.grey,
+              ),
+              SizedBox(height: 15.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.w),
+                child: Text(
+                  'Your order will be packed by the clerk, will arrive at your house in 3 to 4 days',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: AppColors.grey,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 30),
-            CustomButton(
-              text: 'Order Tracking',
-              onTap: () {
-                Navigator.pushNamed(context, RoutePath.trackingRoute);
-              },
-            ),
-            const SizedBox(height: 10),
-          ],
+              SizedBox(height: 30.h),
+              SizedBox(
+                width: double.infinity,
+                child: CustomButton(
+                  text: 'Order Tracking',
+                  onTap: onTrackOrder ??
+                          () {
+                        Navigator.pushNamed(context, RoutePath.trackingRoute);
+                      },
+                ),
+              ),
+              SizedBox(height: 10.h),
+            ],
+          ),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/widget/notification_card.dart';
 
@@ -11,43 +12,44 @@ class NotificationsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Notification",
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 22.sp),
         ),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.pushNamed(context, RoutePath.settingNotificationsRoute);
             },
-            icon: const Icon(Icons.settings_outlined),
+            icon: Icon(Icons.settings_outlined, size: 24.sp),
           ),
         ],
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, size: 24.sp),
           onPressed: () => Navigator.pop(context),
         ),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1),
-          child: Container(color: Colors.grey.withOpacity(0.3), height: 1),
+          preferredSize: Size.fromHeight(1.h),
+          child: Container(color: Colors.grey.withOpacity(0.3), height: 1.h),
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: EdgeInsets.symmetric(vertical: 16.h),
               child: Text(
                 "Recent",
-                style: Theme.of(context).textTheme.headlineMedium,
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 24.sp),
               ),
             ),
             NotificationCard(
               icon: Icons.check_circle,
               iconColor: Colors.green,
               title: "Purchase Completed!",
-              message: "You have successfully purchased 334 headphones, thank you and wait for your package to arrive",
+              message:
+              "You have successfully purchased 334 headphones, thank you and wait for your package to arrive",
               time: "9:30 AM",
               hasAction: false,
             ),
@@ -58,10 +60,7 @@ class NotificationsPage extends StatelessWidget {
               message: "hello your package has almost arrived, are you at home now?",
               time: "9:25 AM",
               hasAction: true,
-              actionTextAccept: "yes",
-              actionTextReject: "No",
-              onActionAccept: () {},
-              onActionReject:() {},
+
             ),
             NotificationCard(
               icon: Icons.local_offer,

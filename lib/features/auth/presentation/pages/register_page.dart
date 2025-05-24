@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_assets.dart';
@@ -41,14 +42,16 @@ class _RegisterViewState extends State<RegisterView> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 50),
-              Text('Create Account',
-                  style: Theme.of(context).textTheme.headlineLarge),
-              const SizedBox(height: 8),
+              SizedBox(height: 50.h),
+              Text(
+                'Create Account',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              SizedBox(height: 8.h),
               Text(
                 'Start shopping with create your account',
                 style: Theme.of(context)
@@ -56,19 +59,16 @@ class _RegisterViewState extends State<RegisterView> {
                     .labelLarge!
                     .copyWith(color: AppColors.grey),
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: 24.h),
               Form(
                 key: _formKey,
                 child: Column(
-                  spacing: 20,
                   children: [
                     CustomTextFormField(
                       keyboardType: TextInputType.name,
                       label: 'username'.tr,
                       hintText: 'enter_your_username'.tr,
-                      prefixIcon: Icon(
-                        Icons.person_outline,
-                      ),
+                      prefixIcon: const Icon(Icons.person_outline),
                       validator: (validator) {
                         if (validator == null || validator.isEmpty) {
                           return 'this_field_is_required'.tr;
@@ -76,13 +76,12 @@ class _RegisterViewState extends State<RegisterView> {
                         return null;
                       },
                     ),
+                    SizedBox(height: 20.h),
                     CustomTextFormField(
                       keyboardType: TextInputType.emailAddress,
                       label: 'email'.tr,
                       hintText: 'enter_your_email'.tr,
-                      prefixIcon: Icon(
-                        Icons.email_outlined,
-                      ),
+                      prefixIcon: const Icon(Icons.email_outlined),
                       validator: (validator) {
                         if (validator == null || validator.isEmpty) {
                           return 'this_field_is_required'.tr;
@@ -90,13 +89,13 @@ class _RegisterViewState extends State<RegisterView> {
                         return null;
                       },
                     ),
+                    SizedBox(height: 20.h),
                     CustomTextFormField(
                       keyboardType: TextInputType.visiblePassword,
                       label: 'password'.tr,
                       hintText: 'enter_your_password'.tr,
-                      prefixIcon: Icon(
-                        Icons.lock_outline,
-                      ),
+                      obscureText: _obscureText,
+                      prefixIcon: const Icon(Icons.lock_outline),
                       suffixIcon: IconButton(
                         icon: Icon(
                           _obscureText
@@ -119,56 +118,55 @@ class _RegisterViewState extends State<RegisterView> {
                   ],
                 ),
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: 40.h),
               CustomButton(
                 isLoading: false,
-                // state is AuthLoading,
                 text: 'Create Account',
                 onTap: () async {
-                  if (_formKey.currentState!.validate()) {}
+                  if (_formKey.currentState!.validate()) {
+                    // Call register logic
+                  }
                 },
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               Align(
                 alignment: Alignment.center,
-                child: Column(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "You have an account?",
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: Text(
-                            'Login',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(color: Theme.of(context).primaryColor,),
-                          ),
-                        ),
-                      ],
+                    Text(
+                      "You have an account?",
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text(
+                        'Login',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(color: Theme.of(context).primaryColor),
+                      ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
               SocialMediaButton(
-                  text: 'Login with Google',
-                  img: AppAssets.images.logoGoogle,
-                  onTap: () {
-                    Navigator.of(context).pushNamed(RoutePath.homeRoute);
-                  }),
-              const SizedBox(height: 16),
+                text: 'Login with Google',
+                img: AppAssets.images.logoGoogle,
+                onTap: () {
+                  Navigator.of(context).pushNamed(RoutePath.homeRoute);
+                },
+              ),
+              SizedBox(height: 16.h),
               SocialMediaButton(
-                  text: 'Login with Facebook',
-                  img: AppAssets.images.logoFacebook,
-                  onTap: () {
-                    Navigator.of(context).pushNamed(RoutePath.homeRoute);
-                  }),
+                text: 'Login with Facebook',
+                img: AppAssets.images.logoFacebook,
+                onTap: () {
+                  Navigator.of(context).pushNamed(RoutePath.homeRoute);
+                },
+              ),
             ],
           ),
         ),

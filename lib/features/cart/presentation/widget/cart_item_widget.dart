@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/cart/presentation/view_model/cart_cubit/cart_cubit.dart';
 import 'package:flutter_ecommerce_app/models/add_to_cart_model.dart';
@@ -26,47 +27,52 @@ class CartItemWidget extends StatelessWidget {
           value: isSelected,
           onChanged: (value) => onSelect(value ?? false),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(4.r),
           ),
         ),
-        const SizedBox(width: 8),
+        SizedBox(width: 8.w),
         DecoratedBox(
           decoration: BoxDecoration(
             color: AppColors.grey2,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
           ),
           child: Image.network(
             cartItem.product.imgUrl,
-            height: 100,
-            width: 100,
+            height: 100.h,
+            width: 100.w,
             fit: BoxFit.cover,
           ),
         ),
-        const SizedBox(width: 16),
+        SizedBox(width: 16.w),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 cartItem.product.name,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontSize: 16.sp,
+                ),
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4.h),
               Text.rich(
                 TextSpan(
                   text: 'Size: ',
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: AppColors.grey,
+                    fontSize: 14.sp,
                   ),
                   children: [
                     TextSpan(
                       text: cartItem.size.name,
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontSize: 14.sp,
+                      ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -79,6 +85,7 @@ class CartItemWidget extends StatelessWidget {
                     '\$${(cartItem.quantity * cartItem.product.price).toStringAsFixed(2)}',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
+                      fontSize: 18.sp,
                     ),
                   ),
                 ],

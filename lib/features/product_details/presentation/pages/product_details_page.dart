@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/product_details/presentation/view_model/product_details_cubit/product_details_cubit.dart';
@@ -19,7 +20,7 @@ class ProductDetailsPage extends StatelessWidget {
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
       bloc: cubit,
       buildWhen: (previous, current) =>
-          current is ProductDetailsLoading ||
+      current is ProductDetailsLoading ||
           current is ProductDetailsLoaded ||
           current is ProductDetailsError,
       builder: (context, state) {
@@ -50,7 +51,6 @@ class ProductDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     final cubit = BlocProvider.of<ProductDetailsCubit>(context);
 
     return Scaffold(
@@ -58,33 +58,38 @@ class ProductDetailsView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text('Product Details'),
+        title: Text(
+          'Product Details',
+          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600),
+        ),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(RoutePath.cartRoute);
-              },
-              icon: Icon(Icons.shopping_bag_outlined))
+            onPressed: () {
+              Navigator.of(context).pushNamed(RoutePath.cartRoute);
+            },
+            icon: Icon(Icons.shopping_bag_outlined, size: 24.sp),
+          ),
         ],
       ),
       body: Stack(
         children: [
           Container(
-            height: size.height * 0.52,
+            height: 520.h,
             width: double.infinity,
             decoration: BoxDecoration(color: AppColors.grey2),
             child: Column(
               children: [
-                SizedBox(height: size.height * 0.1),
+                SizedBox(height: 100.h),
                 CachedNetworkImage(
                   imageUrl: product.imgUrl,
-                  height: size.height * 0.4,
+                  height: 400.h,
+                  fit: BoxFit.contain,
                 ),
               ],
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: size.height * 0.47),
+            padding: EdgeInsets.only(top: 470.h),
             child: SingleChildScrollView(
               child: Container(
                 width: double.infinity,
@@ -96,24 +101,24 @@ class ProductDetailsView extends StatelessWidget {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(36.0),
+                  padding: EdgeInsets.all(36.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _buildTitleAndCounter(context, cubit),
-                      const SizedBox(height: 16),
+                      SizedBox(height: 16.h),
                       _buildSizeSelector(context, cubit),
-                      const SizedBox(height: 16),
-                      const Text(
+                      SizedBox(height: 16.h),
+                      Text(
                         'Description',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontSize: 18.sp,
                         ),
                       ),
-                      const SizedBox(height: 8.0),
+                      SizedBox(height: 8.h),
                       _buildDescription(product.description),
-                      const SizedBox(height: 16),
+                      SizedBox(height: 16.h),
                       _buildBottomRow(context, cubit),
                     ],
                   ),
@@ -131,31 +136,36 @@ class ProductDetailsView extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              product.name,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .copyWith(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 6),
-            Row(
-              children: [
-                const Icon(Icons.star, color: AppColors.yellow, size: 22),
-                const SizedBox(width: 5),
-                Text(product.averageRate.toString(),
-                    style: Theme.of(context).textTheme.titleMedium),
-              ],
-            ),
-          ],
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                product.name,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(fontWeight: FontWeight.bold, fontSize: 22.sp),
+              ),
+              SizedBox(height: 6.h),
+              Row(
+                children: [
+                  Icon(Icons.star, color: AppColors.yellow, size: 22.sp),
+                  SizedBox(width: 5.w),
+                  Text(product.averageRate.toString(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium!
+                          .copyWith(fontSize: 18.sp)),
+                ],
+              ),
+            ],
+          ),
         ),
         BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
           bloc: cubit,
           buildWhen: (previous, current) =>
-              current is QuantityCounterLoaded ||
+          current is QuantityCounterLoaded ||
               current is ProductDetailsLoaded,
           builder: (context, state) {
             if (state is QuantityCounterLoaded) {
@@ -183,45 +193,45 @@ class ProductDetailsView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Size',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
         BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
           bloc: cubit,
           buildWhen: (previous, current) =>
-              current is SizeSelected || current is ProductDetailsLoaded,
+          current is SizeSelected || current is ProductDetailsLoaded,
           builder: (context, state) {
             return Row(
               children: ProductSize.values
                   .map(
                     (size) => Padding(
-                      padding: const EdgeInsets.only(top: 6.0, right: 8.0),
-                      child: InkWell(
-                        onTap: () => cubit.selectSize(size),
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
+                  padding: EdgeInsets.only(top: 6.h, right: 8.w),
+                  child: InkWell(
+                    onTap: () => cubit.selectSize(size),
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: state is SizeSelected && state.size == size
+                            ? Theme.of(context).primaryColor
+                            : AppColors.grey2,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(12.w),
+                        child: Text(
+                          size.name,
+                          style: TextStyle(
                             color: state is SizeSelected && state.size == size
-                                ? Theme.of(context).primaryColor
-                                : AppColors.grey2,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Text(
-                              size.name,
-                              style: TextStyle(
-                                color:
-                                    state is SizeSelected && state.size == size
-                                        ? AppColors.white
-                                        : AppColors.black,
-                              ),
-                            ),
+                                ? AppColors.white
+                                : AppColors.black,
+                            fontSize: 14.sp,
                           ),
                         ),
                       ),
                     ),
-                  )
+                  ),
+                ),
+              )
                   .toList(),
             );
           },
@@ -241,9 +251,9 @@ class ProductDetailsView extends StatelessWidget {
               isExpanded
                   ? description
                   : description.length > 100
-                      ? '${description.substring(0, 100)}...'
-                      : description,
-              style: const TextStyle(color: AppColors.black45),
+                  ? '${description.substring(0, 100)}...'
+                  : description,
+              style: TextStyle(color: AppColors.black45, fontSize: 14.sp),
             ),
             if (description.length > 100)
               InkWell(
@@ -254,9 +264,10 @@ class ProductDetailsView extends StatelessWidget {
                 },
                 child: Text(
                   isExpanded ? 'Show Less' : 'Read More',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primary,
                     fontWeight: FontWeight.bold,
+                    fontSize: 14.sp,
                   ),
                 ),
               ),
@@ -273,7 +284,7 @@ class ProductDetailsView extends StatelessWidget {
         BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
           bloc: cubit,
           buildWhen: (previous, current) =>
-              current is QuantityCounterLoaded ||
+          current is QuantityCounterLoaded ||
               current is ProductDetailsLoaded,
           builder: (context, state) {
             final total = cubit.totalPrice;
@@ -281,15 +292,17 @@ class ProductDetailsView extends StatelessWidget {
               TextSpan(
                 text: '\$ ',
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).primaryColor,
-                    ),
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 24.sp,
+                ),
                 children: [
                   TextSpan(
                     text: total.toStringAsFixed(2),
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24.sp,
+                    ),
                   ),
                 ],
               ),
@@ -299,7 +312,7 @@ class ProductDetailsView extends StatelessWidget {
         BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
           bloc: cubit,
           buildWhen: (previous, current) =>
-              current is ProductAddedToCart || current is ProductAddingToCart,
+          current is ProductAddedToCart || current is ProductAddingToCart,
           builder: (context, state) {
             if (state is ProductAddingToCart) {
               return ElevatedButton(
@@ -307,6 +320,8 @@ class ProductDetailsView extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).primaryColor,
                   foregroundColor: AppColors.white,
+                  padding: EdgeInsets.symmetric(
+                      vertical: 18.h, horizontal: 40.w),
                 ),
                 child: const CircularProgressIndicator.adaptive(),
               );
@@ -316,8 +331,16 @@ class ProductDetailsView extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).primaryColor,
                   foregroundColor: AppColors.white,
+                  padding: EdgeInsets.symmetric(
+                      vertical: 18.h, horizontal: 40.w),
                 ),
-                child: const Text('Added To Cart'),
+                child: Text(
+                  'Added To Cart',
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                      color: AppColors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.sp),
+                ),
               );
             }
             return ElevatedButton.icon(
@@ -335,15 +358,21 @@ class ProductDetailsView extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).primaryColor,
                 foregroundColor: AppColors.white,
-                padding: const EdgeInsets.symmetric(
-                    vertical: 18.0, horizontal: 40.0),
+                padding:
+                EdgeInsets.symmetric(vertical: 18.h, horizontal: 40.w),
               ),
               label: Text(
                 'Add to Cart',
                 style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: AppColors.white, fontWeight: FontWeight.bold),
+                  color: AppColors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.sp,
+                ),
               ),
-              icon: const Icon(Icons.shopping_bag_outlined,size: 22,),
+              icon: Icon(
+                Icons.shopping_bag_outlined,
+                size: 22.sp,
+              ),
             );
           },
         ),

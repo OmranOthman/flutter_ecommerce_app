@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SettingLegalAndPoliciesPage extends StatelessWidget {
   const SettingLegalAndPoliciesPage({super.key});
@@ -11,50 +12,65 @@ class SettingLegalAndPoliciesPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Legal and Policies",
-          style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+            fontSize: 16.sp,
+          ),
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, size: 20.sp),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.more_vert),
+            icon: Icon(Icons.more_vert, size: 20.sp),
             onPressed: () {},
           ),
         ],
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1),
-          child: Container(color: Colors.grey.withOpacity(0.3), height: 1),
+          preferredSize: Size.fromHeight(1.h),
+          child: Container(color: Colors.grey.withOpacity(0.3), height: 1.h),
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Text(
               "Terms",
-              style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.sp,
+              ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Text(
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-              style: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                height: 1.5,
+                fontSize: 14.sp,
+              ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Text(
               "Change to the Service and/or Terms:",
-              style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.sp,
+              ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Text(
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-              style: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                height: 1.5,
+                fontSize: 14.sp,
+              ),
             ),
-            const SizedBox(height: 50),
+            SizedBox(height: 50.h),
           ],
         ),
       ),

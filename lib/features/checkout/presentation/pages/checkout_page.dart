@@ -71,7 +71,7 @@ class CheckoutView extends StatelessWidget {
         },
       );
     } else {
-      return EmptyShippingAndPayment(
+      return const EmptyShippingAndPayment(
         title: 'Add Payment Method',
         isPayment: true,
       );
@@ -80,35 +80,45 @@ class CheckoutView extends StatelessWidget {
 
   Widget _buildShippingItem(LocationItemModel? chosenAddress, BuildContext context) {
     if (chosenAddress != null) {
-      return Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: CachedNetworkImage(
-              imageUrl: chosenAddress.imgUrl,
-              width: 140,
-              height: 100,
-              fit: BoxFit.cover,
+      return LayoutBuilder(builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: CachedNetworkImage(
+                imageUrl: chosenAddress.imgUrl,
+                width: width * 0.4 > 140 ? 140 : width * 0.4,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          const SizedBox(width: 24),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                chosenAddress.city,
-                style: Theme.of(context).textTheme.bodyLarge,
+            SizedBox(width: width * 0.05),
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    chosenAddress.city,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    '${chosenAddress.city}, ${chosenAddress.country}',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: AppColors.grey,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ),
-              Text(
-                '${chosenAddress.city}, ${chosenAddress.country}',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: AppColors.grey,
-                ),
-              ),
-            ],
-          ),
-        ],
-      );
+            ),
+          ],
+        );
+      });
     } else {
       return const EmptyShippingAndPayment(
         title: 'Add shipping address',
@@ -120,6 +130,7 @@ class CheckoutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<CheckoutCubit>(context);
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
@@ -152,7 +163,7 @@ class CheckoutView extends StatelessWidget {
 
             return SafeArea(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
                 child: Column(
                   children: [
                     CheckoutHeadlinesItem(
@@ -181,6 +192,7 @@ class CheckoutView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final cartItem = cartItems[index];
                         return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
@@ -191,6 +203,7 @@ class CheckoutView extends StatelessWidget {
                                 imageUrl: cartItem.product.imgUrl,
                                 height: 86,
                                 width: 86,
+                                fit: BoxFit.cover,
                               ),
                             ),
                             const SizedBox(width: 16.0),
@@ -201,31 +214,39 @@ class CheckoutView extends StatelessWidget {
                                   Text(
                                     cartItem.product.name,
                                     style: Theme.of(context).textTheme.bodyLarge,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                   const SizedBox(height: 4.0),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text.rich(
-                                        TextSpan(
-                                          text: 'Size: ',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium!
-                                              .copyWith(color: AppColors.grey),
-                                          children: [
-                                            TextSpan(
-                                              text: cartItem.size.name,
-                                              style: Theme.of(context).textTheme.bodyMedium,
-                                            ),
-                                          ],
+                                      Flexible(
+                                        child: Text.rich(
+                                          TextSpan(
+                                            text: 'Size: ',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium!
+                                                .copyWith(color: AppColors.grey),
+                                            children: [
+                                              TextSpan(
+                                                text: cartItem.size.name,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium,
+                                              ),
+                                            ],
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
                                       Text(
                                         '\$${cartItem.totalPrice.toStringAsFixed(2)}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineSmall,
+                                        style:
+                                        Theme.of(context).textTheme.headlineSmall,
                                       ),
                                     ],
                                   ),
@@ -253,7 +274,8 @@ class CheckoutView extends StatelessWidget {
                       height: 60,
                       child: CustomButton(
                         text: 'Checkout Now',
-                        onTap: () => OrderConfirmationBottomSheet.show(context: context),
+                        onTap: () =>
+                            OrderConfirmationBottomSheet.show(context: context),
                       ),
                     ),
                     const SizedBox(height: 40.0),

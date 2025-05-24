@@ -5,6 +5,7 @@ import 'package:flutter_ecommerce_app/dependency_injections.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/widget/settings_bottom.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -60,54 +61,46 @@ class SettingsView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings", style: TextStyle(fontSize: 16)),
+        title: Text("Settings", style: TextStyle(fontSize: 16.sp)),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, size: 22.sp),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
-          IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
+          IconButton(icon: Icon(Icons.more_vert, size: 22.sp), onPressed: () {}),
         ],
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1),
-          child: Container(color: Colors.grey.withOpacity(0.3), height: 1),
+          preferredSize: Size.fromHeight(1.h),
+          child: Container(color: Colors.grey.withOpacity(0.3), height: 1.h),
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
         children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 8),
-            child: Text("General", style: TextStyle(fontWeight: FontWeight.bold)),
+          Padding(
+            padding: EdgeInsets.only(top: 10.h, bottom: 8.h),
+            child: Text("General", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp)),
           ),
           SettingsBottom(
             icon: Icons.person_outline,
             title: "Edit Profile",
-            onTap: () {
-              Navigator.pushNamed(context, RoutePath.settingEditProfileRoute);
-            },
+            onTap: () => Navigator.pushNamed(context, RoutePath.settingEditProfileRoute),
           ),
           SettingsBottom(
             icon: Icons.lock_outline,
             title: "Change Password",
-            onTap: () {
-              Navigator.pushNamed(context, RoutePath.settingChangePasswordRoute);
-            },
+            onTap: () => Navigator.pushNamed(context, RoutePath.settingChangePasswordRoute),
           ),
           SettingsBottom(
             icon: Icons.notifications_none,
             title: "Notifications",
-            onTap: () {
-              Navigator.pushNamed(context, RoutePath.settingNotificationsRoute);
-            },
+            onTap: () => Navigator.pushNamed(context, RoutePath.settingNotificationsRoute),
           ),
           SettingsBottom(
             icon: Icons.security_outlined,
             title: "Security",
-            onTap: () {
-              Navigator.pushNamed(context, RoutePath.settingSecurityRoute);
-            },
+            onTap: () => Navigator.pushNamed(context, RoutePath.settingSecurityRoute),
           ),
           SettingsBottom(
             icon: Icons.language,
@@ -115,26 +108,22 @@ class SettingsView extends StatelessWidget {
             trailingText: selectedLanguage,
             onTap: () async {
               await Navigator.pushNamed(context, RoutePath.settingLanguageRoute);
-              onLanguageChanged(); // Refresh language after returning
+              onLanguageChanged();
             },
           ),
-          const Padding(
-            padding: EdgeInsets.only(top: 14, bottom: 6),
-            child: Text("Preferences", style: TextStyle(fontWeight: FontWeight.bold)),
+          Padding(
+            padding: EdgeInsets.only(top: 14.h, bottom: 6.h),
+            child: Text("Preferences", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp)),
           ),
           SettingsBottom(
             icon: Icons.policy_outlined,
             title: "Legal and Policies",
-            onTap: () {
-              Navigator.pushNamed(context, RoutePath.settingLegalAndPoliciesRoute);
-            },
+            onTap: () => Navigator.pushNamed(context, RoutePath.settingLegalAndPoliciesRoute),
           ),
           SettingsBottom(
             icon: Icons.help_outline,
             title: "Help & Support",
-            onTap: () {
-              Navigator.pushNamed(context, RoutePath.settingHelpRoute);
-            },
+            onTap: () => Navigator.pushNamed(context, RoutePath.settingHelpRoute),
           ),
           BlocBuilder<AuthCubit, AuthState>(
             builder: (context, state) {
@@ -150,7 +139,7 @@ class SettingsView extends StatelessWidget {
               );
             },
           ),
-          const SizedBox(height: 100),
+          SizedBox(height: 100.h),
         ],
       ),
     );
@@ -158,53 +147,53 @@ class SettingsView extends StatelessWidget {
 
   Widget _logoutDialog(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
+            padding: EdgeInsets.fromLTRB(20.w, 40.h, 20.w, 20.h),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const SizedBox(height: 16),
-                const Text(
+                SizedBox(height: 16.h),
+                Text(
                   'Are you sure you want to logout?',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24.h),
                 SizedBox(
-                  width: 150,
+                  width: 150.w,
                   child: ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepPurple,
                       foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
                     ),
-                    child: const Text('Cancel'),
+                    child: Text('Cancel', style: TextStyle(fontSize: 14.sp)),
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 GestureDetector(
                   onTap: () async {
                     Navigator.of(context).pop();
-                  //  await cubit.logout();
+                    // await cubit.logout();
                   },
-                  child: const Text(
+                  child: Text(
                     'Log Out',
-                    style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600),
+                    style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600, fontSize: 14.sp),
                   ),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
               ],
             ),
           ),
           Positioned(
-            top: 8,
-            right: 8,
+            top: 8.h,
+            right: 8.w,
             child: IconButton(
-              icon: const Icon(Icons.close),
+              icon: Icon(Icons.close, size: 20.sp),
               onPressed: () => Navigator.of(context).pop(),
             ),
           ),

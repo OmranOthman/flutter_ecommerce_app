@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/views/widgets/text_field_search.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -47,38 +48,44 @@ class _SettingLanguagePageState extends State<SettingLanguagePage> {
     final filteredLanguages = searchQuery.isEmpty
         ? languages
         : languages
-            .where((lang) =>
-                lang.name.toLowerCase().contains(searchQuery.toLowerCase()))
-            .toList();
+        .where((lang) =>
+        lang.name.toLowerCase().contains(searchQuery.toLowerCase()))
+        .toList();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Language", style: TextStyle(fontSize: 16)),
+        title: Text("Language", style: TextStyle(fontSize: 16.sp)),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, size: 20.sp),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.more_vert),
+            icon: Icon(Icons.more_vert, size: 20.sp),
             onPressed: () {},
           ),
         ],
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1),
-          child: Container(color: Colors.grey.withOpacity(0.3), height: 1),
+          preferredSize: Size.fromHeight(1.h),
+          child: Container(
+            color: Colors.grey.withOpacity(0.3),
+            height: 1.h,
+          ),
         ),
       ),
       body: Column(
         children: [
-          TextFieldSearch(
-            hintText: 'Search language',
-            onChanged: (value) {
-              setState(() {
-                searchQuery = value;
-              });
-            },
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+            child: TextFieldSearch(
+              hintText: 'Search language',
+              onChanged: (value) {
+                setState(() {
+                  searchQuery = value;
+                });
+              },
+            ),
           ),
           Expanded(
             child: ListView.builder(
@@ -86,21 +93,24 @@ class _SettingLanguagePageState extends State<SettingLanguagePage> {
               itemBuilder: (context, index) {
                 final language = filteredLanguages[index];
                 return Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 4.0),
+                  padding:
+                  EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
                   child: Material(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(10.r),
                       side: selectedLanguage?.code == language.code
-                          ? BorderSide(color: Colors.blue, width: 2.0)
+                          ? BorderSide(color: Colors.blue, width: 2.w)
                           : BorderSide.none,
                     ),
                     color: Theme.of(context).cardColor,
                     child: ListTile(
                       leading: _buildFlag(language.code),
-                      title: Text(language.name),
+                      title: Text(
+                        language.name,
+                        style: TextStyle(fontSize: 14.sp),
+                      ),
                       trailing: selectedLanguage?.code == language.code
-                          ? const Icon(Icons.check, color: Colors.blue)
+                          ? Icon(Icons.check, color: Colors.blue, size: 20.sp)
                           : null,
                       onTap: () {
                         setState(() {
@@ -121,20 +131,20 @@ class _SettingLanguagePageState extends State<SettingLanguagePage> {
 
   Widget _buildFlag(String countryCode) {
     return Container(
-      width: 36,
-      height: 36,
+      width: 36.w,
+      height: 36.h,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: Colors.grey.shade300, width: 1.w),
       ),
       child: ClipOval(
         child: Image.network(
           'https://flagcdn.com/w160/${countryCode.toLowerCase()}.png',
-          width: 36,
-          height: 36,
+          width: 36.w,
+          height: 36.h,
           fit: BoxFit.fill,
           errorBuilder: (context, error, stackTrace) =>
-          const Icon(Icons.language),
+              Icon(Icons.language, size: 20.sp),
         ),
       ),
     );

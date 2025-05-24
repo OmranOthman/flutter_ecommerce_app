@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ToggleItem extends StatelessWidget {
   final String title;
@@ -21,19 +22,19 @@ class ToggleItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20.r),
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   title,
-                  style: theme.textTheme.titleMedium,
+                  style: theme.textTheme.titleMedium?.copyWith(fontSize: 14.sp),
                 ),
                 Switch(
                   value: value,
@@ -54,8 +55,8 @@ class ToggleItem extends StatelessWidget {
           ),
           if (!isLast)
             Container(
-              height: 1,
-              margin: const EdgeInsets.symmetric(horizontal: 16),
+              height: 1.h,
+              margin: EdgeInsets.symmetric(horizontal: 16.w),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [

@@ -19,37 +19,55 @@ class EmptyShippingAndPayment extends StatelessWidget {
     final checkoutCubit = BlocProvider.of<CheckoutCubit>(context);
     final paymentCubit = BlocProvider.of<PaymentMethodsCubit>(context);
 
-    return InkWell(
-      onTap: () {
-        if (isPayment) {
-          Navigator.of(context)
-              .pushNamed(RoutePath.addNewCardRoute, arguments: paymentCubit)
-              .then(
-                (value) async => await checkoutCubit.getCheckoutContent(),
-          );
-        } else {
-          Navigator.of(context).pushNamed(RoutePath.chooseLocation);
-        }
-      },
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: AppColors.grey3,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-          child: Column(
-            children: [
-              const Icon(Icons.add, size: 30),
-              Text(
-                title,
-                style: Theme.of(context).textTheme.bodyMedium,
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isSmallScreen = screenWidth < 400;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final containerPadding = isSmallScreen ? 12.0 : 16.0;
+        final verticalPadding = isSmallScreen ? 16.0 : 24.0;
+        final iconSize = isSmallScreen ? 24.0 : 30.0;
+        final fontSize = isSmallScreen ? 14.0 : 16.0;
+
+        return InkWell(
+          onTap: () {
+            if (isPayment) {
+              Navigator.of(context)
+                  .pushNamed(RoutePath.addNewCardRoute, arguments: paymentCubit)
+                  .then(
+                    (value) async => await checkoutCubit.getCheckoutContent(),
+              );
+            } else {
+              Navigator.of(context).pushNamed(RoutePath.chooseLocation);
+            }
+          },
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: AppColors.grey3,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: containerPadding,
+                vertical: verticalPadding,
               ),
-            ],
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.add, size: iconSize),
+                  SizedBox(height: verticalPadding / 2),
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: fontSize),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

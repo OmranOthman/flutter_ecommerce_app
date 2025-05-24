@@ -1,38 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/theme/app_theme.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 
 class TextThemeMode {
   static TextTheme buildTextTheme(TextTheme base, AppThemeData appTheme) {
     return base.copyWith(
-      // displayLarge: TextStyle(
-      //   fontSize: 45,
-      //   fontFamily: "Cairo",
-      //   fontWeight: FontWeight.bold,
-      //   color: AppThemeData.darkTheme == appTheme
-      //       ? AppColors.darkModeWhiteColor
-      //       : AppColors.lightModeBlackTextColor,
-      // ),
-      // displayMedium: TextStyle(
-      //   fontSize: 40,
-      //   fontFamily: "Cairo",
-      //   fontWeight: FontWeight.w600,
-      //   color: AppThemeData.darkTheme == appTheme
-      //       ? AppColors.darkModeWhiteColor
-      //       : AppColors.lightModeBlackTextColor,
-      // ),
-      // displaySmall: TextStyle(
-      //   fontFamily: "Cairo",
-      //   fontSize: 38,
-      //   fontWeight: FontWeight.w400,
-      //   color: AppThemeData.darkTheme == appTheme
-      //       ? AppColors.darkModeWhiteColor
-      //       : AppColors.lightModeBlackTextColor,
-      // ),
-      //////////////////////////////////////////////////////////////////
       headlineLarge: TextStyle(
         fontFamily: "Cairo",
-        fontSize: 24,
+        fontSize: 24.sp,
         fontWeight: FontWeight.normal,
         color: AppThemeData.darkTheme == appTheme
             ? AppColors.darkModeWhiteColor
@@ -40,7 +16,7 @@ class TextThemeMode {
       ),
       headlineMedium: TextStyle(
         fontFamily: "Cairo",
-        fontSize: 21,
+        fontSize: 21.sp,
         fontWeight: FontWeight.normal,
         color: AppThemeData.darkTheme == appTheme
             ? AppColors.darkModeWhiteColor
@@ -48,41 +24,15 @@ class TextThemeMode {
       ),
       headlineSmall: TextStyle(
         fontFamily: "Cairo",
-        fontSize: 18,
+        fontSize: 18.sp,
         fontWeight: FontWeight.normal,
         color: AppThemeData.darkTheme == appTheme
             ? AppColors.darkModeWhiteColor
             : AppColors.lightModeBlackTextColor,
       ),
-      ////////////////////////////////////////////////////////////////////
-      // titleLarge: TextStyle(
-      //   fontFamily: "Cairo",
-      //   fontSize: 18,
-      //   fontWeight: FontWeight.w700,
-      //   color: AppThemeData.darkTheme == appTheme
-      //       ? AppColors.darkModeWhiteColor
-      //       : AppColors.lightModePrimaryColor,
-      // ),
-      // titleMedium: TextStyle(
-      //   fontFamily: "Cairo",
-      //   fontSize: 16,
-      //   fontWeight: FontWeight.w600,
-      //   color: AppThemeData.darkTheme == appTheme
-      //       ? AppColors.darkModeWhiteColor
-      //       : AppColors.lightModeBlackTextColor,
-      // ),
-      // titleSmall: TextStyle(
-      //   fontFamily: "Cairo",
-      //   fontSize: 14,
-      //   fontWeight: FontWeight.w700,
-      //   color: AppThemeData.darkTheme == appTheme
-      //       ? AppColors.darkModeWhiteColor
-      //       : AppColors.lightModeGrayTextColor,
-      // ),
-      /////////////////////////////////////////////////////////////////////
       labelLarge: TextStyle(
         fontFamily: "Cairo",
-        fontSize: 14,
+        fontSize: 14.sp,
         fontWeight: FontWeight.normal,
         color: AppThemeData.darkTheme == appTheme
             ? AppColors.darkModeWhiteColor
@@ -90,7 +40,7 @@ class TextThemeMode {
       ),
       labelMedium: TextStyle(
         fontFamily: "Cairo",
-        fontSize: 13,
+        fontSize: 13.sp,
         fontWeight: FontWeight.normal,
         color: AppThemeData.darkTheme == appTheme
             ? AppColors.darkModeWhiteColor
@@ -98,16 +48,15 @@ class TextThemeMode {
       ),
       labelSmall: TextStyle(
         fontFamily: "Cairo",
-        fontSize: 12,
+        fontSize: 12.sp,
         fontWeight: FontWeight.normal,
         color: AppThemeData.darkTheme == appTheme
             ? AppColors.darkModeWhiteColor
             : AppColors.lightModeDeepGrayTextColor,
       ),
-      /////////////////////////////////////////////////////////////////////////
       bodyLarge: TextStyle(
         fontFamily: "Cairo",
-        fontSize: 16,
+        fontSize: 16.sp,
         fontWeight: FontWeight.normal,
         color: AppThemeData.darkTheme == appTheme
             ? AppColors.darkModeWhiteColor
@@ -115,7 +64,7 @@ class TextThemeMode {
       ),
       bodyMedium: TextStyle(
         fontFamily: "Cairo",
-        fontSize: 15,
+        fontSize: 15.sp,
         fontWeight: FontWeight.normal,
         color: AppThemeData.darkTheme == appTheme
             ? AppColors.darkModeWhiteColor
@@ -123,7 +72,7 @@ class TextThemeMode {
       ),
       bodySmall: TextStyle(
         fontFamily: "Cairo",
-        fontSize: 14,
+        fontSize: 14.sp,
         fontWeight: FontWeight.normal,
         color: AppThemeData.darkTheme == appTheme
             ? AppColors.darkModeWhiteColor

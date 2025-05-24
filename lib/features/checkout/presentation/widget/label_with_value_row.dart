@@ -12,20 +12,39 @@ class LabelWithValueRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          label,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            color: AppColors.grey,
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isSmallScreen = screenWidth < 400;
+
+    final labelFontSize = isSmallScreen ? 12.0 : 14.0;
+    final valueFontSize = isSmallScreen ? 14.0 : 16.0;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: isSmallScreen ? 4 : 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Flexible(
+            child: Text(
+              label,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: AppColors.grey,
+                fontSize: labelFontSize,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-        ),
-        Text(
-          value,
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
-      ],
+          Flexible(
+            child: Text(
+              value,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                fontSize: valueFontSize,
+              ),
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.end,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

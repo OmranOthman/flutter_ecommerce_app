@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
@@ -11,14 +12,17 @@ class PaymentMethodBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final size = MediaQuery.of(context).size;
     final paymentMethodsCubit = BlocProvider.of<PaymentMethodsCubit>(context);
 
     return SingleChildScrollView(
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(
-              left: 16.0, right: 16.0, top: 36.0, bottom: 16),
+          padding: EdgeInsets.only(
+            left: 16.w,
+            right: 16.w,
+            top: 36.h,
+            bottom: 16.h,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -26,20 +30,30 @@ class PaymentMethodBottomSheet extends StatelessWidget {
                 'Payment Methods',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              const SizedBox(height: 16),
-              BlocBuilder(
+              SizedBox(height: 16.h),
+              BlocBuilder<PaymentMethodsCubit, PaymentMethodsState>(
                 bloc: paymentMethodsCubit,
                 buildWhen: (previous, current) =>
-                    current is FetchedPaymentMethods ||
+                current is FetchedPaymentMethods ||
                     current is FetchPaymentMethodsError ||
                     current is FetchingPaymentMethods,
                 builder: (_, state) {
                   if (state is FetchingPaymentMethods) {
-                    return const Center(
+                    return Center(
                       child: CircularProgressIndicator.adaptive(),
                     );
                   } else if (state is FetchedPaymentMethods) {
                     final paymentCards = state.paymentCards;
+                    if (paymentCards.isEmpty) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20.h),
+                        child: Text(
+                          'No payment methods found. Please add a new card.',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                          textAlign: TextAlign.center,
+                        ),
+                      );
+                    }
                     return ListView.builder(
                       shrinkWrap: true,
                       itemCount: paymentCards.length,
@@ -48,6 +62,7 @@ class PaymentMethodBottomSheet extends StatelessWidget {
                         final paymentCard = paymentCards[index];
                         return Card(
                           elevation: 0,
+                          margin: EdgeInsets.symmetric(vertical: 6.h),
                           child: ListTile(
                             onTap: () {
                               paymentMethodsCubit
@@ -55,17 +70,17 @@ class PaymentMethodBottomSheet extends StatelessWidget {
                             },
                             leading: DecoratedBox(
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(8.r),
                                 color: AppColors.grey2,
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 6.0, vertical: 8.0),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 6.w, vertical: 8.h),
                                 child: CachedNetworkImage(
                                   imageUrl:
-                                      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/1200px-MasterCard_Logo.svg.png',
-                                  width: 50,
-                                  height: 50,
+                                  'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/1200px-MasterCard_Logo.svg.png',
+                                  width: 50.w,
+                                  height: 50.h,
                                   fit: BoxFit.contain,
                                 ),
                               ),
@@ -76,22 +91,21 @@ class PaymentMethodBottomSheet extends StatelessWidget {
                                 PaymentMethodsState>(
                               bloc: paymentMethodsCubit,
                               buildWhen: (previous, current) =>
-                                  current is PaymentMethodChosen,
+                              current is PaymentMethodChosen,
                               builder: (context, state) {
                                 if (state is PaymentMethodChosen) {
-                                  final chosenPaymentMethod =
+                                  final chosenPayment =
                                       state.chosenPayment;
                                   return Radio<String>(
                                     value: paymentCard.id,
-                                    groupValue: chosenPaymentMethod.id,
+                                    groupValue: chosenPayment.id,
                                     onChanged: (id) {
                                       paymentMethodsCubit
                                           .changePaymentMethod(id!);
                                     },
                                   );
-                                } else {
-                                  return const SizedBox();
                                 }
+                                return const SizedBox.shrink();
                               },
                             ),
                           ),
@@ -100,47 +114,49 @@ class PaymentMethodBottomSheet extends StatelessWidget {
                     );
                   } else if (state is FetchPaymentMethodsError) {
                     return Center(
-                      child: Text(state.errorMessage),
+                      child: Text(
+                        state.errorMessage,
+                        style: TextStyle(color: Colors.red),
+                      ),
                     );
-                  } else {
-                    return const SizedBox();
                   }
+                  return const SizedBox.shrink();
                 },
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               InkWell(
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed(RoutePath.addNewCardRoute,
-                          arguments: paymentMethodsCubit)
-                      .then(
-                        (value) async =>
-                            await paymentMethodsCubit.fetchPaymentMethods(),
-                      );
+                      arguments: paymentMethodsCubit)
+                      .then((value) async =>
+                  await paymentMethodsCubit.fetchPaymentMethods());
                 },
                 child: Card(
                   elevation: 0,
+                  margin: EdgeInsets.symmetric(vertical: 6.h),
                   child: ListTile(
                     leading: DecoratedBox(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.grey2,
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: Icon(Icons.add),
-                        )),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.grey2,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(4.w),
+                        child: const Icon(Icons.add),
+                      ),
+                    ),
                     title: const Text('Add New Card'),
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: 24.h),
               BlocConsumer<PaymentMethodsCubit, PaymentMethodsState>(
                 bloc: paymentMethodsCubit,
                 listenWhen: (previous, current) =>
-                    current is ConfirmPaymentSuccess,
+                current is ConfirmPaymentSuccess,
                 buildWhen: (previous, current) =>
-                    current is ConfirmPaymentLoading ||
+                current is ConfirmPaymentLoading ||
                     current is ConfirmPaymentSuccess ||
                     current is ConfirmPaymentFailure,
                 listener: (context, state) {
@@ -149,15 +165,13 @@ class PaymentMethodBottomSheet extends StatelessWidget {
                   }
                 },
                 builder: (context, state) {
-                  // if (state is ConfirmPaymentLoading) {
-                  //   return CustomButton(
-                  //     isLoading: true,
-                  //     onPressed: null,
-                  //   );
-                  // }
+                  final isLoading = state is ConfirmPaymentLoading;
                   return CustomButton(
-                    text: 'Confirm Payemnt',
-                    onTap: () {
+                    text: 'Confirm Payment',
+                    isLoading: isLoading,
+                    onTap: isLoading
+                        ? null
+                        : () {
                       paymentMethodsCubit.confirmPaymentMethod();
                     },
                   );

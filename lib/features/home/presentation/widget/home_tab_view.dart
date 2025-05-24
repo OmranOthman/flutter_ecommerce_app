@@ -6,24 +6,33 @@ import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/view_model/home_cubit/home_cubit.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/widget/product_item.dart';
 
-class HomeTabView extends StatelessWidget {
+class HomeTabView extends StatefulWidget {
   const HomeTabView({super.key});
 
   @override
+  State<HomeTabView> createState() => _HomeTabViewState();
+}
+
+class _HomeTabViewState extends State<HomeTabView> {
+  final ValueNotifier<int> carouselIndexNotifier = ValueNotifier<int>(0);
+
+  @override
+  void dispose() {
+    carouselIndexNotifier.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final carouselIndexNotifier = ValueNotifier<int>(0);
+    final double carouselHeight = MediaQuery.of(context).size.height * 0.25;
 
     return BlocBuilder<HomeCubit, HomeState>(
       bloc: BlocProvider.of<HomeCubit>(context),
       buildWhen: (previous, current) =>
-      current is HomeLoaded ||
-          current is HomeLoading ||
-          current is HomeError,
+      current is HomeLoaded || current is HomeLoading || current is HomeError,
       builder: (context, state) {
         if (state is HomeLoading) {
-          return const Center(
-            child: CircularProgressIndicator.adaptive(),
-          );
+          return const Center(child: CircularProgressIndicator.adaptive());
         } else if (state is HomeLoaded) {
           return SingleChildScrollView(
             child: Column(
@@ -35,27 +44,23 @@ class HomeTabView extends StatelessWidget {
                       children: [
                         FlutterCarousel.builder(
                           itemCount: state.carouselItems.length,
-                          itemBuilder: (BuildContext context, int itemIndex,
-                              int pageViewIndex) =>
-                              Padding(
-                                padding: const EdgeInsetsDirectional.only(bottom: 20, end: 8),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: CachedNetworkImage(
-                                    imageUrl: state.carouselItems[itemIndex].imgUrl,
-                                    fit: BoxFit.fill,
-                                    placeholder: (context, url) => const Center(
-                                      child: CircularProgressIndicator.adaptive(),
-                                    ),
-                                    errorWidget: (context, url, error) => const Icon(
-                                      Icons.error,
-                                      color: Colors.red,
-                                    ),
-                                  ),
+                          itemBuilder: (context, itemIndex, pageIndex) => Padding(
+                            padding: const EdgeInsetsDirectional.only(bottom: 20, end: 8),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: CachedNetworkImage(
+                                imageUrl: state.carouselItems[itemIndex].imgUrl,
+                                fit: BoxFit.fill,
+                                placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator.adaptive(),
                                 ),
+                                errorWidget: (context, url, error) =>
+                                const Icon(Icons.error, color: Colors.red),
                               ),
+                            ),
+                          ),
                           options: CarouselOptions(
-                            height: 200,
+                            height: carouselHeight,
                             showIndicator: false,
                             autoPlay: true,
                             onPageChanged: (index, reason) {
@@ -63,16 +68,16 @@ class HomeTabView extends StatelessWidget {
                             },
                           ),
                         ),
-                        const SizedBox(height: 6), // Reduced spacing
+                        const SizedBox(height: 6),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(
                             state.carouselItems.length,
                                 (index) => AnimatedContainer(
                               duration: const Duration(milliseconds: 200),
-                              margin: const EdgeInsets.symmetric(horizontal: 3), // Reduced margin
-                              width: currentIndex == index ? 8 : 6, // Smaller circles
-                              height: currentIndex == index ? 8 : 6, // Smaller circles
+                              margin: const EdgeInsets.symmetric(horizontal: 3),
+                              width: currentIndex == index ? 8 : 6,
+                              height: currentIndex == index ? 8 : 6,
                               decoration: BoxDecoration(
                                 color: currentIndex == index
                                     ? Theme.of(context).primaryColor
@@ -86,12 +91,11 @@ class HomeTabView extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(height: 20.0), // Reduced spacing
+                const SizedBox(height: 20),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0), // Reduced padding
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         'New Arrivals 🔥',
@@ -105,36 +109,34 @@ class HomeTabView extends StatelessWidget {
                         child: Text(
                           'See All',
                           style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                              color: Theme.of(context).primaryColor,
-                              fontWeight: FontWeight.w600),
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 12.0),
+                const SizedBox(height: 12),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: GridView.builder(
                     itemCount: state.products.length,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      mainAxisSpacing: 0,
+                      mainAxisSpacing: 12,
                       crossAxisSpacing: 8,
                       childAspectRatio: 0.56,
                     ),
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () =>
-                            Navigator.of(context, rootNavigator: true).pushNamed(
-                              RoutePath.productDetailsRoute,
-                              arguments: state.products[index].id,
-                            ),
-                        child: ProductItem(
-                          productItem: state.products[index],
+                        onTap: () => Navigator.of(context, rootNavigator: true).pushNamed(
+                          RoutePath.productDetailsRoute,
+                          arguments: state.products[index].id,
                         ),
+                        child: ProductItem(productItem: state.products[index]),
                       );
                     },
                   ),
