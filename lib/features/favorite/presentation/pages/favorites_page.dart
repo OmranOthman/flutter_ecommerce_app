@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
@@ -41,7 +42,7 @@ class FavoritesView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "My Favorites",
+          "my_favorites".tr,
           style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -79,13 +80,13 @@ class FavoritesView extends StatelessWidget {
                     Icon(Icons.favorite_border,
                         size: 60.r, color: AppColors.grey),
                     SizedBox(height: 16.h),
-                    Text('No favorites yet',
+                    Text('no_favorites_yet'.tr,
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
                             .copyWith(fontSize: 18.sp)),
                     SizedBox(height: 8.h),
-                    Text('Tap the heart icon to add products',
+                    Text('tap_heart_to_add'.tr,
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!

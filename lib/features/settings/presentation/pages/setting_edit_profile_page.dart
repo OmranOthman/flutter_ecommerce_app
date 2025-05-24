@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_text_form_field.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/view_model/setting_edit_profile_cubit/edit_profile_cubit.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
@@ -27,13 +28,13 @@ class EditProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Edit Profile",
+        title: Text(
+          "edit_profile".tr,
           style: TextStyle(fontSize: 16),
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
@@ -55,18 +56,18 @@ class EditProfileView extends StatelessWidget {
         children: [
           CircleAvatar(),
           CustomTextFormField(
-            label: 'Username',
+            label: 'username'.tr,
             prefixIcon: Icon(Icons.person_outline),
-            hintText: 'Enter you username',
+            hintText: 'enter_username'.tr,
           ),
           const SizedBox(height: 24),
           CustomTextFormField(
-            label: 'Email or Phone Number',
+            label: 'email_or_phone'.tr,
             prefixIcon: Icon(Icons.email_outlined),
-            hintText: 'Enter you email',
+            hintText: 'enter_your_email'.tr,
           ),
           CustomButton(
-            text: "Save Changes",
+            text: "save_changes".tr,
           )
         ],
       ),

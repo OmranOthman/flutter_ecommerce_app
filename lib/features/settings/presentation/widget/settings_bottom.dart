@@ -10,14 +10,14 @@ class SettingsBottom extends StatelessWidget {
   final bool showArrow;
 
   const SettingsBottom({
-    Key? key,
+    super.key,
     required this.icon,
     required this.title,
     this.trailingText,
     required this.onTap,
     this.isDestructive = false,
     this.showArrow = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_text_form_field.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/view_model/setting_change_password_cubit/setting_change_password_cubit.dart';
@@ -16,7 +17,7 @@ class SettingChangePasswordPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            "Change Password",
+            "change_password".tr,
             style: TextStyle(fontSize: 16.sp),
           ),
           centerTitle: true,
@@ -102,8 +103,8 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
           );
         } else if (state.success) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Password updated successfully'),
+            SnackBar(
+              content: Text("password_updated".tr),
               behavior: SnackBarBehavior.floating,
               backgroundColor: Colors.green,
             ),
@@ -122,10 +123,10 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                 Column(
                   children: [
                     CustomTextFormField(
-                      label: 'New Password',
+                      label: "new_password".tr,
                       controller: _newPasswordController,
                       prefixIcon: Icon(Icons.lock_outline, size: 24.w),
-                      hintText: 'Enter new password',
+                      hintText: "enter_new_password".tr,
                       obscureText: state.obscureNewPassword,
                       focusNode: _newPasswordFocusNode,
                       suffixIcon: IconButton(
@@ -139,10 +140,10 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                     ),
                     SizedBox(height: 24.h),
                     CustomTextFormField(
-                      label: 'Confirm Password',
+                      label: "confirm_password".tr,
                       controller: _confirmPasswordController,
                       prefixIcon: Icon(Icons.lock_outline, size: 24.w),
-                      hintText: 'Confirm new password',
+                      hintText: "confirm_new_password".tr,
                       obscureText: state.obscureConfirmPassword,
                       focusNode: _confirmPasswordFocusNode,
                       suffixIcon: IconButton(
@@ -157,7 +158,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                   ],
                 ),
                 CustomButton(
-                  text: "Update Password",
+                  text: "update_password".tr,
                   onTap: () => context.read<SettingChangePasswordCubit>().submit(),
                   height: 48.h,
                 ),

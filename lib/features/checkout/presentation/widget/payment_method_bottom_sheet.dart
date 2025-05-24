@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
@@ -27,7 +28,7 @@ class PaymentMethodBottomSheet extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Payment Methods',
+                'payment_methods'.tr,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               SizedBox(height: 16.h),
@@ -48,7 +49,7 @@ class PaymentMethodBottomSheet extends StatelessWidget {
                       return Padding(
                         padding: EdgeInsets.symmetric(vertical: 20.h),
                         child: Text(
-                          'No payment methods found. Please add a new card.',
+                          'no_payment_methods'.tr,
                           style: Theme.of(context).textTheme.bodyMedium,
                           textAlign: TextAlign.center,
                         ),
@@ -146,7 +147,7 @@ class PaymentMethodBottomSheet extends StatelessWidget {
                         child: const Icon(Icons.add),
                       ),
                     ),
-                    title: const Text('Add New Card'),
+                    title: Text('add_new_card'.tr),
                   ),
                 ),
               ),
@@ -167,7 +168,7 @@ class PaymentMethodBottomSheet extends StatelessWidget {
                 builder: (context, state) {
                   final isLoading = state is ConfirmPaymentLoading;
                   return CustomButton(
-                    text: 'Confirm Payment',
+                    text: 'confirm_payment'.tr,
                     isLoading: isLoading,
                     onTap: isLoading
                         ? null

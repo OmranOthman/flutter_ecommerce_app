@@ -128,7 +128,7 @@ class _LoginViewState extends State<LoginView> {
                   child: TextButton(
                     onPressed: _showCreateNewPasswordBottomSheet,
                     child: Text(
-                      'Forgot Password',
+                      'forgot_password'.tr,
                       style: Theme.of(context)
                           .textTheme
                           .titleSmall!
@@ -138,7 +138,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 SizedBox(height: 16.h),
                 CustomButton(
-                  text: 'Login',
+                  text: 'login'.tr,
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
                       Navigator.of(context).pushNamed(RoutePath.homeRoute);
@@ -154,7 +154,7 @@ class _LoginViewState extends State<LoginView> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Don't have an account?",
+                            "don't_have_account".tr,
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                           TextButton(
@@ -163,7 +163,7 @@ class _LoginViewState extends State<LoginView> {
                                   .pushNamed(RoutePath.registerRoute);
                             },
                             child: Text(
-                              'Register',
+                              'register'.tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall!
@@ -176,14 +176,14 @@ class _LoginViewState extends State<LoginView> {
                       ),
                       SizedBox(height: 8.h),
                       Text(
-                        'Or using other method',
+                        'or_using_other_method'.tr,
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           color: AppColors.grey,
                         ),
                       ),
                       SizedBox(height: 16.h),
                       SocialMediaButton(
-                        text: 'Login with Google',
+                        text: 'login_with_google'.tr,
                         img: AppAssets.images.logoGoogle,
                         onTap: () {
                           Navigator.of(context)
@@ -192,7 +192,7 @@ class _LoginViewState extends State<LoginView> {
                       ),
                       SizedBox(height: 16.h),
                       SocialMediaButton(
-                        text: 'Login with Facebook',
+                        text: 'login_with_facebook'.tr,
                         img: AppAssets.images.logoFacebook,
                         onTap: () {
                           Navigator.of(context)

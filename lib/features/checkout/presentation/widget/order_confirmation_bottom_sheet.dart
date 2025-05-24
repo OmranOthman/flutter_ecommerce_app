@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
@@ -27,11 +28,11 @@ class OrderConfirmationBottomSheet {
               Icon(
                 Icons.check_circle,
                 color: Colors.green,
-                size: 150.w,  // ScreenUtil scale
+                size: 150.w,
               ),
               SizedBox(height: 20.h),
               Text(
-                'Order Successfully',
+                'order_successfully'.tr,
                 style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
@@ -39,7 +40,7 @@ class OrderConfirmationBottomSheet {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.w),
                 child: Text(
-                  'Your order will be packed by the clerk, will arrive at your house in 3 to 4 days',
+                  'order_confirmation_message'.tr,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: AppColors.grey,
@@ -50,7 +51,7 @@ class OrderConfirmationBottomSheet {
               SizedBox(
                 width: double.infinity,
                 child: CustomButton(
-                  text: 'Order Tracking',
+                  text: 'order_tracking'.tr,
                   onTap: onTrackOrder ??
                           () {
                         Navigator.pushNamed(context, RoutePath.trackingRoute);

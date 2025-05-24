@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
@@ -71,8 +72,8 @@ class CheckoutView extends StatelessWidget {
         },
       );
     } else {
-      return const EmptyShippingAndPayment(
-        title: 'Add Payment Method',
+      return EmptyShippingAndPayment(
+        title: 'add_payment_method'.tr,
         isPayment: true,
       );
     }
@@ -120,8 +121,8 @@ class CheckoutView extends StatelessWidget {
         );
       });
     } else {
-      return const EmptyShippingAndPayment(
-        title: 'Add shipping address',
+      return EmptyShippingAndPayment(
+        title: 'add_shipping_address'.tr,
         isPayment: false,
       );
     }
@@ -135,10 +136,11 @@ class CheckoutView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Payment',
+          'payment'.tr,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         centerTitle: true,
+        leading: Icon(Icons.arrow_back_ios),
       ),
       body: BlocBuilder<CheckoutCubit, CheckoutState>(
         bloc: cubit,
@@ -152,7 +154,7 @@ class CheckoutView extends StatelessWidget {
           } else if (state is CheckoutError) {
             return Center(
               child: Text(
-                state.message,
+                'something_went_wrong'.tr,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             );
@@ -167,20 +169,20 @@ class CheckoutView extends StatelessWidget {
                 child: Column(
                   children: [
                     CheckoutHeadlinesItem(
-                      title: 'Address',
+                      title: 'address'.tr,
                       onTap: () {
                         Navigator.of(context)
                             .pushNamed(RoutePath.chooseLocation)
                             .then((value) async {
                           await cubit.getCheckoutContent();
                         });
-                      },
+                        },
                     ),
                     const SizedBox(height: 16.0),
                     _buildShippingItem(chosenAddress, context),
                     const SizedBox(height: 24.0),
                     CheckoutHeadlinesItem(
-                      title: 'Products',
+                      title: 'products'.tr,
                       numOfProducts: state.numOfProducts,
                     ),
                     const SizedBox(height: 16.0),
@@ -225,7 +227,7 @@ class CheckoutView extends StatelessWidget {
                                       Flexible(
                                         child: Text.rich(
                                           TextSpan(
-                                            text: 'Size: ',
+                                            text: '${'size'.tr}: ',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium!
@@ -259,13 +261,13 @@ class CheckoutView extends StatelessWidget {
                     ),
                     const SizedBox(height: 16.0),
                     CheckoutHeadlinesItem(
-                      title: 'Payment Methods',
+                      title: 'payment_methods'.tr,
                     ),
                     const SizedBox(height: 16.0),
                     _buildPaymentMethodItem(chosenPaymentCard, context),
                     const SizedBox(height: 32.0),
                     LabelWithValueRow(
-                      label: 'Total Amount',
+                      label: 'total_amount'.tr,
                       value: '\$${state.totalAmount.toStringAsFixed(2)}',
                     ),
                     const SizedBox(height: 40.0),
@@ -273,7 +275,7 @@ class CheckoutView extends StatelessWidget {
                       width: double.infinity,
                       height: 60,
                       child: CustomButton(
-                        text: 'Checkout Now',
+                        text: 'checkout_now'.tr,
                         onTap: () =>
                             OrderConfirmationBottomSheet.show(context: context),
                       ),
@@ -286,7 +288,7 @@ class CheckoutView extends StatelessWidget {
           } else {
             return Center(
               child: Text(
-                'Something went wrong!',
+                'something_went_wrong'.tr,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             );

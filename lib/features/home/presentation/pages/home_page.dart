@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
@@ -65,11 +66,11 @@ class HomeView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Hi, Omran',
+              'hi_greeting'.tr.replaceAll('{name}', 'Omran'),
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 18.sp),
             ),
             Text(
-              'Let\'s go shopping!',
+              'shopping_prompt'.tr,
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
                 color: AppColors.grey,
                 fontSize: 12.sp,
@@ -117,9 +118,9 @@ class HomeView extends StatelessWidget {
                   ),
                   insets: EdgeInsets.symmetric(horizontal: -30.w),
                 ),
-                tabs: const [
-                  Tab(text: 'Home'),
-                  Tab(text: 'Category'),
+                tabs: [
+                  Tab(text: 'home'.tr),
+                  Tab(text: 'category'.tr),
                 ],
               ),
               SizedBox(height: 24.h),

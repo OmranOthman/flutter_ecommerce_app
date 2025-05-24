@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/location/presentation/view_model/choose_location_cubit/choose_location_cubit.dart';
@@ -34,7 +35,7 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Address'),
+        title: Text('address'.tr),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -47,7 +48,7 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Choose your location',
+                  'choose_your_location'.tr,
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 22.sp,
@@ -55,7 +56,7 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                 ),
                 SizedBox(height: 12.h),
                 Text(
-                  'Let\'s find an unforgettable event. Choose a location below to get started:',
+                  'find_event_description'.tr,
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
                     color: AppColors.grey,
                     fontSize: 16.sp,
@@ -80,7 +81,7 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                         if (state is LocationAdded) {
                           locationController.clear();
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Location added successfully')),
+                            SnackBar(content: Text('location_added_successfully'.tr)),
                           );
                         } else if (state is LocationAddingFailure) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -106,7 +107,7 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                               cubit.addLocation(locationController.text);
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Enter your location!')),
+                                SnackBar(content: Text('enter_your_location'.tr)),
                               );
                             }
                           },
@@ -115,7 +116,7 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                     ),
                     suffixIconColor: AppColors.grey,
                     prefixIconColor: AppColors.grey,
-                    hintText: 'Write location: city-country',
+                    hintText: 'write_location_hint'.tr,
                     fillColor: AppColors.grey1,
                     filled: true,
                     border: OutlineInputBorder(
@@ -130,7 +131,7 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                 ),
                 SizedBox(height: 36.h),
                 Text(
-                  'Select Location',
+                  'select_location'.tr,
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 22.sp,
@@ -194,11 +195,8 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
                       current is ConfirmAddressLoaded ||
                       current is ConfirmAddressFailure,
                   builder: (context, state) {
-                    // if (state is ConfirmAddressLoading) {
-                    //   return CustomButton(isLoading: true);
-                    // }
                     return CustomButton(
-                      text: 'Confirm Address',
+                      text: 'confirm_address'.tr,
                       onTap: () => cubit.confirmAddress(),
                     );
                   },

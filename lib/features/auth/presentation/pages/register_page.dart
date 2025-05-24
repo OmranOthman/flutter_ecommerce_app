@@ -48,12 +48,12 @@ class _RegisterViewState extends State<RegisterView> {
             children: [
               SizedBox(height: 50.h),
               Text(
-                'Create Account',
+                'create_account'.tr,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               SizedBox(height: 8.h),
               Text(
-                'Start shopping with create your account',
+                'start_shopping_with_account'.tr,
                 style: Theme.of(context)
                     .textTheme
                     .labelLarge!
@@ -65,9 +65,10 @@ class _RegisterViewState extends State<RegisterView> {
                 child: Column(
                   children: [
                     CustomTextFormField(
+                      controller: usernameController,
                       keyboardType: TextInputType.name,
                       label: 'username'.tr,
-                      hintText: 'enter_your_username'.tr,
+                      hintText: 'enter_username'.tr,
                       prefixIcon: const Icon(Icons.person_outline),
                       validator: (validator) {
                         if (validator == null || validator.isEmpty) {
@@ -78,6 +79,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     SizedBox(height: 20.h),
                     CustomTextFormField(
+                      controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       label: 'email'.tr,
                       hintText: 'enter_your_email'.tr,
@@ -91,9 +93,10 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     SizedBox(height: 20.h),
                     CustomTextFormField(
+                      controller: passwordController,
                       keyboardType: TextInputType.visiblePassword,
                       label: 'password'.tr,
-                      hintText: 'enter_your_password'.tr,
+                      hintText: 'enter_new_password'.tr,
                       obscureText: _obscureText,
                       prefixIcon: const Icon(Icons.lock_outline),
                       suffixIcon: IconButton(
@@ -112,6 +115,9 @@ class _RegisterViewState extends State<RegisterView> {
                         if (validator == null || validator.isEmpty) {
                           return 'this_field_is_required'.tr;
                         }
+                        if (validator.length < 6) {
+                          return 'password_min_length'.tr;
+                        }
                         return null;
                       },
                     ),
@@ -121,7 +127,7 @@ class _RegisterViewState extends State<RegisterView> {
               SizedBox(height: 40.h),
               CustomButton(
                 isLoading: false,
-                text: 'Create Account',
+                text: 'create_account'.tr,
                 onTap: () async {
                   if (_formKey.currentState!.validate()) {
                     // Call register logic
@@ -135,13 +141,13 @@ class _RegisterViewState extends State<RegisterView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "You have an account?",
+                      "have_an_account".tr,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(),
                       child: Text(
-                        'Login',
+                        'login'.tr,
                         style: Theme.of(context)
                             .textTheme
                             .titleSmall!
@@ -153,7 +159,7 @@ class _RegisterViewState extends State<RegisterView> {
               ),
               SizedBox(height: 16.h),
               SocialMediaButton(
-                text: 'Login with Google',
+                text: 'login_with_google'.tr,
                 img: AppAssets.images.logoGoogle,
                 onTap: () {
                   Navigator.of(context).pushNamed(RoutePath.homeRoute);
@@ -161,7 +167,7 @@ class _RegisterViewState extends State<RegisterView> {
               ),
               SizedBox(height: 16.h),
               SocialMediaButton(
-                text: 'Login with Facebook',
+                text: 'login_with_facebook'.tr,
                 img: AppAssets.images.logoFacebook,
                 onTap: () {
                   Navigator.of(context).pushNamed(RoutePath.homeRoute);

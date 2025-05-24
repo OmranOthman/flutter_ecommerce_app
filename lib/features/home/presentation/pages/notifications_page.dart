@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/widget/notification_card.dart';
@@ -11,7 +12,7 @@ class NotificationsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Notification",
+          "notification".tr,  // Updated to match JSON key
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 22.sp),
         ),
         actions: [
@@ -40,34 +41,33 @@ class NotificationsPage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.h),
               child: Text(
-                "Recent",
+                "recent_notifications".tr,  // Updated to match JSON key
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 24.sp),
               ),
             ),
             NotificationCard(
               icon: Icons.check_circle,
               iconColor: Colors.green,
-              title: "Purchase Completed!",
+              title: "purchase_completed".tr,  // Updated to match JSON key
               message:
-              "You have successfully purchased 334 headphones, thank you and wait for your package to arrive",
-              time: "9:30 AM",
+              "You have successfully purchased 334 headphones, thank you and wait for your package to arrive".tr,
+              time: "9:30 AM".tr,
               hasAction: false,
             ),
             NotificationCard(
               icon: Icons.message,
               iconColor: Colors.blue,
-              title: "Jerremy Send You a Message",
-              message: "hello your package has almost arrived, are you at home now?",
+              title: "message_received".tr,  // Updated to match JSON key (Note: You might want to handle the {sender} parameter)
+              message: "hello your package has almost arrived, are you at home now?".tr,
               time: "9:25 AM",
               hasAction: true,
-
             ),
             NotificationCard(
               icon: Icons.local_offer,
               iconColor: Colors.orange,
-              title: "Flash Sale!",
-              message: "Get 20% discount for first transaction in this week",
-              time: "9:15 AM",
+              title: "flash_sale".tr,  // Updated to match JSON key
+              message: "Get 20% discount for first transaction in this week".tr,
+              time: "9:15 AM".tr,
               hasAction: false,
             ),
           ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SettingLegalAndPoliciesPage extends StatelessWidget {
@@ -11,7 +12,7 @@ class SettingLegalAndPoliciesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Legal and Policies",
+          "legal_and_policies".tr,
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
             fontSize: 16.sp,
@@ -40,7 +41,7 @@ class SettingLegalAndPoliciesPage extends StatelessWidget {
           children: [
             SizedBox(height: 10.h),
             Text(
-              "Terms",
+              "terms".tr,
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.sp,
@@ -56,7 +57,7 @@ class SettingLegalAndPoliciesPage extends StatelessWidget {
             ),
             SizedBox(height: 20.h),
             Text(
-              "Change to the Service and/or Terms:",
+              "service_changes".tr,
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.sp,

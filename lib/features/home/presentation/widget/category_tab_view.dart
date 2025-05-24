@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/models/category_model.dart';
 
@@ -37,7 +38,7 @@ class CategoryTabView extends StatelessWidget {
                     ),
                     SizedBox(height: 8.h),
                     Text(
-                      '${category.productsCount} Products',
+                      '${category.productsCount} ${'products'.tr}',
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: category.textColor,
                         fontWeight: FontWeight.w600,

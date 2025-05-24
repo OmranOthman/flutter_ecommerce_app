@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/models/payment_card_model.dart';
@@ -33,7 +34,7 @@ class PaymentMethodItem extends StatelessWidget {
             fit: BoxFit.contain,
           ),
           title: Text(
-            'MasterCard',
+            'mastercard'.tr, // Changed from hardcoded 'MasterCard' to JSON key
             style: Theme.of(context).textTheme.bodyLarge,
           ),
           subtitle: Text(

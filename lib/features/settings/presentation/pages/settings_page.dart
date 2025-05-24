@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/dependency_injections.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
@@ -15,7 +16,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  String selectedLanguage = 'English';
+  String selectedLanguage = 'english'.tr;
 
   @override
   void initState() {
@@ -25,7 +26,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Future<void> _loadSelectedLanguage() async {
     final prefs = await SharedPreferences.getInstance();
-    final languageName = prefs.getString('selected_language_name');
+    final languageName = prefs.getString('selected_language_name'.tr);
     if (languageName != null) {
       setState(() {
         selectedLanguage = languageName;
@@ -61,7 +62,7 @@ class SettingsView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Settings", style: TextStyle(fontSize: 16.sp)),
+        title: Text("settings".tr, style: TextStyle(fontSize: 16.sp)),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, size: 22.sp),
@@ -80,31 +81,31 @@ class SettingsView extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.only(top: 10.h, bottom: 8.h),
-            child: Text("General", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp)),
+            child: Text("general".tr, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp)),
           ),
           SettingsBottom(
             icon: Icons.person_outline,
-            title: "Edit Profile",
+            title: "edit_profile".tr,
             onTap: () => Navigator.pushNamed(context, RoutePath.settingEditProfileRoute),
           ),
           SettingsBottom(
             icon: Icons.lock_outline,
-            title: "Change Password",
+            title: "change_password".tr,
             onTap: () => Navigator.pushNamed(context, RoutePath.settingChangePasswordRoute),
           ),
           SettingsBottom(
             icon: Icons.notifications_none,
-            title: "Notifications",
+            title: "notifications".tr,
             onTap: () => Navigator.pushNamed(context, RoutePath.settingNotificationsRoute),
           ),
           SettingsBottom(
             icon: Icons.security_outlined,
-            title: "Security",
+            title: "security".tr,
             onTap: () => Navigator.pushNamed(context, RoutePath.settingSecurityRoute),
           ),
           SettingsBottom(
             icon: Icons.language,
-            title: "Language",
+            title: "language".tr,
             trailingText: selectedLanguage,
             onTap: () async {
               await Navigator.pushNamed(context, RoutePath.settingLanguageRoute);
@@ -113,23 +114,23 @@ class SettingsView extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(top: 14.h, bottom: 6.h),
-            child: Text("Preferences", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp)),
+            child: Text("preferences".tr, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp)),
           ),
           SettingsBottom(
             icon: Icons.policy_outlined,
-            title: "Legal and Policies",
+            title: "legal_and_policies".tr,
             onTap: () => Navigator.pushNamed(context, RoutePath.settingLegalAndPoliciesRoute),
           ),
           SettingsBottom(
             icon: Icons.help_outline,
-            title: "Help & Support",
+            title: "help_and_support".tr,
             onTap: () => Navigator.pushNamed(context, RoutePath.settingHelpRoute),
           ),
           BlocBuilder<AuthCubit, AuthState>(
             builder: (context, state) {
               return SettingsBottom(
                 icon: Icons.logout,
-                title: 'Logout',
+                title: 'logout'.tr,
                 isDestructive: true,
                 showArrow: false,
                 onTap: () => showDialog(
@@ -157,7 +158,7 @@ class SettingsView extends StatelessWidget {
               children: [
                 SizedBox(height: 16.h),
                 Text(
-                  'Are you sure you want to logout?',
+                  'logout_confirmation'.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
                 ),
@@ -171,7 +172,7 @@ class SettingsView extends StatelessWidget {
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
                     ),
-                    child: Text('Cancel', style: TextStyle(fontSize: 14.sp)),
+                    child: Text('cancel'.tr, style: TextStyle(fontSize: 14.sp)),
                   ),
                 ),
                 SizedBox(height: 12.h),
@@ -181,7 +182,7 @@ class SettingsView extends StatelessWidget {
                     // await cubit.logout();
                   },
                   child: Text(
-                    'Log Out',
+                    'logout'.tr,
                     style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600, fontSize: 14.sp),
                   ),
                 ),

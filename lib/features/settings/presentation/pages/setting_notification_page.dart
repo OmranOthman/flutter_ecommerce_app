@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/widget/toggle_item.dart';
 
@@ -10,7 +11,7 @@ class SettingNotificationPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Notifications",
+          "notifications".tr,
           style: TextStyle(fontSize: 16.sp),
         ),
         centerTitle: true,
@@ -43,11 +44,11 @@ class SettingNotificationPage extends StatelessWidget {
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const [
-              ToggleItem(title: "Payment", isLast: false),
-              ToggleItem(title: "Tracking", isLast: false),
-              ToggleItem(title: "Complete Order", isLast: false),
-              ToggleItem(title: "Notification", isLast: true),
+            children:  [
+              ToggleItem(title: "payment_notifications".tr, isLast: false),
+              ToggleItem(title: "tracking_notifications".tr, isLast: false),
+              ToggleItem(title: "complete_order_notifications".tr, isLast: false),
+              ToggleItem(title: "notification_notifications".tr, isLast: true),
             ],
           ),
         ),

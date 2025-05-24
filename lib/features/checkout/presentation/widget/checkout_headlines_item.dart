@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 
 class CheckoutHeadlinesItem extends StatelessWidget {
   final String title;
@@ -46,7 +47,7 @@ class CheckoutHeadlinesItem extends StatelessWidget {
           TextButton(
             onPressed: onTap,
             child: Text(
-              'Edit',
+              'edit'.tr,  // Changed from 'Edit'.tr to match your JSON key
               style: textTheme.bodyMedium!.copyWith(
                 color: Theme.of(context).primaryColor,
               ),

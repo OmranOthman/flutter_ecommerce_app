@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 class OrderPage extends StatelessWidget {
   const OrderPage({super.key});
 
-  // شاشة فارغة للطلبات
   Widget _emptyOrderScreen(BuildContext context) {
     return Center(
       child: Column(
@@ -15,7 +15,7 @@ class OrderPage extends StatelessWidget {
           Icon(Icons.shopping_cart_outlined, size: 60.r, color: AppColors.grey),
           SizedBox(height: 16.h),
           Text(
-            'No orders yet',
+            'no_orders_yet'.tr,
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
@@ -23,7 +23,7 @@ class OrderPage extends StatelessWidget {
           ),
           SizedBox(height: 8.h),
           Text(
-            'Your orders will appear here once you make a purchase.',
+            'orders_appear_after_purchase'.tr,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium!
@@ -43,7 +43,7 @@ class OrderPage extends StatelessWidget {
           Icon(Icons.history_outlined, size: 60.r, color: AppColors.grey),
           SizedBox(height: 16.h),
           Text(
-            'No history yet',
+            'no_history_yet'.tr,
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
@@ -51,7 +51,7 @@ class OrderPage extends StatelessWidget {
           ),
           SizedBox(height: 8.h),
           Text(
-            'Your past orders will be shown here.',
+            'past_orders_info'.tr,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium!
@@ -73,7 +73,7 @@ class OrderPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            "My Order",
+            "my_order".tr,
             style: Theme.of(context)
                 .textTheme
                 .headlineMedium
@@ -105,7 +105,7 @@ class OrderPage extends StatelessWidget {
             tabs: [
               Tab(
                 child: Text(
-                  'My Order',
+                  'my_order'.tr,
                   style: Theme.of(context)
                       .textTheme
                       .labelLarge
@@ -114,7 +114,7 @@ class OrderPage extends StatelessWidget {
               ),
               Tab(
                 child: Text(
-                  'History',
+                  'history'.tr,
                   style: Theme.of(context)
                       .textTheme
                       .labelLarge

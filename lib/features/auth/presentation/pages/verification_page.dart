@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_assets.dart';
@@ -42,7 +43,7 @@ class _VerificationPageState extends State<VerificationPage> {
   void _showErrorSnackBar() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: const Text("Verification code is incorrect. Please try again."),
+        content: Text("incorrect_code_message".tr),
         backgroundColor: Colors.red,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
@@ -50,7 +51,7 @@ class _VerificationPageState extends State<VerificationPage> {
         ),
         duration: const Duration(seconds: 3),
         action: SnackBarAction(
-          label: 'OK',
+          label: 'ok'.tr,
           textColor: Colors.white,
           onPressed: () {
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -80,12 +81,12 @@ class _VerificationPageState extends State<VerificationPage> {
           Image.asset(AppAssets.images.success),
           SizedBox(height: 20.h),
           Text(
-            "Register Success",
+            "register_success".tr,
             style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10.h),
           Text(
-            "Congratulation! your account already created. Please login to get amazing experience.",
+            "congratulations_message".tr,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 16.sp),
           ),
@@ -93,7 +94,7 @@ class _VerificationPageState extends State<VerificationPage> {
           SizedBox(
             width: double.infinity,
             child: CustomButton(
-              text: "Go to Homepage",
+              text: "go_to_homepage".tr,
               onTap: () {
                 Navigator.pushNamed(context, RoutePath.homeRoute);
               },
@@ -110,10 +111,10 @@ class _VerificationPageState extends State<VerificationPage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text("Verification"),
+        title: Text("verification".tr),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.pop(context),
         ),
         bottom: PreferredSize(
@@ -129,12 +130,12 @@ class _VerificationPageState extends State<VerificationPage> {
             Image.asset(AppAssets.images.verification),
             SizedBox(height: 40.h),
             Text(
-              "Verification Code",
+              "verification_code".tr,
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             SizedBox(height: 10.h),
             Text(
-              "We have sent the code verification to",
+              "code_sent_message".tr,
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge!
@@ -155,7 +156,7 @@ class _VerificationPageState extends State<VerificationPage> {
               width: double.infinity,
               child: CustomButton(
                 onTap: _checkVerificationCode,
-                text: "Submit",
+                text: "submit".tr,
               ),
             ),
             SizedBox(height: 20.h),
@@ -163,13 +164,13 @@ class _VerificationPageState extends State<VerificationPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Didn't receive the code?",
+                  "didn't_receive_code".tr,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 TextButton(
                   onPressed: () {},
-                  child: const Text(
-                    "Resend",
+                  child: Text(
+                    "resend".tr,
                     style: TextStyle(color: AppColors.primary),
                   ),
                 ),

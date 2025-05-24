@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
@@ -39,9 +40,10 @@ class _AddNewCardViewState extends State<AddNewCardView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Add New Card',
+          'add_new_card'.tr,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 22.sp),
         ),
+        leading: const Icon(Icons.arrow_back_ios),
       ),
       body: SafeArea(
         child: Padding(
@@ -52,49 +54,49 @@ class _AddNewCardViewState extends State<AddNewCardView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomTextFormField(
-                  label: 'Card Number',
+                  label: 'card_number'.tr,
                   controller: _cardNumberController,
                   prefixIcon: Icon(
                     Icons.credit_card,
                     color: Theme.of(context).primaryColor,
                     size: 24.sp,
                   ),
-                  hintText: 'Enter card number',
+                  hintText: 'enter_card_number'.tr,
                   keyboardType: TextInputType.number,
                 ),
                 SizedBox(height: 20.h),
                 CustomTextFormField(
-                  label: 'Card Holder Name',
+                  label: 'card_holder_name'.tr,
                   controller: _cardHolderNameController,
                   prefixIcon: Icon(
-                    Icons.person,
+                    Icons.person_outlined,
                     color: Theme.of(context).primaryColor,
                     size: 24.sp,
                   ),
-                  hintText: 'Enter card holder name',
+                  hintText: 'enter_holder_name'.tr,
                 ),
                 SizedBox(height: 20.h),
                 CustomTextFormField(
-                  label: 'Expiry Date',
+                  label: 'expired'.tr,
                   controller: _expiryDateController,
                   prefixIcon: Icon(
                     Icons.date_range,
                     color: Theme.of(context).primaryColor,
                     size: 24.sp,
                   ),
-                  hintText: 'MM/YY',
+                  hintText: 'mm_yy'.tr,
                   keyboardType: TextInputType.datetime,
                 ),
                 SizedBox(height: 20.h),
                 CustomTextFormField(
-                  label: 'CVV',
+                  label: 'cvv_code'.tr,
                   controller: _cvvController,
                   prefixIcon: Icon(
                     Icons.password,
                     color: Theme.of(context).primaryColor,
                     size: 24.sp,
                   ),
-                  hintText: '123',
+                  hintText: 'enter_cvv'.tr,
                   obscureText: true,
                   keyboardType: TextInputType.number,
                 ),
@@ -140,7 +142,7 @@ class _AddNewCardViewState extends State<AddNewCardView> {
                           }
                         },
                         isLoading: state is AddNewCardLoading,
-                        text: 'Add Card',
+                        text: 'add_card'.tr,
                       );
                     },
                   ),

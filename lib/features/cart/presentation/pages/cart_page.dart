@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
@@ -32,7 +33,7 @@ class CartView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "My Cart",
+          "my_cart".tr,
           style: TextStyle(fontSize: 16.sp),
         ),
         centerTitle: true,
@@ -80,7 +81,7 @@ class CartView extends StatelessWidget {
           } else if (state is CartError) {
             return Center(child: Text(state.message));
           }
-          return const Center(child: Text('Something went wrong!'));
+          return Center(child: Text('something_went_wrong'.tr));
         },
       ),
     );
@@ -104,7 +105,7 @@ class CartView extends StatelessWidget {
         children: [
           TextFormField(
             decoration: InputDecoration(
-              hintText: 'Enter your promo code',
+              hintText: 'enter_promo_code'.tr,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.r),
               ),
@@ -116,19 +117,19 @@ class CartView extends StatelessWidget {
             ),
           ),
           SizedBox(height: 24.h),
-          _buildTotalRow(context, 'Subtotal', subtotal),
+          _buildTotalRow(context, 'subtotal'.tr, subtotal),
           SizedBox(height: 8.h),
-          _buildTotalRow(context, 'Shipping', 10.0),
+          _buildTotalRow(context, 'shipping'.tr, 10.0),
           SizedBox(height: 24.h),
           _buildTotalRow(
             context,
-            'Total Amount',
+            'total_amount'.tr,
             subtotal + 10,
             isBold: true,
           ),
           SizedBox(height: 16.h),
           CustomButton(
-            text: "Checkout",
+            text: "checkout".tr,
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, RoutePath.checkoutRoute);

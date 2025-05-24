@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/cart/presentation/view_model/cart_cubit/cart_cubit.dart';
@@ -57,7 +58,7 @@ class CartItemWidget extends StatelessWidget {
               SizedBox(height: 4.h),
               Text.rich(
                 TextSpan(
-                  text: 'Size: ',
+                  text: '${'size'.tr}: ',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: AppColors.grey,
                     fontSize: 14.sp,

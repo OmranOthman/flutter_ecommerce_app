@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
@@ -12,7 +13,7 @@ class OrderTrackingPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Order Tracking",
+          "order_tracking".tr,
           style: textTheme.headlineMedium?.copyWith(fontSize: 22.sp),
         ),
         centerTitle: true,
@@ -74,11 +75,11 @@ class OrderTrackingPage extends StatelessWidget {
                           backgroundImage: const AssetImage('/.png'),
                         ),
                         title: Text(
-                          'Alexander Jr',
+                          'Alexander Jr'.tr,
                           style: textTheme.bodyLarge?.copyWith(fontSize: 18.sp),
                         ),
                         subtitle: Text(
-                          'Courier',
+                          'courier'.tr,
                           style: textTheme.bodyMedium?.copyWith(fontSize: 14.sp),
                         ),
                         trailing: Row(
@@ -101,7 +102,7 @@ class OrderTrackingPage extends StatelessWidget {
                     SizedBox(height: 12.h),
 
                     Text(
-                      'Progress of your Order',
+                      'progress_of_order'.tr,
                       style: textTheme.headlineSmall
                           ?.copyWith(fontWeight: FontWeight.bold, fontSize: 20.sp),
                     ),
@@ -112,21 +113,21 @@ class OrderTrackingPage extends StatelessWidget {
                       context,
                       isFirst: true,
                       icon: Icons.store,
-                      title: 'Unbox Bag',
-                      subtitle: 'Shop • 02:50PM',
+                      title: 'unbox_bag'.tr,
+                      subtitle: 'shop_time'.tr,
                     ),
                     _buildTimelineItem(
                       context,
                       icon: Icons.local_shipping,
-                      title: 'On the way',
-                      subtitle: 'Delivery • 03:20PM',
+                      title: 'on_the_way'.tr,
+                      subtitle: 'delivery_time'.tr,
                     ),
                     _buildTimelineItem(
                       context,
                       isLast: true,
                       icon: Icons.location_pin,
-                      title: '5482 Adobe Falls Rd #15, San Diego...',
-                      subtitle: 'House • 03:45PM',
+                      title: 'delivery_address'.tr,
+                      subtitle: 'house_time'.tr,
                     ),
 
                     SizedBox(height: 24.h),
@@ -145,7 +146,7 @@ class OrderTrackingPage extends StatelessWidget {
                           padding: EdgeInsets.symmetric(vertical: 16.h),
                         ),
                         child: Text(
-                          'Mark as Done',
+                          'mark_as_done'.tr,
                           style: textTheme.labelLarge?.copyWith(
                             color: Theme.of(context).primaryColor,
                             fontSize: 16.sp,

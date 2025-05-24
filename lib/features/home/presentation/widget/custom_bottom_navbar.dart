@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/order/presentation/pages/order_page.dart';
@@ -31,7 +32,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
         screen: const HomePage(),
         item: ItemConfig(
           icon: Icon(Symbols.home, size: 24.sp),
-          title: "Home",
+          title: "home".tr,
           activeForegroundColor: Theme.of(context).primaryColor,
           inactiveForegroundColor: AppColors.grey,
           textStyle: Theme.of(context).textTheme.labelMedium?.copyWith(fontSize: 12.sp) ?? TextStyle(fontSize: 12.sp),
@@ -41,7 +42,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
         screen: const OrderPage(),
         item: ItemConfig(
           icon: Icon(Symbols.delivery_truck_speed, size: 24.sp),
-          title: "My Order",
+          title: "my_order".tr,
           activeForegroundColor: Theme.of(context).primaryColor,
           inactiveForegroundColor: AppColors.grey,
           textStyle: Theme.of(context).textTheme.labelMedium?.copyWith(fontSize: 12.sp) ?? TextStyle(fontSize: 12.sp),
@@ -51,7 +52,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
         screen: const FavoritesPage(),
         item: ItemConfig(
           icon: Icon(Symbols.favorite, size: 24.sp),
-          title: "Favorites",
+          title: "favorites".tr,
           activeForegroundColor: Theme.of(context).primaryColor,
           inactiveForegroundColor: AppColors.grey,
           textStyle: Theme.of(context).textTheme.labelMedium?.copyWith(fontSize: 12.sp) ?? TextStyle(fontSize: 12.sp),
@@ -61,7 +62,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
         screen: const SettingsPage(),
         item: ItemConfig(
           icon: Icon(Symbols.person, size: 24.sp),
-          title: "Profile",
+          title: "profile".tr,
           activeForegroundColor: Theme.of(context).primaryColor,
           inactiveForegroundColor: AppColors.grey,
           textStyle: Theme.of(context).textTheme.labelMedium?.copyWith(fontSize: 12.sp) ?? TextStyle(fontSize: 12.sp),
@@ -83,7 +84,6 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
           currentIndex = index;
         });
       },
-      // يمكنك تعديل خصائص أخرى هنا مثل navBarHeight أيضاً باستخدام ScreenUtil:
       navBarHeight: 60.h,
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/widget/toggle_item.dart';
 
@@ -10,7 +11,7 @@ class SettingSecurityPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Security",
+          "security".tr,
           style: TextStyle(fontSize: 16.sp),
         ),
         centerTitle: true,
@@ -43,10 +44,10 @@ class SettingSecurityPage extends StatelessWidget {
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const [
-              ToggleItem(title: "Face ID", isLast: false),
-              ToggleItem(title: "Remember Password", isLast: false),
-              ToggleItem(title: "Touch ID", isLast: true),
+            children:  [
+              ToggleItem(title: "face_id".tr, isLast: false),
+              ToggleItem(title: "remember_password".tr, isLast: false),
+              ToggleItem(title: "touch_id".tr, isLast: true),
             ],
           ),
         ),

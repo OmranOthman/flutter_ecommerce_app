@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/views/widgets/text_field_search.dart';
 
@@ -10,10 +11,10 @@ class SettingHelpAndSupportPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Help and Support"),
+        title:  Text("help_and_support".tr),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
@@ -35,7 +36,7 @@ class SettingHelpAndSupportPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const TextFieldSearch(hintText: "Search help topics"),
+             TextFieldSearch(hintText: "search_help_topics".tr),
             SizedBox(height: 24.h),
 
             _buildDropdownItem(

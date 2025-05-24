@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
@@ -35,8 +36,8 @@ class ProductDetailsPage extends StatelessWidget {
         } else if (state is ProductDetailsLoaded) {
           return ProductDetailsView(product: state.product);
         } else {
-          return const Scaffold(
-            body: Center(child: Text('Something went wrong!')),
+          return Scaffold(
+            body: Center(child: Text('something_went_wrong'.tr)),
           );
         }
       },
@@ -59,7 +60,7 @@ class ProductDetailsView extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-          'Product Details',
+          'product_details'.tr,
           style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600),
         ),
         actions: [
@@ -110,7 +111,7 @@ class ProductDetailsView extends StatelessWidget {
                       _buildSizeSelector(context, cubit),
                       SizedBox(height: 16.h),
                       Text(
-                        'Description',
+                        'description'.tr,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18.sp,
@@ -194,7 +195,7 @@ class ProductDetailsView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Size',
+          'size'.tr,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
         BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
@@ -263,7 +264,7 @@ class ProductDetailsView extends StatelessWidget {
                   });
                 },
                 child: Text(
-                  isExpanded ? 'Show Less' : 'Read More',
+                  isExpanded ? 'show_less'.tr : 'read_more'.tr,
                   style: TextStyle(
                     color: AppColors.primary,
                     fontWeight: FontWeight.bold,
@@ -335,7 +336,7 @@ class ProductDetailsView extends StatelessWidget {
                       vertical: 18.h, horizontal: 40.w),
                 ),
                 child: Text(
-                  'Added To Cart',
+                  'added_to_cart'.tr,
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
                       color: AppColors.white,
                       fontWeight: FontWeight.bold,
@@ -349,8 +350,8 @@ class ProductDetailsView extends StatelessWidget {
                   cubit.addToCart(product.id);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Please select size'),
+                    SnackBar(
+                      content: Text('please_select_size'.tr),
                     ),
                   );
                 }
@@ -362,7 +363,7 @@ class ProductDetailsView extends StatelessWidget {
                 EdgeInsets.symmetric(vertical: 18.h, horizontal: 40.w),
               ),
               label: Text(
-                'Add to Cart',
+                'add_to_cart'.tr,
                 style: Theme.of(context).textTheme.labelLarge!.copyWith(
                   color: AppColors.white,
                   fontWeight: FontWeight.bold,

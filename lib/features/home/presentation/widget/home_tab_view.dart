@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/view_model/home_cubit/home_cubit.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/widget/product_item.dart';
@@ -98,7 +99,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'New Arrivals 🔥',
+                        'new_arrivals'.tr,
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
@@ -107,7 +108,7 @@ class _HomeTabViewState extends State<HomeTabView> {
                         onTap: () {
                         },
                         child: Text(
-                          'See All',
+                          'see_all'.tr,
                           style: Theme.of(context).textTheme.labelLarge!.copyWith(
                             color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.w600,
