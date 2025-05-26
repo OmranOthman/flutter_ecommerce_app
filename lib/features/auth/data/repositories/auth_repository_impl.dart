@@ -11,4 +11,16 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> saveFirstTimeOpenApp() {
     return authLocalDataSource.saveFirstTimeOpenApp();
   }
+
+  @override
+  Future<void> login({required String email, required String password}) {
+    // TODO: implement login
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> signup({required String fullName, required String email, required String password}) {
+    // TODO: implement signup
+    throw UnimplementedError();
+  }
 }

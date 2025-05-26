@@ -3,11 +3,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 abstract interface class AuthLocalDataSource {
   Future<void> saveFirstTimeOpenApp();
+
   bool get isFirstTimeOpenApp;
+
+  Future<void> login({required String email, required String password});
+  Future<void> signup({required String fullName,required String email, required String password});
 }
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   final SharedPreferences sharedPreferences;
+
   AuthLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
@@ -17,4 +22,9 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   @override
   bool get isFirstTimeOpenApp =>
       sharedPreferences.getBool(AppString.firstTimeOpenApp) ?? false;
+
+  @override
+  Future<void> login({required String email, required String password}) async {}
+  @override
+  Future<void> signup({required String fullName,required String email, required String password}) async {}
 }
