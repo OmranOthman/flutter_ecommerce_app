@@ -6,7 +6,10 @@ class RoutePath {
   static const String loginRoute = '/login';
   static const String registerRoute = '/register';
   static const String verificationRoute = '/verification';
-  static const String homeRoute = '/home';
+   static const String mainRoute = '/main';
+    static const String favoriteRoute = '/favorite';
+        static const String settingsRoute = '/settings';
+  // static const String homeRoute = '/home';
   static const String productDetailsRoute = '/product-details';
   static const String cartRoute = '/cart';
   static const String notificationRoute = '/notification';
@@ -17,9 +20,9 @@ class RoutePath {
   static const String settingLegalAndPoliciesRoute = '/legal-and-policies';
   static const String settingNotificationsRoute = '/setting-notifications';
   static const String settingHelpRoute = '/setting-help';
-  static const String settingsRoute = '/settings';
+  static const String profileRoute = '/profile';
   static const String settingEditProfileRoute = '/edit-profile';
   static const String settingChangePasswordRoute = '/change-password';
   static const String trackingRoute = '/tracking';
-  static const String settingLanguageRoute = '/language';
+  static const String languageRoute = '/language';
 }

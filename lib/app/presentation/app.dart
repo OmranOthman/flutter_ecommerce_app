@@ -9,7 +9,6 @@ import 'package:flutter_ecommerce_app/app/theme/app_theme.dart';
 import 'package:flutter_ecommerce_app/dependency_Injections.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -18,46 +17,47 @@ class App extends StatelessWidget {
       BlocProvider(create: (context) => di<AppBloc>(), child: const AppView());
 }
 
-
 class AppView extends StatelessWidget {
   const AppView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppBloc, AppState>(
-      builder: (context, state) {
-        return ScreenUtilInit(
-          designSize: const Size(374, 812),
-          minTextAdapt: true,
-          splitScreenMode: true,
-          builder: (context, child) {
-            return GestureDetector(
-              onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-              child: MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: '',
-                initialRoute: RoutePath.splashRoute,
-                onGenerateRoute: AppRouter.onGenerateRoute,
-                navigatorKey: AppRouter.navigatorKey,
-                themeMode: ThemeMode.light,
-                theme: AppTheme.theme[AppThemeData.lightTheme],
-                darkTheme: AppTheme.theme[AppThemeData.darkTheme],
-                locale: state.locale,
-                supportedLocales: const [
-                  Locale('ar', ''),
-                ],
-                localizationsDelegates: const [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-              ),
-            );
-          },
-        );
-      },
+    return ScreenUtilInit(
+      designSize: const Size(374, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: BlocBuilder<AppBloc, AppState>(
+        builder: (context, state) {
+          return GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: '',
+              initialRoute: RoutePath.splashRoute,
+              onGenerateRoute: AppRouter.onGenerateRoute,
+              navigatorKey: AppRouter.navigatorKey,
+              themeMode: ThemeMode.light,
+              theme: AppTheme.theme[AppThemeData.lightTheme],
+              darkTheme: AppTheme.theme[AppThemeData.darkTheme],
+              locale: state.locale,
+              supportedLocales: const [
+                Locale(
+                  'en',
+                ),
+                Locale(
+                  'ar',
+                ),
+              ],
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
-

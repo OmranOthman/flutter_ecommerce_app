@@ -96,7 +96,7 @@ class _VerificationPageState extends State<VerificationPage> {
             child: CustomButton(
               text: "go_to_homepage".tr,
               onTap: () {
-                Navigator.pushNamed(context, RoutePath.homeRoute);
+                Navigator.pushNamed(context, RoutePath.mainRoute);
               },
             ),
           ),

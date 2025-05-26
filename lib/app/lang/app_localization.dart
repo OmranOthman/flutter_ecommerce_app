@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_ecommerce_app/app/routers/app_router.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ecommerce_app/app/routers/app_router.dart';
-
 
 class AppLocalizations {
   final Locale locale;
@@ -69,6 +68,6 @@ class _AppLocalizatoinsDelegate
 }
 
 extension Localization on String {
-  String  get tr =>
-      AppLocalizations.of(AppRouter.navigatorKey.currentContext!)!.translate(this);
+  String get tr =>
+      AppLocalizations.of(AppRouter.navigator.context)!.translate(this);
 }

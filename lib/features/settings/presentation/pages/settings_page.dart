@@ -5,10 +5,14 @@ import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/dependency_injections.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/widget/settings_bottom.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SettingsPage extends StatefulWidget {
+    static Route<dynamic> route({required RouteSettings settings}) =>
+      MaterialPageRoute(
+        settings: settings,
+        builder: (context) => const SettingsPage(),
+      );
   const SettingsPage({super.key});
 
   @override
@@ -16,49 +20,37 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  String selectedLanguage = 'english'.tr;
+
 
   @override
   void initState() {
     super.initState();
-    _loadSelectedLanguage();
+ 
   }
 
-  Future<void> _loadSelectedLanguage() async {
-    final prefs = await SharedPreferences.getInstance();
-    final languageName = prefs.getString('selected_language_name'.tr);
-    if (languageName != null) {
-      setState(() {
-        selectedLanguage = languageName;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => di<AuthCubit>(),
       child: SettingsView(
-        selectedLanguage: selectedLanguage,
-        onLanguageChanged: _loadSelectedLanguage,
+  
       ),
     );
   }
 }
 
 class SettingsView extends StatelessWidget {
-  final String selectedLanguage;
-  final VoidCallback onLanguageChanged;
+ 
 
   const SettingsView({
     super.key,
-    required this.selectedLanguage,
-    required this.onLanguageChanged,
+ 
   });
 
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<AuthCubit>(context);
+    // final AuthCubit cubit = BlocProvider.of<AuthCubit>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -106,10 +98,10 @@ class SettingsView extends StatelessWidget {
           SettingsBottom(
             icon: Icons.language,
             title: "language".tr,
-            trailingText: selectedLanguage,
+            // trailingText: selectedLanguage,
             onTap: () async {
-              await Navigator.pushNamed(context, RoutePath.settingLanguageRoute);
-              onLanguageChanged();
+              await Navigator.pushNamed(context, RoutePath.languageRoute);
+           
             },
           ),
           Padding(

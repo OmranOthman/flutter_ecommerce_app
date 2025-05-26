@@ -66,21 +66,24 @@ class OnboardingView extends StatelessWidget {
                     .toList(),
               ),
             ),
-            CustomButton(
-                onTap: () {
-                  if (pageController.page == images.length - 1) {
-                    authCubit.saveFirstTimeOpenApp();
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      RoutePath.loginRoute,
-                      (route) => false,
-                    );
-                  } else {
-                    pageController.nextPage(
-                        duration: Duration(milliseconds: 400),
-                        curve: Curves.linear);
-                  }
-                },
-                text: "Next")
+            Padding(
+              padding: const EdgeInsets.all(AppDistances.largePadding),
+              child: CustomButton(
+                  onTap: () {
+                    if (pageController.page == images.length - 1) {
+                      authCubit.saveFirstTimeOpenApp();
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        RoutePath.loginRoute,
+                        (route) => false,
+                      );
+                    } else {
+                      pageController.nextPage(
+                          duration: Duration(milliseconds: 400),
+                          curve: Curves.linear);
+                    }
+                  },
+                  text: "Next"),
+            )
           ],
         ),
       )),

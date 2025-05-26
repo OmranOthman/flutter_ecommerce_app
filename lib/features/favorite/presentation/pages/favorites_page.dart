@@ -10,6 +10,11 @@ import 'package:flutter_ecommerce_app/features/home/presentation/view_model/home
 import 'package:flutter_ecommerce_app/models/product_item_model.dart';
 
 class FavoritesPage extends StatelessWidget {
+   static Route<dynamic> route({required RouteSettings settings}) =>
+      MaterialPageRoute(
+        settings: settings,
+        builder: (context) => const FavoritesPage(),
+      );
   const FavoritesPage({super.key});
 
   @override

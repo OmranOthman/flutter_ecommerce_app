@@ -5,15 +5,17 @@ import 'package:flutter_ecommerce_app/features/auth/presentation/pages/onboardin
 import 'package:flutter_ecommerce_app/features/auth/presentation/pages/splash_page.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/pages/verification_page.dart';
 import 'package:flutter_ecommerce_app/features/cart/presentation/pages/cart_page.dart';
+import 'package:flutter_ecommerce_app/features/favorite/presentation/pages/favorites_page.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/pages/notifications_page.dart';
-import 'package:flutter_ecommerce_app/features/home/presentation/widget/custom_bottom_navbar.dart';
+// import 'package:flutter_ecommerce_app/features/home/presentation/widget/custom_bottom_navbar.dart';
+import 'package:flutter_ecommerce_app/features/main/presentation/pages/main_page.dart';
 import 'package:flutter_ecommerce_app/features/new_card/presentation/pages/add_new_card_page.dart';
 import 'package:flutter_ecommerce_app/features/new_card/presentation/view_model/add_new_card_cubit/payment_methods_cubit.dart';
 import 'package:flutter_ecommerce_app/features/order/presentation/pages/order_tracking_page.dart';
 import 'package:flutter_ecommerce_app/features/product_details/presentation/view_model/product_details_cubit/product_details_cubit.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_change_password_page.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_help_and_support_page.dart';
-import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_language_page.dart';
+import 'package:flutter_ecommerce_app/features/settings/presentation/pages/language_page.dart';
 import 'package:flutter_ecommerce_app/features/checkout/presentation/pages/checkout_page.dart';
 import 'package:flutter_ecommerce_app/features/location/presentation/pages/choose_location_page.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_edit_profile_page.dart';
@@ -24,7 +26,6 @@ import 'package:flutter_ecommerce_app/features/product_details/presentation/page
 import 'package:flutter_ecommerce_app/features/auth/presentation/pages/register_page.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_security_page.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/settings_page.dart';
-
 
 import 'route_error_page.dart';
 
@@ -38,18 +39,24 @@ class AppRouter {
     // Getting agrs passed in while calling Navigastor.pushNamed
     // final args = settings.arguments;
 
-  switch (settings.name) {
-
-       case RoutePath.splashRoute:
+    switch (settings.name) {
+      case RoutePath.splashRoute:
         return SplashPage.route(settings: settings);
 
-          case RoutePath.onBoardingRoute:
+      case RoutePath.onBoardingRoute:
         return OnboardingPage.route(settings: settings);
-      case RoutePath.homeRoute:
-        return MaterialPageRoute(
-          builder: (_) => const CustomBottomNavbar(),
-          settings: settings,
-        );
+      // case RoutePath.homeRoute:
+      //   return MaterialPageRoute(
+      //     builder: (_) => const CustomBottomNavbar(),
+      //     settings: settings,
+      //   );
+
+      case RoutePath.mainRoute:
+        return MainPage.route(settings: settings);
+      case RoutePath.favoriteRoute:
+        return FavoritesPage.route(settings: settings);
+      case RoutePath.settingsRoute:
+        return SettingsPage.route(settings: settings);
 
       case RoutePath.loginRoute:
         return MaterialPageRoute(
@@ -63,11 +70,11 @@ class AppRouter {
           settings: settings,
         );
 
-    case RoutePath.verificationRoute:
-      return MaterialPageRoute(
-        builder: (_) => VerificationPage(),
-        settings: settings,
-      );
+      case RoutePath.verificationRoute:
+        return MaterialPageRoute(
+          builder: (_) => VerificationPage(),
+          settings: settings,
+        );
 
       case RoutePath.checkoutRoute:
         return MaterialPageRoute(
@@ -75,16 +82,16 @@ class AppRouter {
           settings: settings,
         );
 
-    case RoutePath.cartRoute:
-      return MaterialPageRoute(
-        builder: (_) => const CartPage(),
-        settings: settings,
-      );
+      case RoutePath.cartRoute:
+        return MaterialPageRoute(
+          builder: (_) => const CartPage(),
+          settings: settings,
+        );
       case RoutePath.notificationRoute:
-      return MaterialPageRoute(
-        builder: (_) => const NotificationsPage(),
-        settings: settings,
-      );
+        return MaterialPageRoute(
+          builder: (_) => const NotificationsPage(),
+          settings: settings,
+        );
 
       case RoutePath.chooseLocation:
         return MaterialPageRoute(
@@ -92,7 +99,7 @@ class AppRouter {
           settings: settings,
         );
       case RoutePath.addNewCardRoute:
-      final paymentCubit = settings.arguments as PaymentMethodsCubit;
+        final paymentCubit = settings.arguments as PaymentMethodsCubit;
         return MaterialPageRoute(
           builder: (_) => BlocProvider.value(
             value: paymentCubit,
@@ -125,47 +132,40 @@ class AppRouter {
           settings: settings,
         );
 
-        case RoutePath.settingLegalAndPoliciesRoute:
+      case RoutePath.settingLegalAndPoliciesRoute:
         return MaterialPageRoute(
           builder: (_) => const SettingLegalAndPoliciesPage(),
           settings: settings,
         );
 
-        case RoutePath.settingHelpRoute:
+      case RoutePath.settingHelpRoute:
         return MaterialPageRoute(
           builder: (_) => const SettingHelpAndSupportPage(),
           settings: settings,
         );
 
-        case RoutePath.settingsRoute:
-        return MaterialPageRoute(
-          builder: (_) => const SettingsPage(),
-          settings: settings,
-        );
-
-        case RoutePath.settingEditProfileRoute:
+      case RoutePath.settingEditProfileRoute:
         return MaterialPageRoute(
           builder: (_) => const SettingEditProfilePage(),
           settings: settings,
         );
 
-    case RoutePath.settingChangePasswordRoute:
-      return MaterialPageRoute(
-        builder: (_) => SettingChangePasswordPage(onDispose: () {  },),
-        settings: settings,
-      );
+      case RoutePath.settingChangePasswordRoute:
+        return MaterialPageRoute(
+          builder: (_) => SettingChangePasswordPage(
+            onDispose: () {},
+          ),
+          settings: settings,
+        );
 
-    case RoutePath.settingLanguageRoute:
-      return MaterialPageRoute(
-        builder: (_) => const SettingLanguagePage(),
-        settings: settings,
-      );
+      case RoutePath.languageRoute:
+        return LanguagePage.route(settings: settings);
 
       case RoutePath.trackingRoute:
-      return MaterialPageRoute(
-        builder: (_) => const OrderTrackingPage(),
-        settings: settings,
-      );
+        return MaterialPageRoute(
+          builder: (_) => const OrderTrackingPage(),
+          settings: settings,
+        );
 
       default:
         return RouteErrorPage.routeError();

@@ -162,7 +162,7 @@ class _RegisterViewState extends State<RegisterView> {
                 text: 'login_with_google'.tr,
                 img: AppAssets.images.logoGoogle,
                 onTap: () {
-                  Navigator.of(context).pushNamed(RoutePath.homeRoute);
+                  Navigator.of(context).pushNamed(RoutePath.mainRoute);
                 },
               ),
               SizedBox(height: 16.h),
@@ -170,7 +170,7 @@ class _RegisterViewState extends State<RegisterView> {
                 text: 'login_with_facebook'.tr,
                 img: AppAssets.images.logoFacebook,
                 onTap: () {
-                  Navigator.of(context).pushNamed(RoutePath.homeRoute);
+                  Navigator.of(context).pushNamed(RoutePath.mainRoute);
                 },
               ),
             ],

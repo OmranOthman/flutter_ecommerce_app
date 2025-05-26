@@ -2,6 +2,7 @@ import 'package:flutter_ecommerce_app/features/auth/data/datasources/auth_local_
 import 'package:flutter_ecommerce_app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:flutter_ecommerce_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
+import 'package:flutter_ecommerce_app/features/main/presentation/view_model/cubit/main_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:flutter_ecommerce_app/app/data/datasources/app_local_data_source.dart';
@@ -64,8 +65,7 @@ void initLocalDataSource() {
   );
 
   di.registerLazySingleton<AuthLocalDataSource>(
-    () => AuthLocalDataSourceImpl(
-        sharedPreferences: di<SharedPreferences>()),
+    () => AuthLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
   );
 }
 
@@ -77,17 +77,20 @@ void initRepositories() {
   );
 
   di.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(
-        authLocalDataSource: di<AuthLocalDataSource>()),
+    () => AuthRepositoryImpl(authLocalDataSource: di<AuthLocalDataSource>()),
   );
 }
 
 void initBlocs() {
-  di.registerFactory<AppBloc>(
+  di.registerLazySingleton<AppBloc>(
     () => AppBloc(appRepository: di<AppRepository>()),
   );
 
   di.registerFactory<AuthCubit>(
     () => AuthCubit(authRepository: di<AuthRepository>()),
+  );
+
+  di.registerFactory<MainCubit>(
+    () => MainCubit(),
   );
 }

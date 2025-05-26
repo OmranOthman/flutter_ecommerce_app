@@ -141,7 +141,7 @@ class _LoginViewState extends State<LoginView> {
                   text: 'login'.tr,
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.of(context).pushNamed(RoutePath.homeRoute);
+                      Navigator.of(context).pushNamed(RoutePath.mainRoute);
                     }
                   },
                 ),
@@ -196,7 +196,7 @@ class _LoginViewState extends State<LoginView> {
                         img: AppAssets.images.logoFacebook,
                         onTap: () {
                           Navigator.of(context)
-                              .pushNamed(RoutePath.homeRoute);
+                              .pushNamed(RoutePath.mainRoute);
                         },
                       ),
                     ],
