@@ -1,4 +1,5 @@
 import 'package:flutter_ecommerce_app/features/auth/data/datasources/auth_local_data_source.dart';
+import 'package:flutter_ecommerce_app/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:flutter_ecommerce_app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:flutter_ecommerce_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
@@ -69,7 +70,11 @@ void initLocalDataSource() {
   );
 }
 
-void initRemoteDataSource() {}
+void initRemoteDataSource() {
+  di.registerLazySingleton<AuthRemoteDataSource>(
+      () => AuthRemoteDataSourceImpl(dio: di<Dio>()));
+
+}
 
 void initRepositories() {
   di.registerLazySingleton<AppRepository>(
@@ -77,7 +82,9 @@ void initRepositories() {
   );
 
   di.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(authLocalDataSource: di<AuthLocalDataSource>()),
+    () => AuthRepositoryImpl(
+        authLocalDataSource: di<AuthLocalDataSource>(),
+        authRemoteDataSource: di<AuthRemoteDataSource>()),
   );
 }
 

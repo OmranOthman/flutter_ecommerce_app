@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SettingLegalAndPoliciesPage extends StatelessWidget {
-  const SettingLegalAndPoliciesPage({super.key});
+class LegalAndPoliciesPage extends StatelessWidget {
+  const LegalAndPoliciesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class SettingLegalAndPoliciesPage extends StatelessWidget {
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, size: 20.sp),
+          icon: Icon(Icons.arrow_back_ios, size: 20.sp),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [

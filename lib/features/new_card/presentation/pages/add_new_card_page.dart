@@ -43,7 +43,10 @@ class _AddNewCardViewState extends State<AddNewCardView> {
           'add_new_card'.tr,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 22.sp),
         ),
-        leading: const Icon(Icons.arrow_back_ios),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, size: 20.sp),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: SafeArea(
         child: Padding(

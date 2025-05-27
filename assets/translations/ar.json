@@ -150,5 +150,7 @@
     "enter_username": "أدخل اسم المستخدم",
     "enter_email": "أدخل البريد الإلكتروني",
     "save_changes": "حفظ التغييرات",
-    "ok": "موافق"
+    "ok": "موافق",
+    "already_have_an_account":"لدي حساب بالفعل"
+
 }

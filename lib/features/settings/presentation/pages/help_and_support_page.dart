@@ -3,8 +3,8 @@ import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/views/widgets/text_field_search.dart';
 
-class SettingHelpAndSupportPage extends StatelessWidget {
-  const SettingHelpAndSupportPage({super.key});
+class HelpAndSupportPage extends StatelessWidget {
+  const HelpAndSupportPage({super.key});
 
   @override
   Widget build(BuildContext context) {

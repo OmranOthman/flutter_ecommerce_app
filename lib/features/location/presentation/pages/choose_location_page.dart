@@ -36,6 +36,10 @@ class _ChooseLocationViewState extends State<ChooseLocationView> {
     return Scaffold(
       appBar: AppBar(
         title: Text('address'.tr),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, size: 20.sp),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(

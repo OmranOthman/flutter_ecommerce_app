@@ -150,5 +150,6 @@
     "enter_username": "Enter your username",
     "enter_email": "Enter your email",
     "save_changes": "Save Changes",
-    "ok": "OK"
+    "ok": "OK",
+    "already_have_an_account": "Already Have an Account"
 }

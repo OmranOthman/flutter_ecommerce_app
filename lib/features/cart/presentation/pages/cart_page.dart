@@ -38,7 +38,7 @@ class CartView extends StatelessWidget {
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, size: 24.sp),
+          icon: Icon(Icons.arrow_back_ios, size: 20.sp),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
