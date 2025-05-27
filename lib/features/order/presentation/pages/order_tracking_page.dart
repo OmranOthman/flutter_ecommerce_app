@@ -12,6 +12,7 @@ class OrderTrackingPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        
         title: Text(
           "order_tracking".tr,
           style: textTheme.headlineMedium?.copyWith(fontSize: 22.sp),

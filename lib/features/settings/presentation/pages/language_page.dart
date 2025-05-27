@@ -18,17 +18,12 @@ class LanguagePage extends StatelessWidget {
   }
 }
 
-class LanguageView extends StatefulWidget {
+class LanguageView extends StatelessWidget {
   const LanguageView({super.key});
 
   @override
-  State<LanguageView> createState() => _LanguageViewState();
-}
-
-class _LanguageViewState extends State<LanguageView> {
-  @override
   Widget build(BuildContext context) {
-    AppBloc appBloc = context.read<AppBloc>();
+    AppBloc appBloc = BlocProvider.of<AppBloc>(context);
 
     return Scaffold(
       appBar: AppBar(

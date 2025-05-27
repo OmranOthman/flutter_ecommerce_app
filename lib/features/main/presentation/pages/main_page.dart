@@ -4,6 +4,7 @@ import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/dependency_Injections.dart';
+import 'package:flutter_ecommerce_app/features/favorite/presentation/pages/favorites_page.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/pages/home_page.dart';
 import 'package:flutter_ecommerce_app/features/main/presentation/view_model/cubit/main_cubit.dart';
 import 'package:flutter_ecommerce_app/features/order/presentation/pages/order_page.dart';
@@ -32,6 +33,7 @@ class MainView extends StatelessWidget {
   final List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     OrderPage(),
+    FavoritesPage(),
   ];
 
   @override
@@ -47,9 +49,7 @@ class MainView extends StatelessWidget {
             unselectedItemColor: AppColors.grey,
             selectedItemColor: Theme.of(context).primaryColor,
             onTap: (newIndex) {
-              if (newIndex == 2) {
-                Navigator.of(context).pushNamed(RoutePath.favoriteRoute);
-              } else if (newIndex == 3) {
+            if (newIndex == 3) {
                 Navigator.of(context).pushNamed(RoutePath.settingsRoute);
               } else {
                 mainCubit.onItemTapped(newIndex);

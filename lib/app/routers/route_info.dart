@@ -2,6 +2,7 @@ class RoutePath {
   //path
   static const String splashRoute = '/splash';
   static const String onBoardingRoute = '/onBoarding';
+   static const String languageChangingPageRoute = '/languageChanging';
 
   static const String loginRoute = '/login';
   static const String registerRoute = '/register';

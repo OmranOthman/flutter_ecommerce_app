@@ -107,6 +107,7 @@ class HomeView extends StatelessWidget {
               TabBar(
                 indicatorColor: Theme.of(context).primaryColor,
                 controller: tabController,
+                dividerColor: Colors.transparent,
                 unselectedLabelColor: AppColors.grey,
                 labelColor: Theme.of(context).primaryColor,
                 labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 16.sp),

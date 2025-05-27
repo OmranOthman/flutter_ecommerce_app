@@ -82,8 +82,10 @@ void initRepositories() {
 }
 
 void initBlocs() {
-  di.registerLazySingleton<AppBloc>(
-    () => AppBloc(appRepository: di<AppRepository>()),
+  di.registerSingleton<AppBloc>(
+    AppBloc(
+      appRepository: di<AppRepository>(),
+    ),
   );
 
   di.registerFactory<AuthCubit>(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
+import 'package:flutter_ecommerce_app/core/widgets/change_language.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/pages/onboarding_page.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/pages/splash_page.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/pages/verification_page.dart';
@@ -50,6 +51,8 @@ class AppRouter {
       //     builder: (_) => const CustomBottomNavbar(),
       //     settings: settings,
       //   );
+      case RoutePath.languageChangingPageRoute:
+        return LanguageChangingPage.route();
 
       case RoutePath.mainRoute:
         return MainPage.route(settings: settings);

@@ -72,6 +72,7 @@ class OrderPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text(
             "my_order".tr,
             style: Theme.of(context)
@@ -128,25 +129,25 @@ class OrderPage extends StatelessWidget {
           children: [
             hasOrders
                 ? Center(
-              child: Text(
-                "My Order Content",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(fontSize: 18.sp),
-              ),
-            )
+                    child: Text(
+                      "My Order Content",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(fontSize: 18.sp),
+                    ),
+                  )
                 : _emptyOrderScreen(context),
             hasHistory
                 ? Center(
-              child: Text(
-                "History Content",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(fontSize: 18.sp),
-              ),
-            )
+                    child: Text(
+                      "History Content",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(fontSize: 18.sp),
+                    ),
+                  )
                 : _emptyHistoryScreen(context),
           ],
         ),

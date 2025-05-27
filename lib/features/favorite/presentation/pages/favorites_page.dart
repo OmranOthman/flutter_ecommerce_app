@@ -46,11 +46,13 @@ class FavoritesView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+      automaticallyImplyLeading: false,
         title: Text(
           "my_favorites".tr,
           style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
+      
         actions: [
           IconButton(
             onPressed: () {
