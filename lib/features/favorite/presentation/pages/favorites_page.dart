@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/features/favorite/presentation/view_model/favorite_cubit/favorite_cubit.dart';
-import 'package:flutter_ecommerce_app/features/home/presentation/view_model/home_cubit/home_cubit.dart';
 import 'package:flutter_ecommerce_app/models/product_item_model.dart';
 
 class FavoritesPage extends StatelessWidget {
@@ -28,9 +27,7 @@ class FavoritesPage extends StatelessWidget {
             return cubit;
           },
         ),
-        BlocProvider<HomeCubit>(
-          create: (context) => HomeCubit(),
-        ),
+       
       ],
       child: const FavoritesView(),
     );
