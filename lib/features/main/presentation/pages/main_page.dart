@@ -48,6 +48,7 @@ class MainView extends StatelessWidget {
             currentIndex: state.selectedIndex,
             unselectedItemColor: AppColors.grey,
             selectedItemColor: Theme.of(context).primaryColor,
+            type: BottomNavigationBarType.fixed,
             onTap: (newIndex) {
             if (newIndex == 3) {
                 Navigator.of(context).pushNamed(RoutePath.settingsRoute);

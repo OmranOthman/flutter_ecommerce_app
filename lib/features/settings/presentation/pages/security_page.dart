@@ -3,8 +3,8 @@ import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/widget/toggle_item.dart';
 
-class SettingSecurityPage extends StatelessWidget {
-  const SettingSecurityPage({super.key});
+class SecurityPage extends StatelessWidget {
+  const SecurityPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class SettingSecurityPage extends StatelessWidget {
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, size: 20.sp),
+          icon: Icon(Icons.arrow_back_ios, size: 20.sp),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [

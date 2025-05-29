@@ -57,7 +57,7 @@ class SettingsView extends StatelessWidget {
         title: Text("settings".tr, style: TextStyle(fontSize: 16.sp)),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, size: 22.sp),
+          icon: Icon(Icons.arrow_back_ios, size: 20.sp),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
@@ -171,7 +171,7 @@ class SettingsView extends StatelessWidget {
                 GestureDetector(
                   onTap: () async {
                     Navigator.of(context).pop();
-                    // await cubit.logout();
+                     //await cubit.logout();
                   },
                   child: Text(
                     'logout'.tr,

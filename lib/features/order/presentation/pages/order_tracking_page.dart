@@ -12,12 +12,15 @@ class OrderTrackingPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        
         title: Text(
           "order_tracking".tr,
           style: textTheme.headlineMedium?.copyWith(fontSize: 22.sp),
         ),
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, size: 20.sp),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: Stack(
         children: [

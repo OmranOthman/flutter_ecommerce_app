@@ -93,6 +93,7 @@ class OrderPage extends StatelessWidget {
             )
           ],
           bottom: TabBar(
+            dividerColor: Colors.transparent,
             indicatorColor: Theme.of(context).primaryColor,
             unselectedLabelColor: AppColors.grey,
             labelColor: AppColors.black,
