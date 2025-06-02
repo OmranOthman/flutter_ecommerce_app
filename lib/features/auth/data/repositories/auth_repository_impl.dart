@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_ecommerce_app/core/error/exceptions.dart';
+import 'package:flutter_ecommerce_app/core/error/failures.dart';
+import 'package:flutter_ecommerce_app/core/helper/api_helper/api_result.dart';
+import 'package:flutter_ecommerce_app/core/helper/network/network_info.dart';
 import 'package:flutter_ecommerce_app/features/auth/data/datasources/auth_local_data_source.dart';
 import 'package:flutter_ecommerce_app/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:flutter_ecommerce_app/features/auth/domain/repositories/auth_repository.dart';
@@ -7,10 +10,12 @@ import 'package:flutter_ecommerce_app/features/auth/domain/repositories/auth_rep
 class AuthRepositoryImpl implements AuthRepository {
   AuthLocalDataSource authLocalDataSource;
   AuthRemoteDataSource authRemoteDataSource;
+  NetworkInfo networkInfo;
 
   AuthRepositoryImpl({
     required this.authLocalDataSource,
     required this.authRemoteDataSource,
+    required this.networkInfo,
   });
 
   @override
@@ -22,15 +27,22 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> login({required String email, required String password}) async {
-    try {
-      String token =
-          await authRemoteDataSource.login(email: email, password: password);
-      await authLocalDataSource.saveToken(token);
-
-    } on ServerException {
-    } on DioException catch (error) {
-    } catch (e) {}
+  Future<ApiResult<void, Failure>> login(
+      {required String email, required String password}) async {
+    if (await networkInfo.isConnected) {
+      try {
+        String token =
+            await authRemoteDataSource.login(email: email, password: password);
+        await authLocalDataSource.saveToken(token);
+      } on DioException catch (error) {
+        return ApiResult.withError(DioFailure(error: error));
+      } on ServerException {
+        return ApiResult.withError(ServerFailure());
+      } catch (error) {
+        return ApiResult.withError(UnknowFailure());
+      }
+    }
+    return ApiResult.withError(InternetConnectionFailure());
   }
 
   @override
