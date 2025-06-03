@@ -59,6 +59,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+    AuthCubit authCubit = BlocProvider.of<AuthCubit>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -80,64 +81,67 @@ class _LoginViewState extends State<LoginView> {
                       ),
                 ),
                 SizedBox(height: 24.h),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomTextFormField(
-                        hintTextDirection:
-                            AppLocalizations.getTextDirection(context),
-                        textAlign: TextAlign.end,
-                        prefixIcon: const Icon(Icons.email_outlined),
-                        suffixIcon: CustomCountryCodePicker(
-                          initialSelection: '+963',
-                          onChanged: (p0) {},
-                        ),
-                        label: 'phone'.tr,
-                        hintText: 'enter_your_phone'.tr,
-                        onChanged: (p0) {},
-                        validator: (validator) {
-                          if (validator == null || validator.isEmpty) {
-                            return 'this_field_is_required'.tr;
-                          }
-                          return null;
-                        },
-                        keyboardType: TextInputType.phone,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(10),
-                          ArabicNumberTextInputFormatter(),
+                BlocBuilder<AuthCubit, AuthState>(
+                  bloc: authCubit,
+                  builder: (context, state) {
+                    return Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomTextFormField(
+                            prefixIcon: const Icon(Icons.email_outlined),
+                            suffixIcon: CustomCountryCodePicker(
+                              initialSelection: '+963',
+                              onChanged: authCubit.countryCodeChanged,
+                            ),
+                            label: 'phone'.tr,
+                            hintText: 'enter_your_phone'.tr,
+                            onChanged: authCubit.phoneOnChanged,
+                            validator: (validator) {
+                              if (validator == null || validator.isEmpty) {
+                                return 'this_field_is_required'.tr;
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.phone,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(9),
+                              ArabicNumberTextInputFormatter(),
+                            ],
+                          ),
+                          SizedBox(height: 20.h),
+                          CustomTextFormField(
+                            keyboardType: TextInputType.visiblePassword,
+                            label: 'password'.tr,
+                            hintText: 'enter_your_password'.tr,
+                            obscureText: _obscureText,
+                            onChanged: authCubit.passwordOnChanged,
+                            prefixIcon: const Icon(Icons.lock_outline),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _obscureText
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _obscureText = !_obscureText;
+                                });
+                              },
+                            ),
+                            validator: (validator) {
+                              if (validator == null || validator.isEmpty) {
+                                return 'this_field_is_required'.tr;
+                              }
+                              return null;
+                            },
+                          ),
                         ],
                       ),
-                      SizedBox(height: 20.h),
-                      CustomTextFormField(
-                        keyboardType: TextInputType.visiblePassword,
-                        label: 'password'.tr,
-                        hintText: 'enter_your_password'.tr,
-                        obscureText: _obscureText,
-                        prefixIcon: const Icon(Icons.lock_outline),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscureText
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _obscureText = !_obscureText;
-                            });
-                          },
-                        ),
-                        validator: (validator) {
-                          if (validator == null || validator.isEmpty) {
-                            return 'this_field_is_required'.tr;
-                          }
-                          return null;
-                        },
-                      ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
                 Align(
                   alignment: Alignment.centerRight,
@@ -153,12 +157,18 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
                 SizedBox(height: 16.h),
-                CustomButton(
-                  text: 'login'.tr,
-                  onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      Navigator.of(context).pushNamed(RoutePath.mainRoute);
-                    }
+                BlocBuilder<AuthCubit, AuthState>(
+                  bloc: authCubit,
+                  builder: (context, state) {
+                    return CustomButton(
+                      text: 'login'.tr,
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          authCubit.login();
+                          //Navigator.of(context).pushNamed(RoutePath.mainRoute);
+                        }
+                      },
+                    );
                   },
                 ),
                 SizedBox(height: 8.h),

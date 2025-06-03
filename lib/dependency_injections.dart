@@ -168,7 +168,6 @@ void initRemoteDataSource() {
 
 
 
-
   di.registerLazySingleton<FavoritesRemoteDataSource>(
     () => FavoritesRemoteDataSourceImpl(dio: di<Dio>()),
   );

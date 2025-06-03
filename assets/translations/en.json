@@ -153,5 +153,7 @@
     "enter_email": "Enter your email",
     "save_changes": "Save Changes",
     "ok": "OK",
-    "already_have_an_account": "Already Have an Account"
+    "already_have_an_account": "Already Have an Account",
+    "this_field_is_required": "This field is required"
+
 }

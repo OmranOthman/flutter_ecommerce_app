@@ -28,11 +28,11 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<ApiResult<void, Failure>> login(
-      {required String email, required String password}) async {
+      {required String phone, required String password}) async {
     if (await networkInfo.isConnected) {
       try {
         String token =
-            await authRemoteDataSource.login(email: email, password: password);
+            await authRemoteDataSource.login(phone: phone, password: password);
         await authLocalDataSource.saveToken(token);
       } on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
@@ -44,6 +44,7 @@ class AuthRepositoryImpl implements AuthRepository {
     }
     return ApiResult.withError(InternetConnectionFailure());
   }
+
 
   @override
   Future<void> signup(

@@ -153,5 +153,6 @@
     "enter_email": "أدخل البريد الإلكتروني",
     "save_changes": "حفظ التغييرات",
     "ok": "موافق",
-    "already_have_an_account": "لدي حساب بالفعل"
+    "already_have_an_account": "لدي حساب بالفعل",
+    "this_field_is_required": "هذا الحقل مطلوب"
 }

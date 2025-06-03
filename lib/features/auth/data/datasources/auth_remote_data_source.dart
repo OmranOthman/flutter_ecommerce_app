@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_ecommerce_app/core/error/exceptions.dart';
 
 abstract interface class AuthRemoteDataSource {
-  Future<String> login({required String email, required String password});
+  Future<String> login({required String phone, required String password});
 
   Future<void> signup(
       {required String fullName,
@@ -16,13 +16,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Dio dio;
 
   @override
-  Future<String> login({required String email, required String password}) async {
+  Future<String> login(
+      {required String phone, required String password}) async {
     Response result =
-        await dio.post("", data: {"full_phone": email, "password": password});
+        await dio.post("", data: {"full_phone": phone, "password": password});
     if (result.statusCode == 200) {
-      return "";
-    }
-    else {
+      String token = result.data["token"];
+      return token;
+    } else {
       throw ServerException();
     }
   }
