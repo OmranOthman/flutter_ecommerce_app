@@ -45,9 +45,8 @@ class AuthRepositoryImpl implements AuthRepository {
     return ApiResult.withError(InternetConnectionFailure());
   }
 
-
   @override
-  Future<void> signup(
+  Future<ApiResult<void, Failure>> signup(
       {required String fullName,
       required String email,
       required String password}) {

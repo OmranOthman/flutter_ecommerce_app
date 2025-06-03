@@ -13,8 +13,9 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> login() async {
     emit(state.copyWith(isLoading: true));
-    final result =
-    await authRepository.login(phone: state.phone!, password: state.password!);
+    ApiResult<void, Failure> result = await authRepository.login(
+        phone: state.phone!, password: state.password!);
+
     emit(state.copyWith(isLoading: false));
   }
 
