@@ -34,6 +34,7 @@ class AuthRepositoryImpl implements AuthRepository {
         String token =
             await authRemoteDataSource.login(phone: phone, password: password);
         await authLocalDataSource.saveToken(token);
+        return ApiResult.withSuccess(null);
       } on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
       } on ServerException {
