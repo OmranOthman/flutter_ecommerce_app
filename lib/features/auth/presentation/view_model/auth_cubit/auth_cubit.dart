@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/core/error/error_handling.dart';
 import 'package:flutter_ecommerce_app/core/error/failures.dart';
 import 'package:flutter_ecommerce_app/core/helper/api_helper/api_result.dart';
 import 'package:flutter_ecommerce_app/features/auth/domain/repositories/auth_repository.dart';
@@ -14,9 +15,17 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> login() async {
     emit(state.copyWith(isLoading: true));
     ApiResult<void, Failure> result = await authRepository.login(
-        phone: state.phone!, password: state.password!);
+        phone: _phoneNumberWithCountryCode(state.phone!),
+        password: state.password!);
 
-    emit(state.copyWith(isLoading: false));
+    if (result.errorResponse != null) {
+      emit(state.copyWith(
+          isLoading: false,
+          isError: true,
+          errorMassage: failureHandlingMessage(result.errorResponse!)));
+    } else {
+      emit(state.copyWith(isLoading: false, isError: false,));
+    }
   }
 
   void saveFirstTimeOpenApp() {

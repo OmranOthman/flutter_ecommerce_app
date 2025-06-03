@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_string.dart';
 import 'package:flutter_ecommerce_app/core/error/exceptions.dart';
 
 abstract interface class AuthRemoteDataSource {
@@ -18,8 +19,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<String> login(
       {required String phone, required String password}) async {
-    Response result =
-        await dio.post("", data: {"full_phone": phone, "password": password});
+    Response result = await dio.post("${AppString.apiUrl}login",
+        data: {"full_phone": phone, "password": password});
     if (result.statusCode == 200) {
       String token = result.data["token"];
       return token;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/core/util/input_formatters/phone_input_formatter.dart';
+import 'package:flutter_ecommerce_app/core/util/show_snack_bar.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_country_code_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
@@ -107,7 +108,7 @@ class _LoginViewState extends State<LoginView> {
                             keyboardType: TextInputType.phone,
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(9),
+                              LengthLimitingTextInputFormatter(10),
                               ArabicNumberTextInputFormatter(),
                             ],
                           ),
@@ -157,11 +158,17 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
                 SizedBox(height: 16.h),
-                BlocBuilder<AuthCubit, AuthState>(
+                BlocConsumer<AuthCubit, AuthState>(
                   bloc: authCubit,
+                  listener: (context, state) {
+                    if (state.isError) {
+                    //  showSnackBar(context, msg: state.errorMassage!);
+                    }
+                  },
                   builder: (context, state) {
                     return CustomButton(
                       text: 'login'.tr,
+                      isLoading: state.isLoading,
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           authCubit.login();
