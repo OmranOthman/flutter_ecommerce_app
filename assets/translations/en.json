@@ -124,6 +124,8 @@
     "preferences": "Preferences",
     "legal_and_policies": "Legal and Policies",
     "help_and_support": "Help & Support",
+    "enter_your_phone": "Enter your phone",
+    "phone": "Phone",
     "logout": "Logout",
     "logout_confirmation": "Are you sure you want to logout?",
     "cancel": "Cancel",

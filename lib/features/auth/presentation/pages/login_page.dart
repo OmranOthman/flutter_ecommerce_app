@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/core/util/input_formatters/phone_input_formatter.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_country_code_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
@@ -73,8 +76,8 @@ class _LoginViewState extends State<LoginView> {
                 Text(
                   'please_login_with_registered_account'.tr,
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: AppColors.grey,
-                  ),
+                        color: AppColors.grey,
+                      ),
                 ),
                 SizedBox(height: 24.h),
                 Form(
@@ -83,16 +86,29 @@ class _LoginViewState extends State<LoginView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomTextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        label: 'email'.tr,
-                        hintText: 'enter_your_email'.tr,
+                        hintTextDirection:
+                            AppLocalizations.getTextDirection(context),
+                        textAlign: TextAlign.end,
                         prefixIcon: const Icon(Icons.email_outlined),
+                        suffixIcon: CustomCountryCodePicker(
+                          initialSelection: '+963',
+                          onChanged: (p0) {},
+                        ),
+                        label: 'phone'.tr,
+                        hintText: 'enter_your_phone'.tr,
+                        onChanged: (p0) {},
                         validator: (validator) {
                           if (validator == null || validator.isEmpty) {
                             return 'this_field_is_required'.tr;
                           }
                           return null;
                         },
+                        keyboardType: TextInputType.phone,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(10),
+                          ArabicNumberTextInputFormatter(),
+                        ],
                       ),
                       SizedBox(height: 20.h),
                       CustomTextFormField(
@@ -168,8 +184,8 @@ class _LoginViewState extends State<LoginView> {
                                   .textTheme
                                   .titleSmall!
                                   .copyWith(
-                                color: Theme.of(context).primaryColor,
-                              ),
+                                    color: Theme.of(context).primaryColor,
+                                  ),
                             ),
                           ),
                         ],
@@ -178,8 +194,8 @@ class _LoginViewState extends State<LoginView> {
                       Text(
                         'or_using_other_method'.tr,
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                          color: AppColors.grey,
-                        ),
+                              color: AppColors.grey,
+                            ),
                       ),
                       SizedBox(height: 16.h),
                       SocialMediaButton(
@@ -195,8 +211,7 @@ class _LoginViewState extends State<LoginView> {
                         text: 'login_with_facebook'.tr,
                         img: AppAssets.images.logoFacebook,
                         onTap: () {
-                          Navigator.of(context)
-                              .pushNamed(RoutePath.mainRoute);
+                          Navigator.of(context).pushNamed(RoutePath.mainRoute);
                         },
                       ),
                     ],

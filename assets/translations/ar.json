@@ -3,6 +3,8 @@
     "forgot_password": "نسيت كلمة المرور",
     "password": "كلمة المرور",
     "email": "البريد الإلكتروني",
+    "enter_your_phone": "أدخل رقم الهاتف",
+    "phone": "رقم الهاتف",
     "please_login_with_registered_account": "يرجى تسجيل الدخول باستخدام حساب مسجل",
     "enter_your_password": "أدخل كلمة المرور الخاصة بك",
     "or_using_other_method": "أو باستخدام طريقة أخرى",
@@ -151,6 +153,5 @@
     "enter_email": "أدخل البريد الإلكتروني",
     "save_changes": "حفظ التغييرات",
     "ok": "موافق",
-    "already_have_an_account":"لدي حساب بالفعل"
-
+    "already_have_an_account": "لدي حساب بالفعل"
 }

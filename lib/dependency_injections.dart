@@ -166,9 +166,7 @@ void initRemoteDataSource() {
     () => CheckoutRemoteDataSourceImpl(dio: di<Dio>()),
   );
 
-  di.registerLazySingleton<CheckoutRemoteDataSource>(
-    () => CheckoutRemoteDataSourceImpl(dio: di<Dio>()),
-  );
+
 
 
   di.registerLazySingleton<FavoritesRemoteDataSource>(
