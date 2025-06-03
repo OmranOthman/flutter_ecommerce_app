@@ -161,8 +161,11 @@ class _LoginViewState extends State<LoginView> {
                 BlocConsumer<AuthCubit, AuthState>(
                   bloc: authCubit,
                   listener: (context, state) {
-                    if (state.isError) {
-                    //  showSnackBar(context, msg: state.errorMassage!);
+                    if (state.errorMassage != null) {
+                      showSnackBar(context, msg: state.errorMassage!);
+                    }
+                    if (state is LoginSuccessfully){
+                      Navigator.of(context).pushNamed(RoutePath.mainRoute);
                     }
                   },
                   builder: (context, state) {
@@ -172,7 +175,6 @@ class _LoginViewState extends State<LoginView> {
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           authCubit.login();
-                          //Navigator.of(context).pushNamed(RoutePath.mainRoute);
                         }
                       },
                     );

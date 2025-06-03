@@ -5,7 +5,6 @@ class AuthState extends Equatable {
   final String countryCode;
   final String? password;
   final bool isLoading;
-  final bool isError;
   final String? errorMassage;
 
   const AuthState({
@@ -13,7 +12,6 @@ class AuthState extends Equatable {
     this.countryCode = "+963",
     this.password,
     this.isLoading = false,
-    this.isError = false,
     this.errorMassage,
   });
 
@@ -24,15 +22,13 @@ class AuthState extends Equatable {
           String? countryCode,
           String? password,
           bool? isLoading,
-          bool? isError,
           String? errorMassage}) =>
       AuthState(
         phone: phone ?? this.phone,
         password: password ?? this.password,
         countryCode: countryCode ?? this.countryCode,
         isLoading: isLoading ?? this.isLoading,
-        isError: isError ?? this.isError,
-        errorMassage: errorMassage ?? this.errorMassage,
+        errorMassage: errorMassage ,
       );
 
   @override
@@ -41,7 +37,10 @@ class AuthState extends Equatable {
         countryCode,
         password,
         isLoading,
-        isError,
         errorMassage,
       ];
+}
+
+class LoginSuccessfully extends AuthState{
+
 }

@@ -21,10 +21,10 @@ class AuthCubit extends Cubit<AuthState> {
     if (result.errorResponse != null) {
       emit(state.copyWith(
           isLoading: false,
-          isError: true,
           errorMassage: failureHandlingMessage(result.errorResponse!)));
     } else {
-      emit(state.copyWith(isLoading: false, isError: false,));
+      emit(state.copyWith(isLoading: false,errorMassage: null));
+      emit(LoginSuccessfully());
     }
   }
 
