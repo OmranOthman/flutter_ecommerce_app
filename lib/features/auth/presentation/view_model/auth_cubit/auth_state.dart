@@ -6,6 +6,9 @@ class AuthState extends Equatable {
   final String? password;
   final bool isLoading;
   final String? errorMassage;
+  final String? fullName;
+  final String? passwordConfirmation;
+  final String? countryIsoCode;
 
   const AuthState({
     this.phone,
@@ -13,22 +16,32 @@ class AuthState extends Equatable {
     this.password,
     this.isLoading = false,
     this.errorMassage,
+    this.fullName,
+    this.passwordConfirmation,
+    this.countryIsoCode = 'SY',
   });
 
   factory AuthState.init() => const AuthState();
 
-  AuthState copyWith(
-          {String? phone,
-          String? countryCode,
-          String? password,
-          bool? isLoading,
-          String? errorMassage}) =>
+  AuthState copyWith({
+    String? phone,
+    String? countryCode,
+    String? password,
+    bool? isLoading,
+    String? errorMassage,
+    String? fullName,
+    String? passwordConfirmation,
+    String? countryIsoCode,
+  }) =>
       AuthState(
         phone: phone ?? this.phone,
         password: password ?? this.password,
         countryCode: countryCode ?? this.countryCode,
         isLoading: isLoading ?? this.isLoading,
-        errorMassage: errorMassage ,
+        errorMassage: errorMassage,
+        fullName: fullName ?? this.fullName,
+        passwordConfirmation: passwordConfirmation ?? this.passwordConfirmation,
+        countryIsoCode: countryIsoCode ?? this.countryIsoCode,
       );
 
   @override
@@ -38,9 +51,11 @@ class AuthState extends Equatable {
         password,
         isLoading,
         errorMassage,
+        fullName,
+        passwordConfirmation,
+        countryIsoCode,
       ];
 }
 
-class LoginSuccessfully extends AuthState{
-
-}
+class LoginSuccessfully extends AuthState {}
+class RegisterSuccessfully extends AuthState {}

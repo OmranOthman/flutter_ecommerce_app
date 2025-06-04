@@ -23,7 +23,7 @@ class AuthCubit extends Cubit<AuthState> {
           isLoading: false,
           errorMassage: failureHandlingMessage(result.errorResponse!)));
     } else {
-      emit(state.copyWith(isLoading: false,errorMassage: null));
+      emit(state.copyWith(isLoading: false, errorMassage: null));
       emit(LoginSuccessfully());
     }
   }
@@ -48,5 +48,41 @@ class AuthCubit extends Cubit<AuthState> {
 
   String _phoneNumberWithCountryCode(String phone) {
     return state.countryCode + (phone[0] == '0' ? phone.substring(1) : phone);
+  }
+
+  ///register
+  Future<void> register() async {
+    emit(state.copyWith(isLoading: true));
+
+    ApiResult<void, Failure> result = await authRepository.register(
+      fullName: state.fullName!,
+      password: state.password!,
+      passwordConfirmation: state.passwordConfirmation!,
+      phone: _phoneNumberWithCountryCode(state.phone!),
+      phoneCode: state.countryCode,
+      countryCode: state.countryIsoCode!,
+    );
+
+    if (result.errorResponse != null) {
+      emit(state.copyWith(
+        isLoading: false,
+        errorMassage: failureHandlingMessage(result.errorResponse!),
+      ));
+    } else {
+      emit(state.copyWith(isLoading: false, errorMassage: null));
+      emit(RegisterSuccessfully());
+    }
+  }
+
+  void fullNameOnChanged(String fullName) {
+    emit(state.copyWith(fullName: fullName));
+  }
+
+  void passwordConfirmationOnChanged(String passwordConfirmation) {
+    emit(state.copyWith(passwordConfirmation: passwordConfirmation));
+  }
+
+  void countryIsoCodeChanged(String countryIsoCode) {
+    emit(state.copyWith(countryIsoCode: countryIsoCode));
   }
 }

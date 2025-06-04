@@ -2,40 +2,31 @@ import 'package:equatable/equatable.dart';
 
 class RegisterEntity extends Equatable {
   final String name;
-  final String email;
   final String password;
-  final String password_confirmation;
-  final String gender;
-  final String birthday;
+  final String passwordConfirmation;
   final String phone;
-  final String phone_code;
-  final String country_code;
-  final String? guest_uuid;
+  final String phoneCode;
+  final String countryCode;
+  final String? guestUuid;
 
-  RegisterEntity(
-      {required this.name,
-      required this.email,
-      required this.password,
-      required this.password_confirmation,
-      required this.gender,
-      required this.birthday,
-      required this.phone,
-      required this.phone_code,
-      required this.country_code,
-      this.guest_uuid});
+  const RegisterEntity({
+    required this.name,
+    required this.password,
+    required this.passwordConfirmation,
+    required this.phone,
+    required this.phoneCode,
+    required this.countryCode,
+    this.guestUuid,
+  });
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
-        name,
-        email,
-        password,
-        password_confirmation,
-        gender,
-        birthday,
-        phone,
-        phone_code,
-        country_code,
-        guest_uuid
-      ];
+    name,
+    password,
+    passwordConfirmation,
+    phone,
+    phoneCode,
+    countryCode,
+    guestUuid,
+  ];
 }

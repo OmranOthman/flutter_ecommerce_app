@@ -47,11 +47,136 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<ApiResult<void, Failure>> signup(
-      {required String fullName,
-      required String email,
-      required String password}) {
-    // TODO: implement signup
+  Future<ApiResult<void, Failure>> register({
+    required String fullName,
+    required String password,
+    required String passwordConfirmation,
+    required String phone,
+    required String phoneCode,
+    required String countryCode,
+  }) async {
+    if (await networkInfo.isConnected) {
+      try {
+        await authRemoteDataSource.register(
+          fullName: fullName,
+          password: password,
+          passwordConfirmation: passwordConfirmation,
+          phone: phone,
+          phoneCode: phoneCode,
+          countryCode: countryCode,
+        );
+        return ApiResult.withSuccess(null);
+      } on DioException catch (error) {
+        return ApiResult.withError(DioFailure(error: error));
+      } on ServerException {
+        return ApiResult.withError(ServerFailure());
+      } catch (error) {
+        return ApiResult.withError(UnknowFailure());
+      }
+    }
+    return ApiResult.withError(InternetConnectionFailure());
+  }
+
+  @override
+  Future<ApiResult<void, Failure>> changePassword({
+    required String currentPassword,
+    required String newPassword,
+    required String passwordConfirmation,
+  }) {
+    // TODO: implement changePassword
     throw UnimplementedError();
+  }
+
+  @override
+  Future<ApiResult<void, Failure>> phoneVerify({
+    required String fullPhone,
+    required String otp,
+  }) async {
+    if (await networkInfo.isConnected) {
+      try {
+      } on DioException catch (error) {
+        return ApiResult.withError(DioFailure(error: error));
+      } on ServerException {
+        return ApiResult.withError(ServerFailure());
+      } catch (error) {
+        return ApiResult.withError(UnknowFailure());
+      }
+    }
+    return ApiResult.withError(InternetConnectionFailure());
+  }
+
+  @override
+  Future<ApiResult<void, Failure>> resendCode({
+    required String fullPhone,
+  }) async {
+    if (await networkInfo.isConnected) {
+      try {
+      } on DioException catch (error) {
+        return ApiResult.withError(DioFailure(error: error));
+      } on ServerException {
+        return ApiResult.withError(ServerFailure());
+      } catch (error) {
+        return ApiResult.withError(UnknowFailure());
+      }
+    }
+    return ApiResult.withError(InternetConnectionFailure());
+  }
+
+  @override
+  Future<ApiResult<void, Failure>> resetPassword({
+    required String fullPhone,
+    required String password,
+    required String token,
+  }) async {
+    if (await networkInfo.isConnected) {
+      try {
+      } on DioException catch (error) {
+        return ApiResult.withError(DioFailure(error: error));
+      } on ServerException {
+        return ApiResult.withError(ServerFailure());
+      } catch (error) {
+        return ApiResult.withError(UnknowFailure());
+      }
+    }
+    return ApiResult.withError(InternetConnectionFailure());
+  }
+
+  @override
+  Future<ApiResult<void, Failure>> userInfo({
+    required String phone,
+    required String birthday,
+    required String gender,
+    required String phoneCode,
+    required String countryCode,
+  }) async {
+    if (await networkInfo.isConnected) {
+      try {
+      } on DioException catch (error) {
+        return ApiResult.withError(DioFailure(error: error));
+      } on ServerException {
+        return ApiResult.withError(ServerFailure());
+      } catch (error) {
+        return ApiResult.withError(UnknowFailure());
+      }
+    }
+    return ApiResult.withError(InternetConnectionFailure());
+  }
+
+  @override
+  Future<ApiResult<void, Failure>> verifyOtp({
+    required String fullName,
+    required String otp,
+  }) async {
+    if (await networkInfo.isConnected) {
+      try {
+      } on DioException catch (error) {
+        return ApiResult.withError(DioFailure(error: error));
+      } on ServerException {
+        return ApiResult.withError(ServerFailure());
+      } catch (error) {
+        return ApiResult.withError(UnknowFailure());
+      }
+    }
+    return ApiResult.withError(InternetConnectionFailure());
   }
 }
