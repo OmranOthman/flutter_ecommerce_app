@@ -1,6 +1,5 @@
 import 'package:flutter_ecommerce_app/models/product_item_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
 
 
 abstract class FavoritesLocalDataSource {

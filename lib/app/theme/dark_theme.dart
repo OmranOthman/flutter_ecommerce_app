@@ -71,16 +71,16 @@ class DarkThemeMode {
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: AppColors.darkModePrimaryColor,
         indicatorColor: AppColors.darkModeWhiteColor,
-        iconTheme: MaterialStateProperty.resolveWith<IconThemeData>(
+        iconTheme: WidgetStateProperty.resolveWith<IconThemeData>(
           (states) {
-            if (states.contains(MaterialState.selected)) {
+            if (states.contains(WidgetState.selected)) {
               return iconThemeData.copyWith(
                   color: AppColors.darkModePrimaryColor);
             }
             return iconThemeData;
           },
         ),
-        labelTextStyle: MaterialStatePropertyAll(
+        labelTextStyle: WidgetStatePropertyAll(
           textTheme.labelSmall?.copyWith(color: AppColors.darkModeWhiteColor),
         ),
       ),

@@ -39,13 +39,13 @@ class ToggleItem extends StatelessWidget {
                 Switch(
                   value: value,
                   onChanged: onChanged,
-                  thumbColor: MaterialStateProperty.resolveWith<Color>(
-                        (states) => states.contains(MaterialState.selected)
+                  thumbColor: WidgetStateProperty.resolveWith<Color>(
+                        (states) => states.contains(WidgetState.selected)
                         ? theme.colorScheme.primary
                         : Colors.grey.shade400,
                   ),
-                  trackColor: MaterialStateProperty.resolveWith<Color>(
-                        (states) => states.contains(MaterialState.selected)
+                  trackColor: WidgetStateProperty.resolveWith<Color>(
+                        (states) => states.contains(WidgetState.selected)
                         ? theme.colorScheme.primary.withOpacity(0.3)
                         : Colors.grey.shade400.withOpacity(0.5),
                   ),

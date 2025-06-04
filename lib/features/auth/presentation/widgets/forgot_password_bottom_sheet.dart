@@ -49,7 +49,7 @@ class ForgotPasswordBottomSheet extends StatelessWidget {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('reset_link_sent'.tr + ' ${emailController.text}'),
+                  content: Text('${'reset_link_sent'.tr} ${emailController.text}'),
                 ),
               );
             },

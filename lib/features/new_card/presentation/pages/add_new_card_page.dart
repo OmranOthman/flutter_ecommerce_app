@@ -26,6 +26,7 @@ class AddNewCardView extends StatefulWidget {
   State<AddNewCardView> createState() => _AddNewCardViewState();
 }
 
+
 class _AddNewCardViewState extends State<AddNewCardView> {
   final TextEditingController _cardNumberController = TextEditingController();
   final TextEditingController _cardHolderNameController = TextEditingController();

@@ -74,15 +74,15 @@ class LightThemeMode {
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: AppColors.lightModePrimaryColor,
         indicatorColor: AppColors.lightModeWhiteColor,
-        iconTheme: MaterialStateProperty.resolveWith<IconThemeData>((states) {
-          if (states.contains(MaterialState.selected)) {
+        iconTheme: WidgetStateProperty.resolveWith<IconThemeData>((states) {
+          if (states.contains(WidgetState.selected)) {
             return iconThemeData.copyWith(
               color: AppColors.lightModePrimaryColor,
             );
           }
           return iconThemeData;
         }),
-        labelTextStyle: MaterialStatePropertyAll(
+        labelTextStyle: WidgetStatePropertyAll(
           textTheme.labelSmall?.copyWith(color: AppColors.lightModeWhiteColor),
         ),
       ),

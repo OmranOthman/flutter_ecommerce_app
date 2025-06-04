@@ -7,7 +7,7 @@ class PaymentMethodsCubit extends Cubit<PaymentMethodsState> {
   PaymentMethodsCubit() : super(PaymntMethodsInitial());
 
   String? selectedPaymentId;
-  List<PaymentCardModel> _paymentCards = List.from(dummyPaymentCards);
+  final List<PaymentCardModel> _paymentCards = List.from(dummyPaymentCards);
 
   Future<void> addNewCard(String cardNumber, String cardHolderName,
       String expiryDate, String cvv) async {

@@ -1,4 +1,3 @@
-import 'package:flutter_ecommerce_app/core/constants/app_string.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 abstract interface class SearchLocalDataSource {
   Future<void> saveSearchQuery(String query);

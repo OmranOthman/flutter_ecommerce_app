@@ -12,7 +12,7 @@ class RegisterEntity extends Equatable {
   final String country_code;
   final String? guest_uuid;
 
-  RegisterEntity(
+  const RegisterEntity(
       {required this.name,
       required this.email,
       required this.password,
