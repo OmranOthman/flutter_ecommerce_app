@@ -223,7 +223,7 @@ class _LoginViewState extends State<LoginView> {
                         text: 'login_with_google'.tr,
                         img: AppAssets.images.logoGoogle,
                         onTap: () {
-                          authCubit.googleLogin();
+                          // authCubit.googleLogin();
 
                         },
                       ),

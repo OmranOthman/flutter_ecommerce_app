@@ -222,8 +222,8 @@ class _RegisterViewState extends State<RegisterView> {
                 text: 'login_with_google'.tr,
                 img: AppAssets.images.logoGoogle,
                 onTap: () {
-                  // Navigator.of(context).pushNamed(RoutePath.mainRoute);
-                  authCubit.googleLogin();
+                  Navigator.of(context).pushNamed(RoutePath.mainRoute);
+                  // authCubit.googleLogin();
                 },
               ),
               SizedBox(height: 16.h),
