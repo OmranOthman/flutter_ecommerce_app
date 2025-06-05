@@ -34,7 +34,7 @@ class AuthRepositoryImpl implements AuthRepository {
     if (await networkInfo.isConnected) {
       try {
         String token =
-            await authRemoteDataSource.login(phone: phone, password: password);
+        await authRemoteDataSource.login(phone: phone, password: password);
         await authLocalDataSource.saveToken(token);
         return ApiResult.withSuccess(null);
       } on DioException catch (error) {
@@ -56,7 +56,7 @@ class AuthRepositoryImpl implements AuthRepository {
       try {
         await authRemoteDataSource.register(
             registerRequestModel:
-                RegisterRequestModel.fromEntity(registerEntity));
+            RegisterRequestModel.fromEntity(registerEntity));
         return ApiResult.withSuccess(null);
       } on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
@@ -105,7 +105,7 @@ class AuthRepositoryImpl implements AuthRepository {
     if (await networkInfo.isConnected) {
       try {
         String msg =
-            await authRemoteDataSource.resendCode(fullPhone: fullPhone);
+        await authRemoteDataSource.resendCode(fullPhone: fullPhone);
         return ApiResult.withSuccess(msg);
       } on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
@@ -163,6 +163,23 @@ class AuthRepositoryImpl implements AuthRepository {
   }) async {
     if (await networkInfo.isConnected) {
       try {} on DioException catch (error) {
+        return ApiResult.withError(DioFailure(error: error));
+      } on ServerException {
+        return ApiResult.withError(ServerFailure());
+      } catch (error) {
+        return ApiResult.withError(UnknowFailure());
+      }
+    }
+    return ApiResult.withError(InternetConnectionFailure());
+  }
+
+  @override
+  Future<ApiResult<void, Failure>> googleLogin() async {
+    if (await networkInfo.isConnected) {
+      try {
+        await authRemoteDataSource.googleLogin();
+        return ApiResult.withSuccess(null);
+      } on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
       } on ServerException {
         return ApiResult.withError(ServerFailure());

@@ -47,6 +47,7 @@ import 'package:flutter_ecommerce_app/features/settings/data/datasources/setting
 import 'package:flutter_ecommerce_app/features/settings/data/repositories/settings_repository_impl.dart';
 import 'package:flutter_ecommerce_app/features/settings/domain/repositories/settings_repository.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:flutter_ecommerce_app/app/data/datasources/app_local_data_source.dart';
 import 'package:flutter_ecommerce_app/app/data/repositories/app_repository_impl.dart';
@@ -71,6 +72,11 @@ Future<void> init() async {
   di.registerLazySingleton<NetworkInfo>(
     () => NetworkInfoImpl(di<InternetConnection>()),
   );
+
+  di.registerLazySingleton<GoogleSignIn>(() => GoogleSignIn(scopes: [
+        'email',
+        'https://shop-api.code-line.dev/api/login/google',
+      ]));
 
   di.registerLazySingleton<Dio>(() => Dio()
     ..options.headers.addAll({
@@ -166,7 +172,8 @@ void initRemoteDataSource() {
   );
 
   di.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(dio: di<Dio>()),
+    () => AuthRemoteDataSourceImpl(
+        dio: di<Dio>(), googleSignin: di<GoogleSignIn>()),
   );
 
   di.registerLazySingleton<CartRemoteDataSource>(
