@@ -9,8 +9,18 @@ class RegisterRequestModel extends RegisterEntity {
     required super.phone,
     required super.phoneCode,
     required super.countryCode,
-    String super.guestUuid = '',
+    super.guestUuid = '',
   });
+
+  RegisterRequestModel.fromEntity(RegisterEntity registerEntity) :this(
+    name: registerEntity.name,
+    password: registerEntity.password,
+    passwordConfirmation: registerEntity.passwordConfirmation,
+    phone: registerEntity.phone,
+    countryCode: registerEntity.countryCode,
+    phoneCode: registerEntity.phoneCode,
+    guestUuid: registerEntity.guestUuid,
+  );
 
   FormData toFormData() {
     return FormData.fromMap({

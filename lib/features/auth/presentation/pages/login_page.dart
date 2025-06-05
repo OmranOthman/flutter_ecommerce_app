@@ -94,7 +94,7 @@ class _LoginViewState extends State<LoginView> {
                             prefixIcon: const Icon(Icons.email_outlined),
                             suffixIcon: CustomCountryCodePicker(
                               initialSelection: '+963',
-                              onChanged: authCubit.countryCodeChanged,
+                              phoneCodeOnChanged: authCubit.phoneCodeChanged,
                             ),
                             label: 'phone'.tr,
                             hintText: 'enter_your_phone'.tr,
@@ -164,8 +164,10 @@ class _LoginViewState extends State<LoginView> {
                     if (state.errorMassage != null) {
                       showSnackBar(context, msg: state.errorMassage!);
                     }
-                    if (state is LoginSuccessfully){
-                      Navigator.of(context).pushNamed(RoutePath.mainRoute);
+                    if (state is LoginSuccessfully) {
+                      Navigator.of(context).pushNamed(
+                          RoutePath.verificationRoute,
+                          arguments: state.phoneCode + state.phone!);
                     }
                   },
                   builder: (context, state) {

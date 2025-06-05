@@ -1,5 +1,6 @@
 import 'package:flutter_ecommerce_app/core/error/failures.dart';
 import 'package:flutter_ecommerce_app/core/helper/api_helper/api_result.dart';
+import 'package:flutter_ecommerce_app/features/auth/domain/entities/register_entity.dart';
 
 abstract interface class AuthRepository {
   Future<void> saveFirstTimeOpenApp();
@@ -12,12 +13,7 @@ abstract interface class AuthRepository {
   });
 
   Future<ApiResult<void, Failure>> register({
-    required String fullName,
-    required String password,
-    required String passwordConfirmation,
-    required String phone,
-    required String phoneCode,
-    required String countryCode,
+   required RegisterEntity registerEntity
   });
 
   Future<ApiResult<void, Failure>> resetPassword({
@@ -51,7 +47,7 @@ abstract interface class AuthRepository {
   });
 
 //  Future<ApiResult<void,Failure>> googleLogin({});
-  Future<ApiResult<void, Failure>> resendCode({
+  Future<ApiResult<String, Failure>> resendCode({
     required String fullPhone,
   });
 // Future<ApiResult<void,Failure>> logout({});

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_string.dart';
 import 'package:flutter_ecommerce_app/core/error/exceptions.dart';
+import 'package:flutter_ecommerce_app/features/auth/data/model/register_request_model.dart';
 
 abstract interface class AuthRemoteDataSource {
   Future<String> login({
@@ -9,12 +10,7 @@ abstract interface class AuthRemoteDataSource {
   });
 
   Future<void> register({
-    required String fullName,
-    required String password,
-    required String passwordConfirmation,
-    required String phone,
-    required String phoneCode,
-    required String countryCode,
+    required RegisterRequestModel registerRequestModel,
   });
 
   Future<void> resetPassword({
@@ -48,7 +44,7 @@ abstract interface class AuthRemoteDataSource {
   });
 
 //  Future<void> googleLogin({});
-  Future<void> resendCode({
+  Future<String> resendCode({
     required String fullPhone,
   });
 // Future<ApiResult<void,Failure>> logout({});
@@ -76,26 +72,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<void> register({
-    required String fullName,
-    required String password,
-    required String passwordConfirmation,
-    required String phone,
-    required String phoneCode,
-    required String countryCode,
+    required RegisterRequestModel registerRequestModel,
   }) async {
     Response result = await dio.post(
       "${AppString.apiUrl}register",
-      data: FormData.fromMap({
-        "name": fullName,
-        "password": password,
-        "password_confirmation": passwordConfirmation,
-        "phone": phone,
-        "phone_code": phoneCode,
-        "country_code": countryCode,
-        "guest_uuid": '',
-      }),
+      data: registerRequestModel.toFormData(),
     );
-    if (result.statusCode != 200) {
+    if (result.statusCode == 200) {
+      return;
+    } else {
       throw ServerException();
     }
   }
@@ -128,19 +113,22 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       "otp": otp,
     });
     if (result.statusCode == 200) {
+      return;
     } else {
       throw ServerException();
     }
   }
 
   @override
-  Future<void> resendCode({
+  Future<String> resendCode({
     required String fullPhone,
   }) async {
     Response result = await dio.post("${AppString.apiUrl}verification", data: {
       "full_phone": fullPhone,
     });
     if (result.statusCode == 200) {
+      String msg = result.data["message"];
+      return msg;
     } else {
       throw ServerException();
     }

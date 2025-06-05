@@ -1,115 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
+import 'package:flutter_ecommerce_app/core/util/show_snack_bar.dart';
+import 'package:flutter_ecommerce_app/dependency_Injections.dart';
+import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_assets.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
-class VerificationPage extends StatefulWidget {
-  const VerificationPage({super.key});
+class VerificationPage extends StatelessWidget {
+  static Route<dynamic> route({
+    required String params,
+    RouteSettings? settings,
+  }) =>
+      MaterialPageRoute(
+        settings: settings,
+        builder: (context) => VerificationPage(fullPhone: params),
+      );
 
-  @override
-  State<VerificationPage> createState() => _VerificationPageState();
-}
+  final String? fullPhone;
 
-class _VerificationPageState extends State<VerificationPage> {
-  final List<TextEditingController> _controllers =
-  List.generate(5, (index) => TextEditingController());
-  final List<FocusNode> _focusNodes = List.generate(5, (index) => FocusNode());
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final String _email = "magdalena83@mail.com";
-
-  @override
-  void dispose() {
-    for (var controller in _controllers) {
-      controller.dispose();
-    }
-    for (var node in _focusNodes) {
-      node.dispose();
-    }
-    super.dispose();
-  }
-
-  void _checkVerificationCode() {
-    String enteredCode = _controllers.map((c) => c.text).join();
-    if (enteredCode == "00000") {
-      _showSuccessBottomSheet();
-    } else {
-      _showErrorSnackBar();
-    }
-  }
-
-  void _showErrorSnackBar() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("incorrect_code_message".tr),
-        backgroundColor: Colors.red,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.r),
-        ),
-        duration: const Duration(seconds: 3),
-        action: SnackBarAction(
-          label: 'ok'.tr,
-          textColor: Colors.white,
-          onPressed: () {
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          },
-        ),
-      ),
-    );
-  }
-
-  void _showSuccessBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
-      ),
-      builder: (context) => _buildSuccessContent(),
-    );
-  }
-
-  Widget _buildSuccessContent() {
-    return Padding(
-      padding: EdgeInsets.all(20.w),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Image.asset(AppAssets.images.success),
-          SizedBox(height: 20.h),
-          Text(
-            "register_success".tr,
-            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 10.h),
-          Text(
-            "congratulations_message".tr,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16.sp),
-          ),
-          SizedBox(height: 30.h),
-          SizedBox(
-            width: double.infinity,
-            child: CustomButton(
-              text: "go_to_homepage".tr,
-              onTap: () {
-                Navigator.pushNamed(context, RoutePath.mainRoute);
-              },
-            ),
-          ),
-          SizedBox(height: 20.h),
-        ],
-      ),
-    );
-  }
+  const VerificationPage({super.key, this.fullPhone});
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => di<AuthCubit>(),
+      child: VerificationView(fullPhone: fullPhone),
+    );
+  }
+}
+
+class VerificationView extends StatelessWidget {
+  final String? fullPhone;
+
+  const VerificationView({super.key, this.fullPhone});
+
+  @override
+  Widget build(BuildContext context) {
+    AuthCubit authCubit = BlocProvider.of<AuthCubit>(context);
+
     return Scaffold(
-      key: _scaffoldKey,
       appBar: AppBar(
         title: Text("verification".tr),
         centerTitle: true,
@@ -143,20 +77,59 @@ class _VerificationPageState extends State<VerificationPage> {
             ),
             SizedBox(height: 5.h),
             Text(
-              _email,
+              "_email",
               style: Theme.of(context).textTheme.bodySmall,
             ),
             SizedBox(height: 40.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(5, (index) => _buildCodeField(index)),
+            BlocBuilder<AuthCubit, AuthState>(
+              bloc: authCubit,
+              builder: (context, state) {
+                return OtpTextField(
+                  numberOfFields: 5,
+                  borderRadius: BorderRadius.circular(10.r),
+                  fieldWidth: 55.w,
+                  showFieldAsBox: true,
+                  keyboardType: TextInputType.number,
+                  focusedBorderColor: Theme.of(context).primaryColor,
+                  enabledBorderColor: Colors.grey.shade200,
+                  cursorColor: Theme.of(context).primaryColor,
+                  textStyle: Theme.of(context).textTheme.headlineSmall,
+                  borderColor: Colors.transparent,
+                  onCodeChanged: authCubit.onCodeChanged,
+                );
+              },
             ),
             SizedBox(height: 40.h),
             SizedBox(
               width: double.infinity,
-              child: CustomButton(
-                onTap: _checkVerificationCode,
-                text: "submit".tr,
+              child: BlocConsumer<AuthCubit, AuthState>(
+                bloc: authCubit,
+                listener: (context, state) {
+                  if (state.errorMassage != null) {
+                    showSnackBar(context, msg: state.errorMassage!);
+                  }
+
+                  if (state is PhoneVerifySuccessfully) {
+                    _showSuccessBottomSheet(context);
+                  }
+
+                  if (state is ResendCodeSuccessfully) {
+                    showSnackBar(
+                      context,
+                      msg: state.verifyMsg!,
+                      backgroundColor: Colors.green,
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  return CustomButton(
+                    isLoading: state.isLoading,
+                    onTap: () {
+                      authCubit.phoneVerify(fullPhone!);
+                    },
+                    text: "submit".tr,
+                  );
+                },
               ),
             ),
             SizedBox(height: 20.h),
@@ -168,7 +141,9 @@ class _VerificationPageState extends State<VerificationPage> {
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    authCubit.resendCode(fullPhone!);
+                  },
                   child: Text(
                     "resend".tr,
                     style: TextStyle(color: AppColors.primary),
@@ -182,36 +157,47 @@ class _VerificationPageState extends State<VerificationPage> {
     );
   }
 
-  Widget _buildCodeField(int index) {
-    return SizedBox(
-      width: 50.w,
-      child: TextField(
-        style: Theme.of(context).textTheme.headlineSmall,
-        controller: _controllers[index],
-        focusNode: _focusNodes[index],
-        textAlign: TextAlign.center,
-        keyboardType: TextInputType.number,
-        maxLength: 1,
-        decoration: InputDecoration(
-          counterText: "",
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.r),
+  void _showSuccessBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+      ),
+      builder: (context) => _buildSuccessContent(context),
+    );
+  }
+
+  Widget _buildSuccessContent(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(20.w),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(AppAssets.images.success),
+          SizedBox(height: 20.h),
+          Text(
+            "register_success".tr,
+            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.r),
-            borderSide: BorderSide(
-              color: Theme.of(context).primaryColor,
-              width: 1.5.w,
+          SizedBox(height: 10.h),
+          Text(
+            "congratulations_message".tr,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16.sp),
+          ),
+          SizedBox(height: 30.h),
+          SizedBox(
+            width: double.infinity,
+            child: CustomButton(
+              text: "go_to_homepage".tr,
+              onTap: () {
+                Navigator.pushNamed(context, RoutePath.mainRoute);
+              },
             ),
           ),
-        ),
-        onChanged: (value) {
-          if (value.length == 1 && index < 4) {
-            FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
-          } else if (value.isEmpty && index > 0) {
-            FocusScope.of(context).requestFocus(_focusNodes[index - 1]);
-          }
-        },
+          SizedBox(height: 20.h),
+        ],
       ),
     );
   }

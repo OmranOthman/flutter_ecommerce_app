@@ -38,7 +38,7 @@ class AppRouter {
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     // Getting agrs passed in while calling Navigastor.pushNamed
-    // final args = settings.arguments;
+    final args = settings.arguments;
 
     switch (settings.name) {
       case RoutePath.splashRoute:
@@ -74,10 +74,7 @@ class AppRouter {
         );
 
       case RoutePath.verificationRoute:
-        return MaterialPageRoute(
-          builder: (_) => VerificationPage(),
-          settings: settings,
-        );
+        return _routeArgsHandler(VerificationPage.route,args,settings);
 
       case RoutePath.checkoutRoute:
         return MaterialPageRoute(
@@ -176,15 +173,15 @@ class AppRouter {
   }
 }
 
-// Route<dynamic> _routeArgsHandler<T>(
-//   Route<dynamic> Function({required T params, RouteSettings? settings})
-//   routeCaller,
-//   Object? args,
-//   RouteSettings? settings,
-// ) {
-//   if (args is T) {
-//     return routeCaller(params: args, settings: settings);
-//   } else {
-//     return RouteErrorPage.routeArgumentsError();
-//   }
-// }
+Route<dynamic> _routeArgsHandler<T>(
+  Route<dynamic> Function({required T params, RouteSettings? settings})
+  routeCaller,
+  Object? args,
+  RouteSettings? settings,
+) {
+  if (args is T) {
+    return routeCaller(params: args, settings: settings);
+  } else {
+    return RouteErrorPage.routeArgumentsError();
+  }
+}

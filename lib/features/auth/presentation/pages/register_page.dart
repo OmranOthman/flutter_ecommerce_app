@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/core/util/input_formatters/phone_input_formatter.dart';
+import 'package:flutter_ecommerce_app/core/util/show_snack_bar.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_country_code_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
@@ -31,14 +35,13 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final usernameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool _obscureText = true;
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
 
   @override
   Widget build(BuildContext context) {
+    AuthCubit authCubit = BlocProvider.of<AuthCubit>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -49,89 +52,145 @@ class _RegisterViewState extends State<RegisterView> {
               SizedBox(height: 50.h),
               Text(
                 'create_account'.tr,
-                style: Theme.of(context).textTheme.headlineLarge,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .headlineLarge,
               ),
               SizedBox(height: 8.h),
               Text(
                 'start_shopping_with_account'.tr,
-                style: Theme.of(context)
+                style: Theme
+                    .of(context)
                     .textTheme
                     .labelLarge!
                     .copyWith(color: AppColors.grey),
               ),
               SizedBox(height: 24.h),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    CustomTextFormField(
-                      controller: usernameController,
-                      keyboardType: TextInputType.name,
-                      label: 'username'.tr,
-                      hintText: 'enter_username'.tr,
-                      prefixIcon: const Icon(Icons.person_outline),
-                      validator: (validator) {
-                        if (validator == null || validator.isEmpty) {
-                          return 'this_field_is_required'.tr;
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 20.h),
-                    CustomTextFormField(
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      label: 'email'.tr,
-                      hintText: 'enter_your_email'.tr,
-                      prefixIcon: const Icon(Icons.email_outlined),
-                      validator: (validator) {
-                        if (validator == null || validator.isEmpty) {
-                          return 'this_field_is_required'.tr;
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 20.h),
-                    CustomTextFormField(
-                      controller: passwordController,
-                      keyboardType: TextInputType.visiblePassword,
-                      label: 'password'.tr,
-                      hintText: 'enter_new_password'.tr,
-                      obscureText: _obscureText,
-                      prefixIcon: const Icon(Icons.lock_outline),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _obscureText
-                              ? Icons.visibility
-                              : Icons.visibility_off,
+              BlocBuilder<AuthCubit, AuthState>(
+                bloc: authCubit,
+                builder: (context, state) {
+                  return Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        CustomTextFormField(
+                          keyboardType: TextInputType.name,
+                          label: 'username'.tr,
+                          hintText: 'enter_username'.tr,
+                          onChanged: authCubit.nameOnChanged,
+                          prefixIcon: const Icon(Icons.person_outline),
+                          validator: (validator) {
+                            if (validator == null || validator.isEmpty) {
+                              return 'this_field_is_required'.tr;
+                            }
+                            return null;
+                          },
                         ),
-                        onPressed: () {
-                          setState(() {
-                            _obscureText = !_obscureText;
-                          });
-                        },
-                      ),
-                      validator: (validator) {
-                        if (validator == null || validator.isEmpty) {
-                          return 'this_field_is_required'.tr;
-                        }
-                        if (validator.length < 6) {
-                          return 'password_min_length'.tr;
-                        }
-                        return null;
-                      },
+                        SizedBox(height: 20.h),
+                        CustomTextFormField(
+                          prefixIcon: const Icon(Icons.email_outlined),
+                          suffixIcon: CustomCountryCodePicker(
+                            initialSelection: '+963',
+                            phoneCodeOnChanged: authCubit.phoneCodeRegisterOnChanged,
+                            countryCodeOnChanged: authCubit.countryCodeRegisterChanged,
+                          ),
+                          label: 'phone'.tr,
+                          hintText: 'enter_your_phone'.tr,
+                          onChanged: authCubit.phoneRegisterOnChanged,
+                          validator: (validator) {
+                            if (validator == null || validator.isEmpty) {
+                              return 'this_field_is_required'.tr;
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.phone,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(10),
+                            ArabicNumberTextInputFormatter(),
+                          ],
+                        ),
+                        SizedBox(height: 20.h),
+                        CustomTextFormField(
+                          keyboardType: TextInputType.visiblePassword,
+                          label: 'password'.tr,
+                          hintText: 'enter_your_password'.tr,
+                          obscureText: _obscurePassword,
+                          onChanged: authCubit.passwordRegisterOnChanged,
+                          prefixIcon: const Icon(Icons.lock_outline),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscurePassword = !_obscurePassword;
+                              });
+                            },
+                          ),
+                          validator: (validator) {
+                            if (validator == null || validator.isEmpty) {
+                              return 'this_field_is_required'.tr;
+                            }
+                            return null;
+                          },
+                        ),
+
+                        SizedBox(height: 20.h),
+                        CustomTextFormField(
+                          keyboardType: TextInputType.visiblePassword,
+                          label: 'confirm_password'.tr,
+                          hintText: 'confirm_password'.tr,
+                          obscureText: _obscureConfirmPassword,
+                          onChanged: authCubit.passwordConfirmationRegisterOnChanged,
+                          prefixIcon: const Icon(Icons.lock_outline),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscureConfirmPassword ? Icons.visibility : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureConfirmPassword = !_obscureConfirmPassword;
+                              });
+                            },
+                          ),
+                          validator: (validator) {
+                            if (validator == null || validator.isEmpty) {
+                              return 'this_field_is_required'.tr;
+                            }
+                            return null;
+                          },
+                        ),
+
+                      ],
                     ),
-                  ],
-                ),
+                  );
+                },
               ),
               SizedBox(height: 40.h),
-              CustomButton(
-                isLoading: false,
-                text: 'create_account'.tr,
-                onTap: () async {
-                  if (_formKey.currentState!.validate()) {
-                    // Call register logic
+              BlocConsumer<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if(state.errorMassage != null){
+                    showSnackBar(context, msg: state.errorMassage!);
                   }
+                  if(state is RegisterSuccessfully){
+                    Navigator.of(context).pushNamed(
+                        RoutePath.verificationRoute,
+                        arguments: state.registerEntity!.phoneCode + state.registerEntity!.phone!
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  return CustomButton(
+                    isLoading: state.isLoading,
+                    text: 'create_account'.tr,
+                    onTap: () async {
+                      if (_formKey.currentState!.validate()) {
+                        authCubit.register();
+                      }
+                    },
+                  );
                 },
               ),
               SizedBox(height: 8.h),
@@ -142,16 +201,22 @@ class _RegisterViewState extends State<RegisterView> {
                   children: [
                     Text(
                       "have_an_account".tr,
-                      style: Theme.of(context).textTheme.bodySmall,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodySmall,
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(),
                       child: Text(
                         'login'.tr,
-                        style: Theme.of(context)
+                        style: Theme
+                            .of(context)
                             .textTheme
                             .titleSmall!
-                            .copyWith(color: Theme.of(context).primaryColor),
+                            .copyWith(color: Theme
+                            .of(context)
+                            .primaryColor),
                       ),
                     ),
                   ],

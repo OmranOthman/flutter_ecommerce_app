@@ -5,6 +5,8 @@ import 'package:flutter_ecommerce_app/core/helper/api_helper/api_result.dart';
 import 'package:flutter_ecommerce_app/core/helper/network/network_info.dart';
 import 'package:flutter_ecommerce_app/features/auth/data/datasources/auth_local_data_source.dart';
 import 'package:flutter_ecommerce_app/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:flutter_ecommerce_app/features/auth/data/model/register_request_model.dart';
+import 'package:flutter_ecommerce_app/features/auth/domain/entities/register_entity.dart';
 import 'package:flutter_ecommerce_app/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -48,23 +50,13 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<ApiResult<void, Failure>> register({
-    required String fullName,
-    required String password,
-    required String passwordConfirmation,
-    required String phone,
-    required String phoneCode,
-    required String countryCode,
+    required RegisterEntity registerEntity,
   }) async {
     if (await networkInfo.isConnected) {
       try {
         await authRemoteDataSource.register(
-          fullName: fullName,
-          password: password,
-          passwordConfirmation: passwordConfirmation,
-          phone: phone,
-          phoneCode: phoneCode,
-          countryCode: countryCode,
-        );
+            registerRequestModel:
+                RegisterRequestModel.fromEntity(registerEntity));
         return ApiResult.withSuccess(null);
       } on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
@@ -83,7 +75,6 @@ class AuthRepositoryImpl implements AuthRepository {
     required String newPassword,
     required String passwordConfirmation,
   }) {
-    // TODO: implement changePassword
     throw UnimplementedError();
   }
 
@@ -94,6 +85,8 @@ class AuthRepositoryImpl implements AuthRepository {
   }) async {
     if (await networkInfo.isConnected) {
       try {
+        await authRemoteDataSource.phoneVerify(fullPhone: fullPhone, otp: otp);
+        return ApiResult.withSuccess(null);
       } on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
       } on ServerException {
@@ -106,11 +99,14 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<ApiResult<void, Failure>> resendCode({
+  Future<ApiResult<String, Failure>> resendCode({
     required String fullPhone,
   }) async {
     if (await networkInfo.isConnected) {
       try {
+        String msg =
+            await authRemoteDataSource.resendCode(fullPhone: fullPhone);
+        return ApiResult.withSuccess(msg);
       } on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
       } on ServerException {
@@ -129,8 +125,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String token,
   }) async {
     if (await networkInfo.isConnected) {
-      try {
-      } on DioException catch (error) {
+      try {} on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
       } on ServerException {
         return ApiResult.withError(ServerFailure());
@@ -150,8 +145,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String countryCode,
   }) async {
     if (await networkInfo.isConnected) {
-      try {
-      } on DioException catch (error) {
+      try {} on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
       } on ServerException {
         return ApiResult.withError(ServerFailure());
@@ -168,8 +162,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String otp,
   }) async {
     if (await networkInfo.isConnected) {
-      try {
-      } on DioException catch (error) {
+      try {} on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
       } on ServerException {
         return ApiResult.withError(ServerFailure());
