@@ -52,16 +52,12 @@ class _RegisterViewState extends State<RegisterView> {
               SizedBox(height: 50.h),
               Text(
                 'create_account'.tr,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .headlineLarge,
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
               SizedBox(height: 8.h),
               Text(
                 'start_shopping_with_account'.tr,
-                style: Theme
-                    .of(context)
+                style: Theme.of(context)
                     .textTheme
                     .labelLarge!
                     .copyWith(color: AppColors.grey),
@@ -92,8 +88,10 @@ class _RegisterViewState extends State<RegisterView> {
                           prefixIcon: const Icon(Icons.email_outlined),
                           suffixIcon: CustomCountryCodePicker(
                             initialSelection: '+963',
-                            phoneCodeOnChanged: authCubit.phoneCodeRegisterOnChanged,
-                            countryCodeOnChanged: authCubit.countryCodeRegisterChanged,
+                            phoneCodeOnChanged:
+                                authCubit.phoneCodeRegisterOnChanged,
+                            countryCodeOnChanged:
+                                authCubit.countryCodeRegisterChanged,
                           ),
                           label: 'phone'.tr,
                           hintText: 'enter_your_phone'.tr,
@@ -121,7 +119,9 @@ class _RegisterViewState extends State<RegisterView> {
                           prefixIcon: const Icon(Icons.lock_outline),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                              _obscurePassword
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                             ),
                             onPressed: () {
                               setState(() {
@@ -136,22 +136,25 @@ class _RegisterViewState extends State<RegisterView> {
                             return null;
                           },
                         ),
-
                         SizedBox(height: 20.h),
                         CustomTextFormField(
                           keyboardType: TextInputType.visiblePassword,
                           label: 'confirm_password'.tr,
                           hintText: 'confirm_password'.tr,
                           obscureText: _obscureConfirmPassword,
-                          onChanged: authCubit.passwordConfirmationRegisterOnChanged,
+                          onChanged:
+                              authCubit.passwordConfirmationRegisterOnChanged,
                           prefixIcon: const Icon(Icons.lock_outline),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _obscureConfirmPassword ? Icons.visibility : Icons.visibility_off,
+                              _obscureConfirmPassword
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                             ),
                             onPressed: () {
                               setState(() {
-                                _obscureConfirmPassword = !_obscureConfirmPassword;
+                                _obscureConfirmPassword =
+                                    !_obscureConfirmPassword;
                               });
                             },
                           ),
@@ -162,7 +165,6 @@ class _RegisterViewState extends State<RegisterView> {
                             return null;
                           },
                         ),
-
                       ],
                     ),
                   );
@@ -171,14 +173,13 @@ class _RegisterViewState extends State<RegisterView> {
               SizedBox(height: 40.h),
               BlocConsumer<AuthCubit, AuthState>(
                 listener: (context, state) {
-                  if(state.errorMessage != null){
+                  if (state.errorMessage != null) {
                     showSnackBar(context, msg: state.errorMessage!);
                   }
-                  if(state.loginSuccessfully){
-                    Navigator.of(context).pushNamed(
-                        RoutePath.verificationRoute,
-                        arguments: state.registerEntity!.phoneCode + state.registerEntity!.phone!
-                    );
+                  if (state.registerSuccessfully) {
+                    Navigator.of(context).pushNamed(RoutePath.verificationRoute,
+                        arguments: state.registerEntity!.phoneCode +
+                            state.registerEntity!.phone!);
                   }
                 },
                 builder: (context, state) {
@@ -201,22 +202,16 @@ class _RegisterViewState extends State<RegisterView> {
                   children: [
                     Text(
                       "have_an_account".tr,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodySmall,
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(),
                       child: Text(
                         'login'.tr,
-                        style: Theme
-                            .of(context)
+                        style: Theme.of(context)
                             .textTheme
                             .titleSmall!
-                            .copyWith(color: Theme
-                            .of(context)
-                            .primaryColor),
+                            .copyWith(color: Theme.of(context).primaryColor),
                       ),
                     ),
                   ],

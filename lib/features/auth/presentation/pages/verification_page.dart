@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_ecommerce_app/core/util/show_snack_bar.dart';
 import 'package:flutter_ecommerce_app/dependency_Injections.dart';
-import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
+import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/verification_cubit/verification_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_assets.dart';
@@ -28,7 +28,7 @@ class VerificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => di<AuthCubit>(),
+      create: (context) => di<VerificationCubit>(),
       child: VerificationView(fullPhone: fullPhone),
     );
   }
@@ -41,7 +41,8 @@ class VerificationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthCubit authCubit = BlocProvider.of<AuthCubit>(context);
+    VerificationCubit verificationCubit =
+        BlocProvider.of<VerificationCubit>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -81,44 +82,38 @@ class VerificationView extends StatelessWidget {
               style: Theme.of(context).textTheme.bodySmall,
             ),
             SizedBox(height: 40.h),
-            BlocBuilder<AuthCubit, AuthState>(
-              bloc: authCubit,
+            BlocBuilder<VerificationCubit, VerificationState>(
+              bloc: verificationCubit,
               builder: (context, state) {
                 return OtpTextField(
-                  numberOfFields: 4,
-                  borderRadius: BorderRadius.circular(10.r),
-                  fieldWidth: 55.w,
-                  showFieldAsBox: true,
-                  keyboardType: TextInputType.number,
-                  focusedBorderColor: Theme.of(context).primaryColor,
-                  enabledBorderColor: Colors.grey.shade200,
-                  cursorColor: Theme.of(context).primaryColor,
-                  textStyle: Theme.of(context).textTheme.headlineSmall,
-                  borderColor: Colors.transparent,
-                  onCodeChanged: (value) {
-                    if (value.isEmpty || value.length != 4) {
-                      return;
-                    }
-                    authCubit.onCodeChanged(value);
-                  },
-                );
+                    numberOfFields: 4,
+                    borderRadius: BorderRadius.circular(10.r),
+                    fieldWidth: 55.w,
+                    showFieldAsBox: true,
+                    keyboardType: TextInputType.number,
+                    focusedBorderColor: Theme.of(context).primaryColor,
+                    enabledBorderColor: Colors.grey.shade200,
+                    cursorColor: Theme.of(context).primaryColor,
+                    textStyle: Theme.of(context).textTheme.headlineSmall,
+                    borderColor: Colors.transparent,
+                    onSubmit: verificationCubit.onCodeChanged);
               },
             ),
             SizedBox(height: 40.h),
             SizedBox(
               width: double.infinity,
-              child: BlocConsumer<AuthCubit, AuthState>(
-                bloc: authCubit,
+              child: BlocConsumer<VerificationCubit, VerificationState>(
+                bloc: verificationCubit,
                 listener: (context, state) {
                   if (state.errorMessage != null) {
                     showSnackBar(context, msg: state.errorMessage!);
                   }
 
-                  if (state.phoneVerifySuccessfully ) {
+                  if (state.phoneVerifySuccessfully) {
                     _showSuccessBottomSheet(context);
                   }
 
-                  if (state.resendCodeSuccessfully ) {
+                  if (state.resendCodeSuccessfully) {
                     showSnackBar(
                       context,
                       msg: state.verifyMessage!,
@@ -130,7 +125,11 @@ class VerificationView extends StatelessWidget {
                   return CustomButton(
                     isLoading: state.isLoading,
                     onTap: () {
-                       authCubit.phoneVerify(fullPhone);
+                      if (state.otp == null || state.otp!.length != 4) {
+                        showSnackBar(context, msg: "please_fill_in_the_fields");
+                      } else {
+                        verificationCubit.phoneVerify(fullPhone);
+                      }
                     },
                     text: "submit".tr,
                   );
@@ -145,14 +144,22 @@ class VerificationView extends StatelessWidget {
                   "didn't_receive_code".tr,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
-                TextButton(
-                  onPressed: () {
-                    authCubit.resendCode(fullPhone);
+                BlocBuilder<VerificationCubit, VerificationState>(
+                  builder: (context, state) {
+                    return TextButton(
+                      onPressed: () {
+                        if (state.second == 0) {
+                          verificationCubit.resendCode(fullPhone);
+                        }
+                      },
+                      child: Text(
+                        state.second == 0
+                            ? "resend".tr
+                            : "${"resend".tr} ${state.second}",
+                        style: TextStyle(color: AppColors.primary),
+                      ),
+                    );
                   },
-                  child: Text(
-                    "resend".tr,
-                    style: TextStyle(color: AppColors.primary),
-                  ),
                 ),
               ],
             ),

@@ -4,6 +4,7 @@ import 'package:flutter_ecommerce_app/features/auth/data/repositories/auth_repos
 import 'package:flutter_ecommerce_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/app_launch_cubit/app_launch_cubit.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
+import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/verification_cubit/verification_cubit.dart';
 import 'package:flutter_ecommerce_app/features/cart/data/datacources/cart_local_data_source.dart';
 import 'package:flutter_ecommerce_app/features/cart/data/datacources/cart_remote_data_source.dart';
 import 'package:flutter_ecommerce_app/features/cart/data/repositories/cart_repository_impl.dart';
@@ -108,46 +109,55 @@ void initLocalDataSource() {
   );
 
   di.registerLazySingleton<AuthLocalDataSource>(
-    () => AuthLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>(),),
+    () => AuthLocalDataSourceImpl(
+      sharedPreferences: di<SharedPreferences>(),
+    ),
   );
 
   di.registerLazySingleton<CartLocalDataSource>(
-      () => CartLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>(),),
+    () => CartLocalDataSourceImpl(
+      sharedPreferences: di<SharedPreferences>(),
+    ),
   );
 
   di.registerLazySingleton<CheckoutLocalDataSource>(
-      () => CheckoutLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>(),),
+    () => CheckoutLocalDataSourceImpl(
+      sharedPreferences: di<SharedPreferences>(),
+    ),
   );
 
   di.registerLazySingleton<FavoritesLocalDataSource>(
-        () => FavoritesLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
+    () => FavoritesLocalDataSourceImpl(
+        sharedPreferences: di<SharedPreferences>()),
   );
 
   di.registerLazySingleton<LocationLocalDataSource>(
-        () => LocationLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
+    () =>
+        LocationLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
   );
 
   di.registerLazySingleton<PaymentMethodsLocalDataSource>(
-        () => PaymentMethodsLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
+    () => PaymentMethodsLocalDataSourceImpl(
+        sharedPreferences: di<SharedPreferences>()),
   );
 
   di.registerLazySingleton<OrdersLocalDataSource>(
-        () => OrdersLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
+    () => OrdersLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
   );
 
-
   di.registerLazySingleton<ProductDetailsLocalDataSource>(
-        () => ProductDetailsLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
+    () => ProductDetailsLocalDataSourceImpl(
+        sharedPreferences: di<SharedPreferences>()),
   );
 
   di.registerLazySingleton<SearchLocalDataSource>(
-        () => SearchLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
+    () => SearchLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
   );
 
   di.registerLazySingleton<SettingsLocalDataSource>(
-        () => SettingsLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
+    () =>
+        SettingsLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
   );
-
 }
 
 void initRemoteDataSource() {
@@ -166,8 +176,6 @@ void initRemoteDataSource() {
   di.registerLazySingleton<CheckoutRemoteDataSource>(
     () => CheckoutRemoteDataSourceImpl(dio: di<Dio>()),
   );
-
-
 
   di.registerLazySingleton<FavoritesRemoteDataSource>(
     () => FavoritesRemoteDataSourceImpl(dio: di<Dio>()),
@@ -196,7 +204,6 @@ void initRemoteDataSource() {
   di.registerLazySingleton<SettingsRemoteDataSource>(
     () => SettingsRemoteDataSourceImpl(dio: di<Dio>()),
   );
-
 }
 
 void initRepositories() {
@@ -280,9 +287,6 @@ void initRepositories() {
         localDataSource: di<SettingsLocalDataSource>(),
         networkInfo: di<NetworkInfo>()),
   );
-
-
-
 }
 
 void initBlocs() {
@@ -291,12 +295,16 @@ void initBlocs() {
       appRepository: di<AppRepository>(),
     ),
   );
-    di.registerFactory<AppLaunchCubit>(
+  di.registerFactory<AppLaunchCubit>(
     () => AppLaunchCubit(authRepository: di<AuthRepository>()),
   );
 
   di.registerFactory<AuthCubit>(
     () => AuthCubit(authRepository: di<AuthRepository>()),
+  );
+
+  di.registerFactory<VerificationCubit>(
+    () => VerificationCubit(authRepository: di<AuthRepository>()),
   );
 
   di.registerFactory<MainCubit>(

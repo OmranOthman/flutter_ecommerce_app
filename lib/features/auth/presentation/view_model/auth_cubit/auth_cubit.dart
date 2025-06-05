@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/core/error/error_handling.dart';
@@ -101,44 +103,11 @@ class AuthCubit extends Cubit<AuthState> {
             state.registerEntity!.copyWith(countryCode: countryCode)));
   }
 
-  void onCodeChanged(String otp) {
-    emit(state.copyWith(otp: otp));
-  }
+ 
 
-  Future<void> phoneVerify(String fullPhone) async {
-    emit(state.copyWith(isLoading: true));
 
-    ApiResult<void, Failure> result =
-        await authRepository.phoneVerify(fullPhone: fullPhone, otp: state.otp!);
 
-    if (result.errorResponse != null) {
-      emit(state.copyWith(
-        isLoading: false,
-        errorMessage: failureHandlingMessage(result.errorResponse!),
-      ));
-    } else {
-      emit(state.copyWith(
-        isLoading: false,
-        phoneVerifySuccessfully: true,
-      ));
-    }
-  }
 
-  Future<void> resendCode(String fullPhone) async {
-    ApiResult<String, Failure> result = await authRepository.resendCode(
-      fullPhone: fullPhone,
-    );
+ 
 
-    if (result.errorResponse != null) {
-      emit(state.copyWith(
-        isLoading: false,
-        errorMessage: failureHandlingMessage(result.errorResponse!),
-      ));
-    } else {
-      emit(state.copyWith(
-        isLoading: false,
-        resendCodeSuccessfully: true,
-      ));
-    }
-  }
 }

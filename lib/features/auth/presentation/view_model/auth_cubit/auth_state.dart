@@ -7,14 +7,10 @@ class AuthState extends Equatable {
   final bool isLoading;
   final bool loginSuccessfully;
   final bool registerSuccessfully;
-  final bool resendCodeSuccessfully;
-  final bool phoneVerifySuccessfully;
+
   final String? errorMessage;
   final String? fullName;
   final String? passwordConfirmation;
-  final String? countryIsoCode;
-  final String? otp;
-  final String? verifyMessage;
 
   final RegisterEntity? registerEntity;
 
@@ -26,19 +22,13 @@ class AuthState extends Equatable {
     this.errorMessage,
     this.fullName,
     this.passwordConfirmation,
-    this.countryIsoCode = 'SY',
     this.registerEntity,
-    this.otp,
-    this.verifyMessage,
     this.loginSuccessfully = false,
     this.registerSuccessfully = false,
-    this.resendCodeSuccessfully = false,
-    this.phoneVerifySuccessfully = false,
   });
 
   factory AuthState.init() => const AuthState(
         registerEntity: RegisterEntity(),
-      
       );
 
   AuthState copyWith({
@@ -51,12 +41,8 @@ class AuthState extends Equatable {
     String? passwordConfirmation,
     String? countryIsoCode,
     RegisterEntity? registerEntity,
-    String? otp,
-    String? verifyMessage,
     bool? loginSuccessfully,
     bool? registerSuccessfully,
-    bool? resendCodeSuccessfully,
-    bool? phoneVerifySuccessfully,
   }) =>
       AuthState(
         phone: phone ?? this.phone,
@@ -66,15 +52,9 @@ class AuthState extends Equatable {
         errorMessage: errorMessage,
         fullName: fullName ?? this.fullName,
         passwordConfirmation: passwordConfirmation ?? this.passwordConfirmation,
-        countryIsoCode: countryIsoCode ?? this.countryIsoCode,
         registerEntity: registerEntity ?? this.registerEntity,
-        otp: otp ?? this.otp,
-        verifyMessage: verifyMessage ?? this.verifyMessage,
         loginSuccessfully: loginSuccessfully ?? false,
         registerSuccessfully: registerSuccessfully ?? false,
-        phoneVerifySuccessfully: phoneVerifySuccessfully ?? false,
-        resendCodeSuccessfully: resendCodeSuccessfully ?? false,
-        
       );
 
   @override
@@ -86,13 +66,8 @@ class AuthState extends Equatable {
         errorMessage,
         fullName,
         passwordConfirmation,
-        countryIsoCode,
         registerEntity,
         loginSuccessfully,
         registerSuccessfully,
-        resendCodeSuccessfully,
-        phoneVerifySuccessfully,
-        verifyMessage,
-        otp,
       ];
 }
