@@ -143,4 +143,8 @@ class AuthCubit extends Cubit<AuthState> {
       emit(ResendCodeSuccessfully(verifyMsg: result.dataResponse));
     }
   }
+
+  Future<void> googleLogin() async {
+    await authRepository.googleLogin();
+  }
 }

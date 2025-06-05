@@ -45,6 +45,7 @@ import 'package:flutter_ecommerce_app/features/settings/data/datasources/setting
 import 'package:flutter_ecommerce_app/features/settings/data/repositories/settings_repository_impl.dart';
 import 'package:flutter_ecommerce_app/features/settings/domain/repositories/settings_repository.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:flutter_ecommerce_app/app/data/datasources/app_local_data_source.dart';
 import 'package:flutter_ecommerce_app/app/data/repositories/app_repository_impl.dart';
@@ -69,6 +70,11 @@ Future<void> init() async {
   di.registerLazySingleton<NetworkInfo>(
     () => NetworkInfoImpl(di<InternetConnection>()),
   );
+
+  di.registerLazySingleton<GoogleSignIn>(() => GoogleSignIn(scopes: [
+        'email',
+        'https://shop-api.code-line.dev/api/login/google',
+      ]));
 
   di.registerLazySingleton<Dio>(() => Dio()
     ..options.headers.addAll({
@@ -107,46 +113,55 @@ void initLocalDataSource() {
   );
 
   di.registerLazySingleton<AuthLocalDataSource>(
-    () => AuthLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>(),),
+    () => AuthLocalDataSourceImpl(
+      sharedPreferences: di<SharedPreferences>(),
+    ),
   );
 
   di.registerLazySingleton<CartLocalDataSource>(
-      () => CartLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>(),),
+    () => CartLocalDataSourceImpl(
+      sharedPreferences: di<SharedPreferences>(),
+    ),
   );
 
   di.registerLazySingleton<CheckoutLocalDataSource>(
-      () => CheckoutLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>(),),
+    () => CheckoutLocalDataSourceImpl(
+      sharedPreferences: di<SharedPreferences>(),
+    ),
   );
 
   di.registerLazySingleton<FavoritesLocalDataSource>(
-        () => FavoritesLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
+    () => FavoritesLocalDataSourceImpl(
+        sharedPreferences: di<SharedPreferences>()),
   );
 
   di.registerLazySingleton<LocationLocalDataSource>(
-        () => LocationLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
+    () =>
+        LocationLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
   );
 
   di.registerLazySingleton<PaymentMethodsLocalDataSource>(
-        () => PaymentMethodsLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
+    () => PaymentMethodsLocalDataSourceImpl(
+        sharedPreferences: di<SharedPreferences>()),
   );
 
   di.registerLazySingleton<OrdersLocalDataSource>(
-        () => OrdersLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
+    () => OrdersLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
   );
 
-
   di.registerLazySingleton<ProductDetailsLocalDataSource>(
-        () => ProductDetailsLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
+    () => ProductDetailsLocalDataSourceImpl(
+        sharedPreferences: di<SharedPreferences>()),
   );
 
   di.registerLazySingleton<SearchLocalDataSource>(
-        () => SearchLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
+    () => SearchLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
   );
 
   di.registerLazySingleton<SettingsLocalDataSource>(
-        () => SettingsLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
+    () =>
+        SettingsLocalDataSourceImpl(sharedPreferences: di<SharedPreferences>()),
   );
-
 }
 
 void initRemoteDataSource() {
@@ -155,7 +170,8 @@ void initRemoteDataSource() {
   );
 
   di.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(dio: di<Dio>()),
+    () => AuthRemoteDataSourceImpl(
+        dio: di<Dio>(), googleSignin: di<GoogleSignIn>()),
   );
 
   di.registerLazySingleton<CartRemoteDataSource>(
@@ -165,8 +181,6 @@ void initRemoteDataSource() {
   di.registerLazySingleton<CheckoutRemoteDataSource>(
     () => CheckoutRemoteDataSourceImpl(dio: di<Dio>()),
   );
-
-
 
   di.registerLazySingleton<FavoritesRemoteDataSource>(
     () => FavoritesRemoteDataSourceImpl(dio: di<Dio>()),
@@ -195,7 +209,6 @@ void initRemoteDataSource() {
   di.registerLazySingleton<SettingsRemoteDataSource>(
     () => SettingsRemoteDataSourceImpl(dio: di<Dio>()),
   );
-
 }
 
 void initRepositories() {
@@ -279,9 +292,6 @@ void initRepositories() {
         localDataSource: di<SettingsLocalDataSource>(),
         networkInfo: di<NetworkInfo>()),
   );
-
-
-
 }
 
 void initBlocs() {

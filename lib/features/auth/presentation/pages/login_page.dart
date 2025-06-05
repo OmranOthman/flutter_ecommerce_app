@@ -164,6 +164,7 @@ class _LoginViewState extends State<LoginView> {
                     if (state.errorMassage != null) {
                       showSnackBar(context, msg: state.errorMassage!);
                     }
+                    print("######${state.phoneCode}" + "${state.phone!}");
                     if (state is LoginSuccessfully) {
                       Navigator.of(context).pushNamed(
                           RoutePath.verificationRoute,
@@ -223,8 +224,8 @@ class _LoginViewState extends State<LoginView> {
                         text: 'login_with_google'.tr,
                         img: AppAssets.images.logoGoogle,
                         onTap: () {
-                          Navigator.of(context)
-                              .pushNamed(RoutePath.verificationRoute);
+                          authCubit.googleLogin();
+
                         },
                       ),
                       SizedBox(height: 16.h),

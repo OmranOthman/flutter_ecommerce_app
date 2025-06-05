@@ -46,7 +46,9 @@ abstract interface class AuthRepository {
     required String countryCode,
   });
 
-//  Future<ApiResult<void,Failure>> googleLogin({});
+ Future<ApiResult<void,Failure>> googleLogin();
+
+
   Future<ApiResult<String, Failure>> resendCode({
     required String fullPhone,
   });

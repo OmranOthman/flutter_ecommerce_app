@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_string.dart';
 import 'package:flutter_ecommerce_app/core/error/exceptions.dart';
 import 'package:flutter_ecommerce_app/features/auth/data/model/register_request_model.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 abstract interface class AuthRemoteDataSource {
   Future<String> login({
@@ -43,7 +44,8 @@ abstract interface class AuthRemoteDataSource {
     required String countryCode,
   });
 
-//  Future<void> googleLogin({});
+  Future<void> googleLogin();
+
   Future<String> resendCode({
     required String fullPhone,
   });
@@ -51,9 +53,10 @@ abstract interface class AuthRemoteDataSource {
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
-  AuthRemoteDataSourceImpl({required this.dio});
+  AuthRemoteDataSourceImpl({required this.dio, required this.googleSignin});
 
   Dio dio;
+  GoogleSignIn googleSignin;
 
   @override
   Future<String> login(
@@ -92,13 +95,12 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String passwordConfirmation,
   }) async {
     Response result =
-        await dio.post("${AppString.apiUrl}change-password", data: {
+    await dio.post("${AppString.apiUrl}change-password", data: {
       "current_password": currentPassword,
       "new_password": newPassword,
       "password_confirmation": passwordConfirmation,
     });
-    if (result.statusCode == 200) {
-    } else {
+    if (result.statusCode == 200) {} else {
       throw ServerException();
     }
   }
@@ -141,13 +143,12 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String token,
   }) async {
     Response result =
-        await dio.post("${AppString.apiUrl}reset-password", data: {
+    await dio.post("${AppString.apiUrl}reset-password", data: {
       "full_phone": fullPhone,
       "password": password,
       "token": token,
     });
-    if (result.statusCode == 200) {
-    } else {
+    if (result.statusCode == 200) {} else {
       throw ServerException();
     }
   }
@@ -167,8 +168,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       "phone_code": phoneCode,
       "country_code": countryCode,
     });
-    if (result.statusCode == 200) {
-    } else {
+    if (result.statusCode == 200) {} else {
       throw ServerException();
     }
   }
@@ -182,9 +182,21 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       "full_phone": fullPhone,
       "otp": otp,
     });
-    if (result.statusCode == 200) {
-    } else {
+    if (result.statusCode == 200) {} else {
       throw ServerException();
     }
+  }
+
+  @override
+  Future<void> googleLogin() async {
+    Response response = await dio.get("${AppString.apiUrl}login/google");
+    if (response.statusCode != 200) {
+      print('People API ${response.statusCode} response: ${response.data}');
+      return;
+    }
+    // final Map<String, dynamic> data =
+    // json.decode(response.date) as Map<String, dynamic>;
+    //final String? namedContact = _pickFirstNamedContact(data);
+
   }
 }
