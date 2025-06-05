@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/dependency_injections.dart';
-import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
+import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/app_launch_cubit/app_launch_cubit.dart';
 
 class SplashPage extends StatelessWidget {
   static Route<dynamic> route({required RouteSettings settings}) =>
@@ -17,7 +17,7 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => di<AuthCubit>(),
+      create: (context) => di<AppLaunchCubit>(),
       child: SplashView(),
     );
   }
@@ -31,14 +31,14 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-  late AuthCubit authCubit;
+  late AppLaunchCubit appLaunchCubit;
   @override
   void initState() {
     super.initState();
-    authCubit = BlocProvider.of<AuthCubit>(context);
+    appLaunchCubit = BlocProvider.of<AppLaunchCubit>(context);
     Timer(
       Duration(seconds: 2),
-      () => authCubit.checkIfFirstTimeOpenApp
+      () => appLaunchCubit.checkIfFirstTimeOpenApp
           ? Navigator.of(context).pushNamedAndRemoveUntil(
               RoutePath.loginRoute,
               (route) => false,

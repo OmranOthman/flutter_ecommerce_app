@@ -74,7 +74,8 @@ class AppRouter {
         );
 
       case RoutePath.verificationRoute:
-        return _routeArgsHandler(VerificationPage.route,args,settings);
+        return _routeArgsHandler<String>(
+            VerificationPage.route, args, settings);
 
       case RoutePath.checkoutRoute:
         return MaterialPageRoute(
@@ -175,7 +176,7 @@ class AppRouter {
 
 Route<dynamic> _routeArgsHandler<T>(
   Route<dynamic> Function({required T params, RouteSettings? settings})
-  routeCaller,
+      routeCaller,
   Object? args,
   RouteSettings? settings,
 ) {

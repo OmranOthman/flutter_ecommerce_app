@@ -21,9 +21,9 @@ class VerificationPage extends StatelessWidget {
         builder: (context) => VerificationPage(fullPhone: params),
       );
 
-  final String? fullPhone;
+  final String fullPhone;
 
-  const VerificationPage({super.key, this.fullPhone});
+  const VerificationPage({super.key, required this.fullPhone});
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +35,9 @@ class VerificationPage extends StatelessWidget {
 }
 
 class VerificationView extends StatelessWidget {
-  final String? fullPhone;
+  final String fullPhone;
 
-  const VerificationView({super.key, this.fullPhone});
+  const VerificationView({super.key, required this.fullPhone});
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ class VerificationView extends StatelessWidget {
             ),
             SizedBox(height: 5.h),
             Text(
-              "_email",
+              fullPhone,
               style: Theme.of(context).textTheme.bodySmall,
             ),
             SizedBox(height: 40.h),
@@ -85,7 +85,7 @@ class VerificationView extends StatelessWidget {
               bloc: authCubit,
               builder: (context, state) {
                 return OtpTextField(
-                  numberOfFields: 5,
+                  numberOfFields: 4,
                   borderRadius: BorderRadius.circular(10.r),
                   fieldWidth: 55.w,
                   showFieldAsBox: true,
@@ -95,7 +95,12 @@ class VerificationView extends StatelessWidget {
                   cursorColor: Theme.of(context).primaryColor,
                   textStyle: Theme.of(context).textTheme.headlineSmall,
                   borderColor: Colors.transparent,
-                  onCodeChanged: authCubit.onCodeChanged,
+                  onCodeChanged: (value) {
+                    if (value.isEmpty || value.length != 4) {
+                      return;
+                    }
+                    authCubit.onCodeChanged(value);
+                  },
                 );
               },
             ),
@@ -105,18 +110,18 @@ class VerificationView extends StatelessWidget {
               child: BlocConsumer<AuthCubit, AuthState>(
                 bloc: authCubit,
                 listener: (context, state) {
-                  if (state.errorMassage != null) {
-                    showSnackBar(context, msg: state.errorMassage!);
+                  if (state.errorMessage != null) {
+                    showSnackBar(context, msg: state.errorMessage!);
                   }
 
-                  if (state is PhoneVerifySuccessfully) {
+                  if (state.phoneVerifySuccessfully ) {
                     _showSuccessBottomSheet(context);
                   }
 
-                  if (state is ResendCodeSuccessfully) {
+                  if (state.resendCodeSuccessfully ) {
                     showSnackBar(
                       context,
-                      msg: state.verifyMsg!,
+                      msg: state.verifyMessage!,
                       backgroundColor: Colors.green,
                     );
                   }
@@ -125,7 +130,7 @@ class VerificationView extends StatelessWidget {
                   return CustomButton(
                     isLoading: state.isLoading,
                     onTap: () {
-                      authCubit.phoneVerify(fullPhone!);
+                       authCubit.phoneVerify(fullPhone);
                     },
                     text: "submit".tr,
                   );
@@ -142,7 +147,7 @@ class VerificationView extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    authCubit.resendCode(fullPhone!);
+                    authCubit.resendCode(fullPhone);
                   },
                   child: Text(
                     "resend".tr,

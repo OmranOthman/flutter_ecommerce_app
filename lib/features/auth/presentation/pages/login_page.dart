@@ -161,10 +161,10 @@ class _LoginViewState extends State<LoginView> {
                 BlocConsumer<AuthCubit, AuthState>(
                   bloc: authCubit,
                   listener: (context, state) {
-                    if (state.errorMassage != null) {
-                      showSnackBar(context, msg: state.errorMassage!);
+                    if (state.errorMessage != null) {
+                      showSnackBar(context, msg: state.errorMessage!);
                     }
-                    if (state is LoginSuccessfully) {
+                    if (state.loginSuccessfully) {
                       Navigator.of(context).pushNamed(
                           RoutePath.verificationRoute,
                           arguments: state.phoneCode + state.phone!);

@@ -6,7 +6,7 @@ import 'package:flutter_ecommerce_app/core/constants/app_assets.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_distances.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 import 'package:flutter_ecommerce_app/dependency_injections.dart';
-import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
+import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/app_launch_cubit/app_launch_cubit.dart';
 
 class OnboardingPage extends StatefulWidget {
   static Route<dynamic> route({required RouteSettings settings}) =>
@@ -44,7 +44,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => di<AuthCubit>(),
+      create: (context) => di<AppLaunchCubit>(),
       child: OnboardingView(
         pageController: pageController,
         currentPageNotifier: currentPageNotifier,
@@ -99,7 +99,7 @@ class OnboardingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AuthCubit authCubit = BlocProvider.of<AuthCubit>(context);
+    final AppLaunchCubit appLaunchCubit = BlocProvider.of<AppLaunchCubit>(context);
     Size size = MediaQuery.sizeOf(context);
     TextTheme textTheme = Theme.of(context).textTheme;
 
@@ -177,7 +177,7 @@ class OnboardingView extends StatelessWidget {
                 children: [
                   CustomButton(
                     onTap: () {
-                      authCubit.saveFirstTimeOpenApp();
+                      appLaunchCubit.saveFirstTimeOpenApp();
                       Navigator.of(context).pushNamedAndRemoveUntil(
                         RoutePath.registerRoute,
                             (route) => false,
@@ -188,7 +188,7 @@ class OnboardingView extends StatelessWidget {
                   SizedBox(height: AppDistances.mediumPadding),
                   TextButton(
                     onPressed: () {
-                      authCubit.saveFirstTimeOpenApp();
+                      appLaunchCubit.saveFirstTimeOpenApp();
                       Navigator.of(context).pushNamedAndRemoveUntil(
                         RoutePath.loginRoute,
                             (route) => false,

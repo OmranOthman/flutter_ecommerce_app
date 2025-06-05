@@ -16,24 +16,20 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> login() async {
     emit(state.copyWith(isLoading: true));
     ApiResult<void, Failure> result = await authRepository.login(
-            phone: _phoneNumberWithCountryCode(state.phone!),
+        phone: _phoneNumberWithCountryCode(state.phone!),
         password: state.password!);
 
     if (result.errorResponse != null) {
       emit(state.copyWith(
           isLoading: false,
-          errorMassage: failureHandlingMessage(result.errorResponse!)));
+          errorMessage: failureHandlingMessage(result.errorResponse!)));
     } else {
-      emit(state.copyWith(isLoading: false, errorMassage: null));
-      emit(LoginSuccessfully());
+      emit(state.copyWith(
+        isLoading: false,
+        loginSuccessfully: true,
+      ));
     }
   }
-
-  void saveFirstTimeOpenApp() {
-    authRepository.saveFirstTimeOpenApp();
-  }
-
-  bool get checkIfFirstTimeOpenApp => authRepository.checkIfFirstTimeOpenApp;
 
   void phoneOnChanged(String phone) {
     emit(state.copyWith(phone: phone));
@@ -62,11 +58,13 @@ class AuthCubit extends Cubit<AuthState> {
     if (result.errorResponse != null) {
       emit(state.copyWith(
         isLoading: false,
-        errorMassage: failureHandlingMessage(result.errorResponse!),
+        errorMessage: failureHandlingMessage(result.errorResponse!),
       ));
     } else {
-      emit(state.copyWith(isLoading: false, errorMassage: null));
-      emit(RegisterSuccessfully());
+      emit(state.copyWith(
+        isLoading: false,
+        registerSuccessfully: true,
+      ));
     }
   }
 
@@ -103,8 +101,6 @@ class AuthCubit extends Cubit<AuthState> {
             state.registerEntity!.copyWith(countryCode: countryCode)));
   }
 
-  //Verify
-
   void onCodeChanged(String otp) {
     emit(state.copyWith(otp: otp));
   }
@@ -118,17 +114,17 @@ class AuthCubit extends Cubit<AuthState> {
     if (result.errorResponse != null) {
       emit(state.copyWith(
         isLoading: false,
-        errorMassage: failureHandlingMessage(result.errorResponse!),
+        errorMessage: failureHandlingMessage(result.errorResponse!),
       ));
     } else {
-      emit(state.copyWith(isLoading: false, errorMassage: null));
-      emit(PhoneVerifySuccessfully());
+      emit(state.copyWith(
+        isLoading: false,
+        phoneVerifySuccessfully: true,
+      ));
     }
   }
 
   Future<void> resendCode(String fullPhone) async {
-    emit(state.copyWith(isLoading: true));
-
     ApiResult<String, Failure> result = await authRepository.resendCode(
       fullPhone: fullPhone,
     );
@@ -136,11 +132,13 @@ class AuthCubit extends Cubit<AuthState> {
     if (result.errorResponse != null) {
       emit(state.copyWith(
         isLoading: false,
-        errorMassage: failureHandlingMessage(result.errorResponse!),
+        errorMessage: failureHandlingMessage(result.errorResponse!),
       ));
     } else {
-      emit(state.copyWith(isLoading: false, errorMassage: null));
-      emit(ResendCodeSuccessfully(verifyMsg: result.dataResponse));
+      emit(state.copyWith(
+        isLoading: false,
+        resendCodeSuccessfully: true,
+      ));
     }
   }
 }

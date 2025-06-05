@@ -171,10 +171,10 @@ class _RegisterViewState extends State<RegisterView> {
               SizedBox(height: 40.h),
               BlocConsumer<AuthCubit, AuthState>(
                 listener: (context, state) {
-                  if(state.errorMassage != null){
-                    showSnackBar(context, msg: state.errorMassage!);
+                  if(state.errorMessage != null){
+                    showSnackBar(context, msg: state.errorMessage!);
                   }
-                  if(state is RegisterSuccessfully){
+                  if(state.loginSuccessfully){
                     Navigator.of(context).pushNamed(
                         RoutePath.verificationRoute,
                         arguments: state.registerEntity!.phoneCode + state.registerEntity!.phone!
