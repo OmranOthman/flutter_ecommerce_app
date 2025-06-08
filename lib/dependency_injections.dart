@@ -4,6 +4,7 @@ import 'package:flutter_ecommerce_app/features/auth/data/repositories/auth_repos
 import 'package:flutter_ecommerce_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/app_launch_cubit/app_launch_cubit.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
+import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/forgot_password_cubit/forgot_password_cubit.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/verification_cubit/verification_cubit.dart';
 import 'package:flutter_ecommerce_app/features/cart/data/datacources/cart_local_data_source.dart';
 import 'package:flutter_ecommerce_app/features/cart/data/datacources/cart_remote_data_source.dart';
@@ -308,6 +309,10 @@ void initBlocs() {
 
   di.registerFactory<AuthCubit>(
     () => AuthCubit(authRepository: di<AuthRepository>()),
+  );
+
+  di.registerFactory<ForgotPasswordCubit>(
+    () => ForgotPasswordCubit(authRepository: di<AuthRepository>()),
   );
 
   di.registerFactory<VerificationCubit>(

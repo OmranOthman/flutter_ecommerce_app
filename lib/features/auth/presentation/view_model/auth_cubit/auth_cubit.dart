@@ -45,9 +45,10 @@ class AuthCubit extends Cubit<AuthState> {
     emit(state.copyWith(phoneCode: phoneCode));
   }
 
-  String _phoneNumberWithCountryCode(String phone) {
-    return state.phoneCode + (phone[0] == '0' ? phone.substring(1) : phone);
-  }
+
+
+
+
 
   ///register
   Future<void> register() async {
@@ -103,11 +104,12 @@ class AuthCubit extends Cubit<AuthState> {
             state.registerEntity!.copyWith(countryCode: countryCode)));
   }
 
- 
 
 
 
 
- 
 
+  String _phoneNumberWithCountryCode(String phone) {
+    return state.phoneCode + (phone[0] == '0' ? phone.substring(1) : phone);
+  }
 }

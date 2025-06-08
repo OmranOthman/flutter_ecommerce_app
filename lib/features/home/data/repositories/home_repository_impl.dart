@@ -18,8 +18,9 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<ApiResult<HomeModel, Failure>> getHomeData() async {
     if (await networkInfo.isConnected) {
       try {
-        return ApiResult.withSuccess(
-            await homeRemoteDataSource.fetchHomeData());
+        HomeModel homeModel = await homeRemoteDataSource.fetchHomeData();
+        print("ttttttttttttt${homeModel.ads![0].media}");
+        return ApiResult.withSuccess(homeModel);
       } on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
       } on ServerException {

@@ -3,7 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/core/util/input_formatters/phone_input_formatter.dart';
 import 'package:flutter_ecommerce_app/core/util/show_snack_bar.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_bottom_sheet.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_country_code_picker.dart';
+import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/forgot_password_cubit/forgot_password_cubit.dart';
+import 'package:flutter_ecommerce_app/features/auth/presentation/widgets/forgot_password_bottom_sheet.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
@@ -21,8 +24,11 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => di<AuthCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => di<AuthCubit>()),
+        BlocProvider(create: (context) => di<ForgotPasswordCubit>()),
+      ],
       child: const LoginView(),
     );
   }
@@ -39,28 +45,12 @@ class _LoginViewState extends State<LoginView> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
 
-  void _showCreateNewPasswordBottomSheet() {
-    final newPasswordController = TextEditingController();
-    final confirmPasswordController = TextEditingController();
-
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) {
-        return SafeArea(
-          child: CreateNewPasswordBottomSheet(
-            newPasswordController: newPasswordController,
-            confirmPasswordController: confirmPasswordController,
-            onDispose: () {},
-          ),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     AuthCubit authCubit = BlocProvider.of<AuthCubit>(context);
+    ForgotPasswordCubit forgotPasswordCubit =
+        BlocProvider.of<ForgotPasswordCubit>(context);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -147,7 +137,14 @@ class _LoginViewState extends State<LoginView> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: _showCreateNewPasswordBottomSheet,
+                    onPressed: () {
+                      CustomBottomSheet.show<void>(
+                          context: context,
+                          child: ForgotPasswordBottomSheet(
+                            forgotPasswordCubit: forgotPasswordCubit,
+                            authCubit: authCubit,
+                          ));
+                    },
                     child: Text(
                       'forgot_password'.tr,
                       style: Theme.of(context)
@@ -224,7 +221,6 @@ class _LoginViewState extends State<LoginView> {
                         img: AppAssets.images.logoGoogle,
                         onTap: () {
                           // authCubit.googleLogin();
-
                         },
                       ),
                       SizedBox(height: 16.h),

@@ -189,4 +189,21 @@ class AuthRepositoryImpl implements AuthRepository {
     }
     return ApiResult.withError(InternetConnectionFailure());
   }
+
+  @override
+  Future<ApiResult<void, Failure>> forgetPassword({required String fullPhone}) async {
+    if (await networkInfo.isConnected) {
+      try {
+        await authRemoteDataSource.forgetPassword(fullPhone: fullPhone);
+        return ApiResult.withSuccess(null);
+      } on DioException catch (error) {
+        return ApiResult.withError(DioFailure(error: error));
+      } on ServerException {
+        return ApiResult.withError(ServerFailure());
+      } catch (error) {
+        return ApiResult.withError(UnknowFailure());
+      }
+    }
+    return ApiResult.withError(InternetConnectionFailure());
+  }
 }

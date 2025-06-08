@@ -7,11 +7,9 @@ class AuthState extends Equatable {
   final bool isLoading;
   final bool loginSuccessfully;
   final bool registerSuccessfully;
-
   final String? errorMessage;
   final String? fullName;
   final String? passwordConfirmation;
-
   final RegisterEntity? registerEntity;
 
   const AuthState({

@@ -126,7 +126,7 @@ class VerificationView extends StatelessWidget {
                     isLoading: state.isLoading,
                     onTap: () {
                       if (state.otp == null || state.otp!.length != 4) {
-                        showSnackBar(context, msg: "please_fill_in_the_fields");
+                        showSnackBar(context, msg: "please_fill_in_the_fields".tr);
                       } else {
                         verificationCubit.phoneVerify(fullPhone);
                       }

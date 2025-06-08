@@ -12,9 +12,8 @@ abstract interface class AuthRepository {
     required String password,
   });
 
-  Future<ApiResult<void, Failure>> register({
-   required RegisterEntity registerEntity
-  });
+  Future<ApiResult<void, Failure>> register(
+      {required RegisterEntity registerEntity});
 
   Future<ApiResult<void, Failure>> resetPassword({
     required String fullPhone,
@@ -46,11 +45,15 @@ abstract interface class AuthRepository {
     required String countryCode,
   });
 
- Future<ApiResult<void,Failure>> googleLogin();
-
+  Future<ApiResult<void, Failure>> googleLogin();
 
   Future<ApiResult<String, Failure>> resendCode({
     required String fullPhone,
   });
+
 // Future<ApiResult<void,Failure>> logout({});
+
+  Future<ApiResult<void, Failure>> forgetPassword({
+    required String fullPhone,
+  });
 }

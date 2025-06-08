@@ -7,9 +7,9 @@ void showSnackBar(
       Color? fontColor = AppColors.whiteColor,
       Color? backgroundColor = AppColors.mojoColor,
     }) {
+  print("Im hereeeeee");
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-
       behavior: SnackBarBehavior.floating,
       content: Text(
         msg,

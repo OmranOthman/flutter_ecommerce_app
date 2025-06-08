@@ -29,6 +29,12 @@ class _HomeTabViewState extends State<HomeTabView> {
     return BlocBuilder<HomeCubit, HomeState>(
       bloc: BlocProvider.of<HomeCubit>(context),
       builder: (context, state) {
+        if (state.isLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (state.errorMessage!= null){
+          return Center(child: Text(state.errorMessage!));
+        }
         return SingleChildScrollView(
             child: Column(
           children: [
@@ -38,14 +44,14 @@ class _HomeTabViewState extends State<HomeTabView> {
                 return Column(
                   children: [
                     FlutterCarousel.builder(
-                      itemCount: 1,
+                      itemCount: state.ads!.length,
                       itemBuilder: (context, itemIndex, pageIndex) => Padding(
                         padding: const EdgeInsetsDirectional.only(
                             bottom: 20, end: 8),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: CachedNetworkImage(
-                            imageUrl: "state.carouselItems[itemIndex].imgUrl",
+                            imageUrl: state.ads![itemIndex].media!,
                             fit: BoxFit.fill,
                             placeholder: (context, url) => const Center(
                               child: CircularProgressIndicator.adaptive(),
