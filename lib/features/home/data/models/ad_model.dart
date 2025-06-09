@@ -29,5 +29,7 @@ class AdModel {
     this.media,
   });
 
-  factory AdModel.fromJson(Map<String, dynamic> json) => AdModel();
+factory AdModel.fromJson(Map<String, dynamic> json) =>
+      _$AdModelFromJson(json);
+  Map<String, dynamic> toJson() => _$AdModelToJson(this);
 }

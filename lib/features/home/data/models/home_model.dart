@@ -12,13 +12,15 @@ class HomeModel {
   List<CollectionModel>? collections;
   List<AdModel>? ads;
   final PopupModel? popup;
+
   HomeModel({
-     this.promotions,
-     this.collections,
-     this.ads,
-     this.popup,
+    this.promotions,
+    this.collections,
+    this.ads,
+    this.popup,
   });
 
   factory HomeModel.fromJson(Map<String, dynamic> json) =>
       _$HomeModelFromJson(json);
+  Map<String, dynamic> toJson() => _$HomeModelToJson(this);
 }

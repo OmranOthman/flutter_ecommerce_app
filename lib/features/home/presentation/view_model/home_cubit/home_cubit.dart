@@ -29,14 +29,12 @@ class HomeCubit extends Cubit<HomeState> {
           errorMessage: failureHandlingMessage(result.errorResponse!)));
     } else {
       emit(state.copyWith(
-        promotions: result.dataResponse!.promotions!,
-        ads: result.dataResponse!.ads!,
-        collections: result.dataResponse!.collections!,
+        promotions: result.dataResponse!.promotions ?? [],
+        ads: result.dataResponse!.ads ?? [],
+        collections: result.dataResponse!.collections ?? [],
         popup: result.dataResponse!.popup!,
         isLoading: false,
-        isSuccess: true,
       ));
-      print("Gooooool${result.dataResponse!.ads![0].media}");
     }
   }
 }

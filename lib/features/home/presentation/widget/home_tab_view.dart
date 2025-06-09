@@ -44,14 +44,14 @@ class _HomeTabViewState extends State<HomeTabView> {
                 return Column(
                   children: [
                     FlutterCarousel.builder(
-                      itemCount: state.ads!.length,
+                      itemCount: state.ads.length,
                       itemBuilder: (context, itemIndex, pageIndex) => Padding(
                         padding: const EdgeInsetsDirectional.only(
                             bottom: 20, end: 8),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: CachedNetworkImage(
-                            imageUrl: state.ads![itemIndex].media!,
+                            imageUrl: state.ads[itemIndex].media!,
                             fit: BoxFit.fill,
                             placeholder: (context, url) => const Center(
                               child: CircularProgressIndicator.adaptive(),

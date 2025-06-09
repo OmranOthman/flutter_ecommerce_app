@@ -1,9 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'popup_model.g.dart';
 
-
 @JsonSerializable()
-class PopupModel{
+class PopupModel {
   final int? id;
   @JsonKey(name: "ad_id")
   final int? adId;
@@ -29,5 +28,7 @@ class PopupModel{
     this.media,
   });
 
-  factory PopupModel.fromJson(Map<String, dynamic> json) => _$PopupModelFromJson(json);
+  factory PopupModel.fromJson(Map<String, dynamic> json) =>
+      _$PopupModelFromJson(json);
+        Map<String, dynamic> toJson() => _$PopupModelToJson(this);
 }

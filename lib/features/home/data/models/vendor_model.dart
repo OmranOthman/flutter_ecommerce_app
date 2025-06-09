@@ -29,4 +29,6 @@ class VendorModel {
 
   factory VendorModel.fromJson(Map<String, dynamic> json) =>
       _$VendorModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VendorModelToJson(this);
 }

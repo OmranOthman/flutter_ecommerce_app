@@ -6,13 +6,11 @@ part 'promotion_model.g.dart';
 @JsonSerializable()
 class PromotionModel {
   int? id;
+  String? title;
   String? sotType;
   List<VendorModel>? vendors;
-  PromotionModel({
-    required this.id,
-    required this.sotType,
-    required this.vendors,
-  });
+  PromotionModel({this.id, this.sotType, this.vendors, this.title});
   factory PromotionModel.fromJson(Map<String, dynamic> json) =>
       _$PromotionModelFromJson(json);
+  Map<String, dynamic> toJson() => _$PromotionModelToJson(this);
 }

@@ -1,23 +1,23 @@
 part of 'home_cubit.dart';
 
 class HomeState extends Equatable {
-  final List<PromotionModel>? promotions;
-  final List<CollectionModel>? collections;
+  final List<PromotionModel> promotions;
+  final List<CollectionModel> collections;
   final List<AdModel> ads;
   final PopupModel? popup;
   final bool isLoading;
-  final bool isSuccess;
   final String? errorMessage;
 
-  const HomeState({
-    this.promotions,
-    this.collections,
-    required this.ads,
+  HomeState({
+    List<PromotionModel>? promotions,
+    List<CollectionModel>? collections,
+    List<AdModel>? ads,
     this.popup,
     this.isLoading = false,
-    this.isSuccess = false,
     this.errorMessage,
-  });
+  })  : promotions = promotions ?? [],
+        collections = collections ?? [],
+        ads = ads ?? [];
 
   factory HomeState.init() => HomeState(
         ads: <AdModel>[],
@@ -25,7 +25,6 @@ class HomeState extends Equatable {
         promotions: List.empty(),
         popup: PopupModel(),
         isLoading: false,
-        isSuccess: false,
       );
 
   HomeState copyWith({
@@ -34,7 +33,7 @@ class HomeState extends Equatable {
     List<AdModel>? ads,
     PopupModel? popup,
     bool? isLoading,
-    bool? isSuccess,
+  
     String? errorMessage,
   }) =>
       HomeState(
@@ -43,7 +42,6 @@ class HomeState extends Equatable {
         popup: popup ?? this.popup,
         ads: ads ?? this.ads,
         isLoading: isLoading ?? this.isLoading,
-        isSuccess: isSuccess ?? this.isSuccess,
         errorMessage: errorMessage,
       );
 
@@ -54,7 +52,6 @@ class HomeState extends Equatable {
         ads,
         popup,
         isLoading,
-        isSuccess,
         errorMessage,
       ];
 }
