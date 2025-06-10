@@ -14,8 +14,8 @@ class RegisterEntity extends Equatable {
     this.password,
     this.passwordConfirmation,
     this.phone,
-    this.phoneCode = "+963",
-    this.countryCode = "SY",
+    this.phoneCode = "+968",
+    this.countryCode = "OM",
     this.guestUuid,
   });
 

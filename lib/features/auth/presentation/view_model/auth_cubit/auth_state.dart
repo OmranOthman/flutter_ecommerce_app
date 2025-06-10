@@ -14,7 +14,7 @@ class AuthState extends Equatable {
 
   const AuthState({
     this.phone,
-    this.phoneCode = "+963",
+    this.phoneCode = "+968",
     this.password,
     this.isLoading = false,
     this.errorMessage,

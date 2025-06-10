@@ -29,15 +29,20 @@ class VerificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => di<VerificationCubit>(),
-      child: VerificationView(fullPhone: fullPhone),
+      child: VerificationView(fullPhone: fullPhone , phoneCode: ""),
     );
   }
 }
 
 class VerificationView extends StatelessWidget {
   final String fullPhone;
+  final String phoneCode;
 
-  const VerificationView({super.key, required this.fullPhone});
+  const VerificationView({
+    super.key,
+    required this.fullPhone,
+    required this.phoneCode,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +131,8 @@ class VerificationView extends StatelessWidget {
                     isLoading: state.isLoading,
                     onTap: () {
                       if (state.otp == null || state.otp!.length != 4) {
-                        showSnackBar(context, msg: "please_fill_in_the_fields".tr);
+                        showSnackBar(context,
+                            msg: "please_fill_in_the_fields".tr);
                       } else {
                         verificationCubit.phoneVerify(fullPhone);
                       }

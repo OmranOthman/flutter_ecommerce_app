@@ -81,9 +81,8 @@ class _LoginViewState extends State<LoginView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomTextFormField(
-                            prefixIcon: const Icon(Icons.email_outlined),
+                            prefixIcon: const Icon(Icons.phone_outlined),
                             suffixIcon: CustomCountryCodePicker(
-                              initialSelection: '+963',
                               phoneCodeOnChanged: authCubit.phoneCodeChanged,
                             ),
                             label: 'phone'.tr,

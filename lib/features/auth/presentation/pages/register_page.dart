@@ -85,9 +85,8 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                         SizedBox(height: 20.h),
                         CustomTextFormField(
-                          prefixIcon: const Icon(Icons.email_outlined),
+                          prefixIcon: const Icon(Icons.phone_outlined),
                           suffixIcon: CustomCountryCodePicker(
-                            initialSelection: '+963',
                             phoneCodeOnChanged:
                                 authCubit.phoneCodeRegisterOnChanged,
                             countryCodeOnChanged:
@@ -178,7 +177,7 @@ class _RegisterViewState extends State<RegisterView> {
                   }
                   if (state.registerSuccessfully) {
                     Navigator.of(context).pushNamed(RoutePath.verificationRoute,
-                        arguments: state.registerEntity!.phoneCode +
+                        arguments:
                             state.registerEntity!.phone!);
                   }
                 },

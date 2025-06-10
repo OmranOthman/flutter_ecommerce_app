@@ -15,7 +15,7 @@ class VendorModel {
   @JsonKey(name: "is_favorite")
   bool? isFavorite;
   @JsonKey(name: "is_open")
-  bool? isOpen;
+  bool isOpen;
   VendorModel({
     required this.id,
     required this.name,
@@ -24,7 +24,7 @@ class VendorModel {
     required this.brandImage,
     required this.media,
     required this.isFavorite,
-    required this.isOpen,
+    this.isOpen = false,
   });
 
   factory VendorModel.fromJson(Map<String, dynamic> json) =>

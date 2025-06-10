@@ -110,6 +110,6 @@ class AuthCubit extends Cubit<AuthState> {
 
 
   String _phoneNumberWithCountryCode(String phone) {
-    return state.phoneCode + (phone[0] == '0' ? phone.substring(1) : phone);
+    return  (phone[0] == '0' ? phone.substring(1) : phone);
   }
 }

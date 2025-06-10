@@ -25,7 +25,8 @@ class CustomCountryCodePicker extends StatelessWidget {
           phoneCodeOnChanged!(value.dialCode!);
           countryCodeOnChanged!(value.code!);
         },
-        initialSelection: initialSelection,
+        initialSelection: '+968',
+        enabled: false,
         showFlag: true,
         showFlagDialog: true,
       ),
