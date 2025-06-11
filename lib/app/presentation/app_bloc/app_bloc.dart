@@ -23,13 +23,19 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       AppRouter.navigator.pushNamed(RoutePath.languageChangingPageRoute);
 
       await appRepository.changeThemeMode(event.themeMode);
-      emit(state.copyWith(themeMode: event.themeMode));
+      emit(state.copyWith(
+        themeMode: event.themeMode,
+        stateNum: state.stateNum + 1,
+      ));
     });
     on<_ChangeLanguage>((event, emit) async {
       AppRouter.navigator.pushNamed(RoutePath.languageChangingPageRoute);
       await appRepository.changeLanguage(event.locale);
 
-      emit(state.copyWith(locale: event.locale));
+      emit(state.copyWith(
+        locale: event.locale,
+        stateNum: state.stateNum + 1,
+      ));
     });
   }
 }
