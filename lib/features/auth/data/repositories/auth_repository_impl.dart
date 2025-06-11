@@ -5,6 +5,7 @@ import 'package:flutter_ecommerce_app/core/helper/api_helper/api_result.dart';
 import 'package:flutter_ecommerce_app/core/helper/network/network_info.dart';
 import 'package:flutter_ecommerce_app/features/auth/data/datasources/auth_local_data_source.dart';
 import 'package:flutter_ecommerce_app/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:flutter_ecommerce_app/features/auth/data/model/auth_response.dart';
 import 'package:flutter_ecommerce_app/features/auth/data/model/register_request_model.dart';
 import 'package:flutter_ecommerce_app/features/auth/domain/entities/register_entity.dart';
 import 'package:flutter_ecommerce_app/features/auth/domain/repositories/auth_repository.dart';
@@ -29,14 +30,14 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<ApiResult<void, Failure>> login(
+  Future<ApiResult<AuthResponse, Failure>> login(
       {required String phone, required String password}) async {
     if (await networkInfo.isConnected) {
       try {
-        String token =
-        await authRemoteDataSource.login(phone: phone, password: password);
-        await authLocalDataSource.saveToken(token);
-        return ApiResult.withSuccess(null);
+        AuthResponse authResponse =
+            await authRemoteDataSource.login(phone: phone, password: password);
+        // await authLocalDataSource.saveToken(token);
+        return ApiResult.withSuccess(authResponse);
       } on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
       } on ServerException {
@@ -56,7 +57,7 @@ class AuthRepositoryImpl implements AuthRepository {
       try {
         await authRemoteDataSource.register(
             registerRequestModel:
-            RegisterRequestModel.fromEntity(registerEntity));
+                RegisterRequestModel.fromEntity(registerEntity));
         return ApiResult.withSuccess(null);
       } on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
@@ -85,7 +86,9 @@ class AuthRepositoryImpl implements AuthRepository {
   }) async {
     if (await networkInfo.isConnected) {
       try {
-        await authRemoteDataSource.phoneVerify(fullPhone: fullPhone, otp: otp);
+        String token = await authRemoteDataSource.phoneVerify(
+            fullPhone: fullPhone, otp: otp);
+            await authLocalDataSource.saveToken(token);
         return ApiResult.withSuccess(null);
       } on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
@@ -105,7 +108,7 @@ class AuthRepositoryImpl implements AuthRepository {
     if (await networkInfo.isConnected) {
       try {
         String msg =
-        await authRemoteDataSource.resendCode(fullPhone: fullPhone);
+            await authRemoteDataSource.resendCode(fullPhone: fullPhone);
         return ApiResult.withSuccess(msg);
       } on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
@@ -191,7 +194,8 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<ApiResult<void, Failure>> forgetPassword({required String fullPhone}) async {
+  Future<ApiResult<void, Failure>> forgetPassword(
+      {required String fullPhone}) async {
     if (await networkInfo.isConnected) {
       try {
         await authRemoteDataSource.forgetPassword(fullPhone: fullPhone);
@@ -206,4 +210,8 @@ class AuthRepositoryImpl implements AuthRepository {
     }
     return ApiResult.withError(InternetConnectionFailure());
   }
+  
+  @override
+ 
+  bool get hasToken => authLocalDataSource.hasToken;
 }

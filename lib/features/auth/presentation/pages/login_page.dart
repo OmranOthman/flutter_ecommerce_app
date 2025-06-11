@@ -17,7 +17,6 @@ import 'package:flutter_ecommerce_app/dependency_injections.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/widgets/social_media_button.dart';
-import 'package:flutter_ecommerce_app/features/auth/presentation/widgets/create_new_password_bottom_sheet.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -161,9 +160,17 @@ class _LoginViewState extends State<LoginView> {
                       showSnackBar(context, msg: state.errorMessage!);
                     }
                     if (state.loginSuccessfully) {
-                      Navigator.of(context).pushNamed(
-                          RoutePath.verificationRoute,
-                          arguments: state.phoneCode + state.phone!);
+                      if (!state.authResponse!.success!) {
+                        showSnackBar(context,
+                            msg: state.authResponse!.message!);
+                        Navigator.of(context).pushNamed(
+                            RoutePath.verificationRoute,
+                            arguments: state.phoneCode + state.phone!);
+                      } else {
+                        Navigator.of(context).pushNamed(
+                          RoutePath.mainRoute,
+                        );
+                      }
                     }
                   },
                   builder: (context, state) {

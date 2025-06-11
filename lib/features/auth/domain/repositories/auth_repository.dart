@@ -1,13 +1,15 @@
 import 'package:flutter_ecommerce_app/core/error/failures.dart';
 import 'package:flutter_ecommerce_app/core/helper/api_helper/api_result.dart';
+import 'package:flutter_ecommerce_app/features/auth/data/model/auth_response.dart';
 import 'package:flutter_ecommerce_app/features/auth/domain/entities/register_entity.dart';
 
 abstract interface class AuthRepository {
   Future<void> saveFirstTimeOpenApp();
 
   bool get checkIfFirstTimeOpenApp;
+    bool get hasToken;
 
-  Future<ApiResult<void, Failure>> login({
+  Future<ApiResult<AuthResponse, Failure>> login({
     required String phone,
     required String password,
   });

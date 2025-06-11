@@ -6,7 +6,9 @@ abstract interface class AuthLocalDataSource {
 
   bool get isFirstTimeOpenApp;
 
-Future <void> saveToken(String token);
+  bool get hasToken;
+
+  Future<void> saveToken(String token);
 }
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
@@ -24,9 +26,11 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   @override
   Future<void> saveToken(String token) async {
-   await sharedPreferences.setString(AppString.token, token);
+    await sharedPreferences.setString(AppString.token, token);
   }
 
-
-
+  @override
+  bool get hasToken =>
+      sharedPreferences.getString(AppString.token) != null ||
+      sharedPreferences.getString(AppString.token)!.isNotEmpty;
 }

@@ -36,18 +36,24 @@ class _SplashViewState extends State<SplashView> {
   void initState() {
     super.initState();
     appLaunchCubit = BlocProvider.of<AppLaunchCubit>(context);
-    Timer(
-      Duration(seconds: 2),
-      () => appLaunchCubit.checkIfFirstTimeOpenApp
-          ? Navigator.of(context).pushNamedAndRemoveUntil(
-              RoutePath.loginRoute,
-              (route) => false,
-            )
-          : Navigator.of(context).pushNamedAndRemoveUntil(
-              RoutePath.onBoardingRoute,
-              (route) => false,
-            ),
-    );
+    Timer(Duration(seconds: 2), () {
+      if (appLaunchCubit.hasToken) {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          RoutePath.mainRoute,
+          (route) => false,
+        );
+      } else {
+        appLaunchCubit.checkIfFirstTimeOpenApp
+            ? Navigator.of(context).pushNamedAndRemoveUntil(
+                RoutePath.loginRoute,
+                (route) => false,
+              )
+            : Navigator.of(context).pushNamedAndRemoveUntil(
+                RoutePath.onBoardingRoute,
+                (route) => false,
+              );
+      }
+    });
   }
 
   @override

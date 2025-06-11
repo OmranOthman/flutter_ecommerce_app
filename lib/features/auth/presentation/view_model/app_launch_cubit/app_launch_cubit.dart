@@ -9,6 +9,7 @@ class AppLaunchCubit extends Cubit<AppLaunchState> {
     required this.authRepository,
   }) : super(AppLaunchState());
   bool get checkIfFirstTimeOpenApp => authRepository.checkIfFirstTimeOpenApp;
+    bool get hasToken => authRepository.hasToken;
   void saveFirstTimeOpenApp() {
     authRepository.saveFirstTimeOpenApp();
   }

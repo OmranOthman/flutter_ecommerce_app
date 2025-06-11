@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/core/error/error_handling.dart';
 import 'package:flutter_ecommerce_app/core/error/failures.dart';
 import 'package:flutter_ecommerce_app/core/helper/api_helper/api_result.dart';
+import 'package:flutter_ecommerce_app/features/auth/data/model/auth_response.dart';
 import 'package:flutter_ecommerce_app/features/auth/domain/entities/register_entity.dart';
 import 'package:flutter_ecommerce_app/features/auth/domain/repositories/auth_repository.dart';
 
@@ -17,8 +18,8 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> login() async {
     emit(state.copyWith(isLoading: true));
-    ApiResult<void, Failure> result = await authRepository.login(
-        phone: _phoneNumberWithCountryCode(state.phone!),
+    ApiResult<AuthResponse, Failure> result = await authRepository.login(
+        phone: state.phoneCode + _phoneNumberWithCountryCode(state.phone!),
         password: state.password!);
 
     if (result.errorResponse != null) {
@@ -28,6 +29,7 @@ class AuthCubit extends Cubit<AuthState> {
     } else {
       emit(state.copyWith(
         isLoading: false,
+        authResponse: result.dataResponse,
         loginSuccessfully: true,
       ));
     }
@@ -44,11 +46,6 @@ class AuthCubit extends Cubit<AuthState> {
   void phoneCodeChanged(String phoneCode) {
     emit(state.copyWith(phoneCode: phoneCode));
   }
-
-
-
-
-
 
   ///register
   Future<void> register() async {
@@ -104,12 +101,7 @@ class AuthCubit extends Cubit<AuthState> {
             state.registerEntity!.copyWith(countryCode: countryCode)));
   }
 
-
-
-
-
-
   String _phoneNumberWithCountryCode(String phone) {
-    return  (phone[0] == '0' ? phone.substring(1) : phone);
+    return (phone[0] == '0' ? phone.substring(1) : phone);
   }
 }

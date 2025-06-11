@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_string.dart';
 import 'package:flutter_ecommerce_app/core/error/exceptions.dart';
+import 'package:flutter_ecommerce_app/features/auth/data/model/auth_response.dart';
 import 'package:flutter_ecommerce_app/features/auth/data/model/register_request_model.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 abstract interface class AuthRemoteDataSource {
-  Future<String> login({
+  Future<AuthResponse> login({
     required String phone,
     required String password,
   });
@@ -20,7 +21,7 @@ abstract interface class AuthRemoteDataSource {
     required String token,
   });
 
-  Future<void> phoneVerify({
+  Future<String> phoneVerify({
     required String fullPhone,
     required String otp,
   });
@@ -64,15 +65,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   GoogleSignIn googleSignin;
 
   @override
-  Future<String> login(
+  Future<AuthResponse> login(
       {required String phone, required String password}) async {
     Response result = await dio.post("${AppString.apiUrl}login", data: {
       "full_phone": phone,
       "password": password,
     });
     if (result.statusCode == 200) {
-      String token = result.data["token"];
-      return token;
+      // bool isActive = result.data["success"];
+      return AuthResponse.fromJson(result.data);
     } else {
       throw ServerException();
     }
@@ -112,7 +113,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<void> phoneVerify({
+  Future<String> phoneVerify({
     required String fullPhone,
     required String otp,
   }) async {
@@ -121,7 +122,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       "otp": otp,
     });
     if (result.statusCode == 200) {
-      return;
+      String token= result.data['token'];
+      return token;
     } else {
       throw ServerException();
     }

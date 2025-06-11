@@ -11,6 +11,7 @@ class AuthState extends Equatable {
   final String? fullName;
   final String? passwordConfirmation;
   final RegisterEntity? registerEntity;
+  final AuthResponse? authResponse;
 
   const AuthState({
     this.phone,
@@ -23,10 +24,12 @@ class AuthState extends Equatable {
     this.registerEntity,
     this.loginSuccessfully = false,
     this.registerSuccessfully = false,
+    this.authResponse,
   });
 
-  factory AuthState.init() => const AuthState(
+  factory AuthState.init() => AuthState(
         registerEntity: RegisterEntity(),
+        authResponse: AuthResponse(),
       );
 
   AuthState copyWith({
@@ -41,6 +44,7 @@ class AuthState extends Equatable {
     RegisterEntity? registerEntity,
     bool? loginSuccessfully,
     bool? registerSuccessfully,
+    AuthResponse? authResponse,
   }) =>
       AuthState(
         phone: phone ?? this.phone,
@@ -53,6 +57,7 @@ class AuthState extends Equatable {
         registerEntity: registerEntity ?? this.registerEntity,
         loginSuccessfully: loginSuccessfully ?? false,
         registerSuccessfully: registerSuccessfully ?? false,
+        authResponse: authResponse ?? this.authResponse,
       );
 
   @override
@@ -67,5 +72,6 @@ class AuthState extends Equatable {
         registerEntity,
         loginSuccessfully,
         registerSuccessfully,
+        authResponse,
       ];
 }

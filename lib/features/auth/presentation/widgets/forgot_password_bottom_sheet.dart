@@ -46,7 +46,7 @@ class ForgotPasswordBottomSheet extends StatelessWidget {
             child: CustomTextFormField(
               controller: TextEditingController(
                   text:
-                      "${authCubit.state.phoneCode!}${authCubit.state.phone ?? ""}"),
+                      "${authCubit.state.phoneCode}${authCubit.state.phone ?? ""}"),
               readOnly: true,
               enabled: false,
               label: 'phone'.tr,
@@ -89,7 +89,7 @@ class ForgotPasswordBottomSheet extends StatelessWidget {
                   // );
                   forgotPasswordCubit.forgetPassword(
                       phone: authCubit.state.phone!,
-                      phoneCode: authCubit.state.phoneCode!);
+                      phoneCode: authCubit.state.phoneCode);
                 },
               );
             },
