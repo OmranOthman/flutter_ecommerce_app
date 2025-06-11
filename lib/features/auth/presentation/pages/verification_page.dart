@@ -29,19 +29,19 @@ class VerificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => di<VerificationCubit>(),
-      child: VerificationView(fullPhone: fullPhone , phoneCode: ""),
+      child: VerificationView(fullPhone: fullPhone ),
     );
   }
 }
 
 class VerificationView extends StatelessWidget {
   final String fullPhone;
-  final String phoneCode;
+  
 
   const VerificationView({
     super.key,
     required this.fullPhone,
-    required this.phoneCode,
+  
   });
 
   @override

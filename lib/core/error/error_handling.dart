@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter_ecommerce_app/core/error/failures.dart';
 
@@ -38,7 +37,7 @@ String dioErrorMessage(DioException error) {
         case 404:
         case 503:
         case 400:
-          return error.response!.data['message'];
+          return error.response!.data['error']['message']??"";
 
         default:
           return "${error.response!.statusMessage}";

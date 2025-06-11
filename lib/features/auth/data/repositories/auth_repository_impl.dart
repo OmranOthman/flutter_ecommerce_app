@@ -36,7 +36,10 @@ class AuthRepositoryImpl implements AuthRepository {
       try {
         AuthResponse authResponse =
             await authRemoteDataSource.login(phone: phone, password: password);
-        // await authLocalDataSource.saveToken(token);
+        if (authResponse.token != null) {
+          await authLocalDataSource.saveToken(authResponse.token!);
+        }
+
         return ApiResult.withSuccess(authResponse);
       } on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
@@ -88,7 +91,7 @@ class AuthRepositoryImpl implements AuthRepository {
       try {
         String token = await authRemoteDataSource.phoneVerify(
             fullPhone: fullPhone, otp: otp);
-            await authLocalDataSource.saveToken(token);
+        await authLocalDataSource.saveToken(token);
         return ApiResult.withSuccess(null);
       } on DioException catch (error) {
         return ApiResult.withError(DioFailure(error: error));
@@ -210,8 +213,7 @@ class AuthRepositoryImpl implements AuthRepository {
     }
     return ApiResult.withError(InternetConnectionFailure());
   }
-  
+
   @override
- 
   bool get hasToken => authLocalDataSource.hasToken;
 }

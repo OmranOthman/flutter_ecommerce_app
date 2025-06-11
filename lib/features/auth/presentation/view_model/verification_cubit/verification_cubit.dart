@@ -59,7 +59,7 @@ class VerificationCubit extends Cubit<VerificationState> {
   }
 
   void _startTimer() {
-    emit(state.copyWith(second: 15));
+    emit(state.copyWith(second: 30));
 
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (state.second == 0) {

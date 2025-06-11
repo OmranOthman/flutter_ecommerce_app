@@ -35,7 +35,7 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState>  _formKey = GlobalKey<FormState>();
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
@@ -177,7 +177,7 @@ class _RegisterViewState extends State<RegisterView> {
                   }
                   if (state.registerSuccessfully) {
                     Navigator.of(context).pushNamed(RoutePath.verificationRoute,
-                        arguments:
+                        arguments: state.registerEntity!.phoneCode +
                             state.registerEntity!.phone!);
                   }
                 },
