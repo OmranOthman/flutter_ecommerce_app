@@ -30,7 +30,8 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   }
 
   @override
-  bool get hasToken =>
-      sharedPreferences.getString(AppString.token) != null ||
-      sharedPreferences.getString(AppString.token)!.isNotEmpty;
+  bool get hasToken {
+    String? token = sharedPreferences.getString(AppString.token);
+    return token != null && token.isNotEmpty;
+  }
 }
