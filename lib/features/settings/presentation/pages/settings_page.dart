@@ -54,7 +54,7 @@ class SettingsView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("settings".tr, style: TextStyle(fontSize: 16.sp)),
+        title: Text("settings".trv(context), style: TextStyle(fontSize: 16.sp)),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, size: 20.sp),

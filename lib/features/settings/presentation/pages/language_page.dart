@@ -27,7 +27,7 @@ class LanguageView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('language'.tr, style: TextStyle(fontSize: 16.sp)),
+        title: Text('language'.trv(context), style: TextStyle(fontSize: 16.sp)),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, size: 20.sp),

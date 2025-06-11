@@ -71,3 +71,7 @@ extension Localization on String {
   String get tr =>
       AppLocalizations.of(AppRouter.navigator.context)!.translate(this);
 }
+extension Local on String {
+  String  trv(BuildContext context) =>
+      AppLocalizations.of(context)!.translate(this);
+}
