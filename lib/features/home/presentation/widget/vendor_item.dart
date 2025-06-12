@@ -83,7 +83,7 @@ class VendorItem extends StatelessWidget {
           SizedBox(
             width: 154.w,
             child: Text(
-              vendor?.name ?? '',
+              vendor?.name ?? '',  // name vendor
               style: Theme.of(context).textTheme.bodyMedium,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

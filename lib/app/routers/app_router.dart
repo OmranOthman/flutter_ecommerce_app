@@ -5,9 +5,11 @@ import 'package:flutter_ecommerce_app/core/widgets/change_language.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/pages/onboarding_page.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/pages/splash_page.dart';
 import 'package:flutter_ecommerce_app/features/auth/presentation/pages/verification_page.dart';
+import 'package:flutter_ecommerce_app/features/auth/presentation/pages/verify_change_password_page.dart';
 import 'package:flutter_ecommerce_app/features/cart/presentation/pages/cart_page.dart';
 import 'package:flutter_ecommerce_app/features/favorite/presentation/pages/favorites_page.dart';
 import 'package:flutter_ecommerce_app/features/home/presentation/pages/notifications_page.dart';
+
 // import 'package:flutter_ecommerce_app/features/home/presentation/widget/custom_bottom_navbar.dart';
 import 'package:flutter_ecommerce_app/features/main/presentation/pages/main_page.dart';
 import 'package:flutter_ecommerce_app/features/new_card/presentation/pages/add_new_card_page.dart';
@@ -76,6 +78,10 @@ class AppRouter {
       case RoutePath.verificationRoute:
         return _routeArgsHandler<String>(
             VerificationPage.route, args, settings);
+
+      case RoutePath.verifyChangePasswordRoute:
+        return _routeArgsHandler<String>(
+            VerifyChangePasswordPage.route, args, settings);
 
       case RoutePath.checkoutRoute:
         return MaterialPageRoute(

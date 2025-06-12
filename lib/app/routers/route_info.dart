@@ -7,6 +7,7 @@ class RoutePath {
   static const String loginRoute = '/login';
   static const String registerRoute = '/register';
   static const String verificationRoute = '/verification';
+  static const String verifyChangePasswordRoute = '/verify-change-password';
    static const String mainRoute = '/main';
     static const String favoriteRoute = '/favorite';
         static const String settingsRoute = '/settings';

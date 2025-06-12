@@ -161,7 +161,7 @@ class VerificationView extends StatelessWidget {
                       child: Text(
                         state.second == 0
                             ? "resend".tr
-                            : "${"resend".tr} ${state.second}",
+                            : "${"resend".tr}" "   " "${state.second}",
                         style: TextStyle(color: AppColors.primary),
                       ),
                     );
@@ -179,6 +179,7 @@ class VerificationView extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      isDismissible: false,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
       ),
@@ -210,6 +211,7 @@ class VerificationView extends StatelessWidget {
             child: CustomButton(
               text: "go_to_homepage".tr,
               onTap: () {
+                Navigator.pop(context);
                 Navigator.pushNamed(context, RoutePath.mainRoute);
               },
             ),

@@ -44,11 +44,31 @@ class _LoginViewState extends State<LoginView> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
 
+  String? _validatePhone(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'this_field_is_required'.tr;
+    }
+    if (value.length != 10) {
+      return 'phone_must_be_10_digits'.tr;
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'this_field_is_required'.tr;
+    }
+    if (value.length < 8) {
+      return 'password_must_be_at_least_8_characters'.tr;
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     AuthCubit authCubit = BlocProvider.of<AuthCubit>(context);
     ForgotPasswordCubit forgotPasswordCubit =
-        BlocProvider.of<ForgotPasswordCubit>(context);
+    BlocProvider.of<ForgotPasswordCubit>(context);
 
     return Scaffold(
       body: SafeArea(
@@ -67,8 +87,8 @@ class _LoginViewState extends State<LoginView> {
                 Text(
                   'please_login_with_registered_account'.tr,
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                        color: AppColors.grey,
-                      ),
+                    color: AppColors.grey,
+                  ),
                 ),
                 SizedBox(height: 24.h),
                 BlocBuilder<AuthCubit, AuthState>(
@@ -87,12 +107,7 @@ class _LoginViewState extends State<LoginView> {
                             label: 'phone'.tr,
                             hintText: 'enter_your_phone'.tr,
                             onChanged: authCubit.phoneOnChanged,
-                            validator: (validator) {
-                              if (validator == null || validator.isEmpty) {
-                                return 'this_field_is_required'.tr;
-                              }
-                              return null;
-                            },
+                            validator: _validatePhone,
                             keyboardType: TextInputType.phone,
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly,
@@ -120,12 +135,7 @@ class _LoginViewState extends State<LoginView> {
                                 });
                               },
                             ),
-                            validator: (validator) {
-                              if (validator == null || validator.isEmpty) {
-                                return 'this_field_is_required'.tr;
-                              }
-                              return null;
-                            },
+                            validator: _validatePassword,
                           ),
                         ],
                       ),
@@ -137,6 +147,7 @@ class _LoginViewState extends State<LoginView> {
                   child: TextButton(
                     onPressed: () {
                       CustomBottomSheet.show<void>(
+                          isDismissible: false,
                           context: context,
                           child: ForgotPasswordBottomSheet(
                             forgotPasswordCubit: forgotPasswordCubit,
@@ -208,8 +219,8 @@ class _LoginViewState extends State<LoginView> {
                                   .textTheme
                                   .titleSmall!
                                   .copyWith(
-                                    color: Theme.of(context).primaryColor,
-                                  ),
+                                color: Theme.of(context).primaryColor,
+                              ),
                             ),
                           ),
                         ],
@@ -218,8 +229,8 @@ class _LoginViewState extends State<LoginView> {
                       Text(
                         'or_using_other_method'.tr,
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                              color: AppColors.grey,
-                            ),
+                          color: AppColors.grey,
+                        ),
                       ),
                       SizedBox(height: 16.h),
                       SocialMediaButton(

@@ -35,9 +35,49 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final GlobalKey<FormState>  _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
+  String? _password;
+
+
+  String? _validateUsername(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'this_field_is_required'.tr;
+    }
+    return null;
+  }
+
+  String? _validatePhone(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'this_field_is_required'.tr;
+    }
+    if (value.length != 10) {
+      return 'phone_must_be_10_digits'.tr;
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'this_field_is_required'.tr;
+    }
+    if (value.length < 8) {
+      return 'password_must_be_at_least_8_characters'.tr;
+    }
+    _password = value;
+    return null;
+  }
+
+  String? _validateConfirmPassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'this_field_is_required'.tr;
+    }
+    if (value != _password) {
+      return 'passwords_do_not_match'.tr;
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,31 +116,21 @@ class _RegisterViewState extends State<RegisterView> {
                           hintText: 'enter_username'.tr,
                           onChanged: authCubit.nameOnChanged,
                           prefixIcon: const Icon(Icons.person_outline),
-                          validator: (validator) {
-                            if (validator == null || validator.isEmpty) {
-                              return 'this_field_is_required'.tr;
-                            }
-                            return null;
-                          },
+                          validator: _validateUsername,
                         ),
                         SizedBox(height: 20.h),
                         CustomTextFormField(
                           prefixIcon: const Icon(Icons.phone_outlined),
                           suffixIcon: CustomCountryCodePicker(
                             phoneCodeOnChanged:
-                                authCubit.phoneCodeRegisterOnChanged,
+                            authCubit.phoneCodeRegisterOnChanged,
                             countryCodeOnChanged:
-                                authCubit.countryCodeRegisterChanged,
+                            authCubit.countryCodeRegisterChanged,
                           ),
                           label: 'phone'.tr,
                           hintText: 'enter_your_phone'.tr,
                           onChanged: authCubit.phoneRegisterOnChanged,
-                          validator: (validator) {
-                            if (validator == null || validator.isEmpty) {
-                              return 'this_field_is_required'.tr;
-                            }
-                            return null;
-                          },
+                          validator: _validatePhone,
                           keyboardType: TextInputType.phone,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
@@ -128,12 +158,7 @@ class _RegisterViewState extends State<RegisterView> {
                               });
                             },
                           ),
-                          validator: (validator) {
-                            if (validator == null || validator.isEmpty) {
-                              return 'this_field_is_required'.tr;
-                            }
-                            return null;
-                          },
+                          validator: _validatePassword,
                         ),
                         SizedBox(height: 20.h),
                         CustomTextFormField(
@@ -142,7 +167,7 @@ class _RegisterViewState extends State<RegisterView> {
                           hintText: 'confirm_password'.tr,
                           obscureText: _obscureConfirmPassword,
                           onChanged:
-                              authCubit.passwordConfirmationRegisterOnChanged,
+                          authCubit.passwordConfirmationRegisterOnChanged,
                           prefixIcon: const Icon(Icons.lock_outline),
                           suffixIcon: IconButton(
                             icon: Icon(
@@ -153,16 +178,11 @@ class _RegisterViewState extends State<RegisterView> {
                             onPressed: () {
                               setState(() {
                                 _obscureConfirmPassword =
-                                    !_obscureConfirmPassword;
+                                !_obscureConfirmPassword;
                               });
                             },
                           ),
-                          validator: (validator) {
-                            if (validator == null || validator.isEmpty) {
-                              return 'this_field_is_required'.tr;
-                            }
-                            return null;
-                          },
+                          validator: _validateConfirmPassword,
                         ),
                       ],
                     ),
@@ -222,7 +242,6 @@ class _RegisterViewState extends State<RegisterView> {
                 img: AppAssets.images.logoGoogle,
                 onTap: () {
                   Navigator.of(context).pushNamed(RoutePath.mainRoute);
-                  // authCubit.googleLogin();
                 },
               ),
               SizedBox(height: 16.h),

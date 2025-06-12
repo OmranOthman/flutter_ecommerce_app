@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
+import 'package:flutter_ecommerce_app/features/home/presentation/pages/vendor_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
@@ -33,6 +34,7 @@ class AppView extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               initialRoute: RoutePath.splashRoute,
+             // home: VendorPage(),
               onGenerateRoute: AppRouter.onGenerateRoute,
               navigatorKey: AppRouter.navigatorKey,
               themeMode: ThemeMode.light,

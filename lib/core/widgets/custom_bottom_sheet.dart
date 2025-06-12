@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/app/routers/app_router.dart';
+import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   const CustomBottomSheet({
@@ -44,10 +46,14 @@ class CustomBottomSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
-            child: Divider(
-              height: 40,
-              thickness: 2,
+            padding: EdgeInsets.symmetric(horizontal: 160.w,vertical: 12),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(3.h),
+              child: Divider(
+                height: 6,
+                thickness: 6,
+                color: AppColors.greyLightColor,
+              ),
             ),
           ),
           const SizedBox(height: 16.0),
