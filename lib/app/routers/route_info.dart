@@ -9,6 +9,7 @@ class RoutePath {
   static const String verificationRoute = '/verification';
   static const String verifyChangePasswordRoute = '/verify-change-password';
    static const String mainRoute = '/main';
+   static const String searchRoute = '/search';
     static const String favoriteRoute = '/favorite';
         static const String settingsRoute = '/settings';
   // static const String homeRoute = '/home';

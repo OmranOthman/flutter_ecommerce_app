@@ -196,7 +196,9 @@ class _RegisterViewState extends State<RegisterView> {
                     showSnackBar(context, msg: state.errorMessage!);
                   }
                   if (state.registerSuccessfully) {
-                    Navigator.of(context).pushNamed(RoutePath.verificationRoute,
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        RoutePath.verificationRoute,
+                            (route) => false,
                         arguments: state.registerEntity!.phoneCode +
                             state.registerEntity!.phone!);
                   }
@@ -237,13 +239,13 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
               ),
               SizedBox(height: 16.h),
-              SocialMediaButton(
-                text: 'login_with_google'.tr,
-                img: AppAssets.images.logoGoogle,
-                onTap: () {
-                  Navigator.of(context).pushNamed(RoutePath.mainRoute);
-                },
-              ),
+              // SocialMediaButton(
+              //   text: 'login_with_google'.tr,
+              //   img: AppAssets.images.logoGoogle,
+              //   onTap: () {
+              //     Navigator.of(context).pushNamed(RoutePath.mainRoute);
+              //   },
+              // ),
               SizedBox(height: 16.h),
               SocialMediaButton(
                 text: 'login_with_facebook'.tr,

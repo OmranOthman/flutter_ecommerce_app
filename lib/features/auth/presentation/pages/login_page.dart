@@ -178,8 +178,9 @@ class _LoginViewState extends State<LoginView> {
                             RoutePath.verificationRoute,
                             arguments: state.phoneCode + state.phone!);
                       } else {
-                        Navigator.of(context).pushNamed(
+                        Navigator.of(context).pushNamedAndRemoveUntil(
                           RoutePath.mainRoute,
+                              (route) => false,
                         );
                       }
                     }
@@ -233,13 +234,13 @@ class _LoginViewState extends State<LoginView> {
                         ),
                       ),
                       SizedBox(height: 16.h),
-                      SocialMediaButton(
-                        text: 'login_with_google'.tr,
-                        img: AppAssets.images.logoGoogle,
-                        onTap: () {
-                          // authCubit.googleLogin();
-                        },
-                      ),
+                      // SocialMediaButton(
+                      //   text: 'login_with_google'.tr,
+                      //   img: AppAssets.images.logoGoogle,
+                      //   onTap: () {
+                      //     // authCubit.googleLogin();
+                      //   },
+                      // ),
                       SizedBox(height: 16.h),
                       SocialMediaButton(
                         text: 'login_with_facebook'.tr,

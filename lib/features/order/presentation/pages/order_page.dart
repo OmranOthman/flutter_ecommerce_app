@@ -1,11 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
+import 'package:flutter_ecommerce_app/features/order/presentation/widget/my_order_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
 import 'package:flutter_ecommerce_app/core/constants/app_colors.dart';
 
 class OrderPage extends StatelessWidget {
   const OrderPage({super.key});
+
+  final List<Map<String, dynamic>> currentOrders = const [
+    {
+      'productName': "Bix Bag Limited Edition 229",
+      'color': "Brown",
+      'quantity': 1,
+      'status': "On Progress",
+      'price': 24.00,
+      'imageUrl':
+          'https://a.1stdibscdn.com/archivesE/upload/1121189/v_116288621729853567193/11628862_datamatics.jpg?disable=upscale&auto=webp&quality=60&width=1400',
+      'isCompleted': false,
+    },
+    {
+      'productName': "Bix Bag 319",
+      'color': "Brown",
+      'quantity': 1,
+      'status': "On Progress",
+      'price': 21.50,
+      'imageUrl':
+          'https://a.1stdibscdn.com/archivesE/upload/1121189/v_116288621729853567193/11628862_datamatics.jpg?disable=upscale&auto=webp&quality=60&width=1400',
+      'isCompleted': false,
+    },
+  ];
+
+  final List<Map<String, dynamic>> pastOrders = const [
+    {
+      'productName': "Box Headphone 132",
+      'color': "Black",
+      'quantity': 1,
+      'status': "Completed",
+      'price': 26.00,
+      'imageUrl':
+          'https://a.1stdibscdn.com/archivesE/upload/1121189/v_116288621729853567193/11628862_datamatics.jpg?disable=upscale&auto=webp&quality=60&width=1400',
+      'isCompleted': true,
+    },
+    {
+      'productName': "Box Headphone 345",
+      'color': "Pink",
+      'quantity': 1,
+      'status': "Completed",
+      'price': 27.30,
+      'imageUrl':
+          'https://a.1stdibscdn.com/archivesE/upload/1121189/v_116288621729853567193/11628862_datamatics.jpg?disable=upscale&auto=webp&quality=60&width=1400',
+      'isCompleted': true,
+    },
+  ];
+
+  Widget _buildOrderList(List<Map<String, dynamic>> orders) {
+    return ListView.separated(
+      padding: EdgeInsets.all(16.w),
+      itemCount: orders.length,
+      separatorBuilder: (context, index) => SizedBox(height: 16.h),
+      itemBuilder: (context, index) {
+        final order = orders[index];
+        return MyOrderItem(
+          productName: order['productName'],
+          color: order['color'],
+          quantity: order['quantity'],
+          status: order['status'],
+          price: order['price'],
+          imageUrl: order['imageUrl'],
+          isCompleted: order['isCompleted'],
+        );
+      },
+    );
+  }
 
   Widget _emptyOrderScreen(BuildContext context) {
     return Center(
@@ -65,9 +132,6 @@ class OrderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool hasOrders = false;
-    bool hasHistory = false;
-
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -83,13 +147,9 @@ class OrderPage extends StatelessWidget {
           centerTitle: true,
           actions: [
             IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, RoutePath.cartRoute);
-              },
-              icon: Icon(
-                Icons.shopping_bag_outlined,
-                size: 28.sp,
-              ),
+              onPressed: () =>
+                  Navigator.pushNamed(context, RoutePath.cartRoute),
+              icon: Icon(Icons.shopping_bag_outlined, size: 28.sp),
             )
           ],
           bottom: TabBar(
@@ -99,9 +159,7 @@ class OrderPage extends StatelessWidget {
             labelColor: AppColors.black,
             indicator: UnderlineTabIndicator(
               borderSide: BorderSide(
-                width: 3.0.w,
-                color: Theme.of(context).primaryColor,
-              ),
+                  width: 3.0.w, color: Theme.of(context).primaryColor),
               insets: EdgeInsets.symmetric(horizontal: -30.w),
             ),
             tabs: [
@@ -128,28 +186,12 @@ class OrderPage extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            hasOrders
-                ? Center(
-                    child: Text(
-                      "My Order Content",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge
-                          ?.copyWith(fontSize: 18.sp),
-                    ),
-                  )
-                : _emptyOrderScreen(context),
-            hasHistory
-                ? Center(
-                    child: Text(
-                      "History Content",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge
-                          ?.copyWith(fontSize: 18.sp),
-                    ),
-                  )
-                : _emptyHistoryScreen(context),
+            currentOrders.isEmpty
+                ? _emptyOrderScreen(context)
+                : _buildOrderList(currentOrders),
+            pastOrders.isEmpty
+                ? _emptyHistoryScreen(context)
+                : _buildOrderList(pastOrders),
           ],
         ),
       ),

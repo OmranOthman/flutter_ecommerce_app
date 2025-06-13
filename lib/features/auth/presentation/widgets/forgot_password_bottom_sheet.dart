@@ -8,6 +8,7 @@ import 'package:flutter_ecommerce_app/features/auth/presentation/view_model/forg
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_text_form_field.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_bottom_sheet.dart';
 
 class ForgotPasswordBottomSheet extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -20,21 +21,29 @@ class ForgotPasswordBottomSheet extends StatelessWidget {
     required this.forgotPasswordCubit,
   });
 
+  static Future<void> show({
+    required BuildContext context,
+    required AuthCubit authCubit,
+    required ForgotPasswordCubit forgotPasswordCubit,
+  }) {
+    return CustomBottomSheet.show(
+      context: context,
+      title: 'forgot_password'.tr,
+      child: ForgotPasswordBottomSheet(
+        authCubit: authCubit,
+        forgotPasswordCubit: forgotPasswordCubit,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20.h,horizontal: 8.w),
+      padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 8.w),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'forgot_password'.tr,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontSize: 18.sp,
-                ),
-          ),
-          SizedBox(height: 8.h),
           Text(
             'enter_phone'.tr,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(

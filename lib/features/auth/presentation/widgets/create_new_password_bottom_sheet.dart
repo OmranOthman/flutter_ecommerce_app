@@ -3,11 +3,18 @@ import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_text_form_field.dart';
+import 'package:flutter_ecommerce_app/core/widgets/custom_bottom_sheet.dart';
 
 class CreateNewPasswordBottomSheet extends StatefulWidget {
-  const CreateNewPasswordBottomSheet({
-    super.key,
-  });
+  const CreateNewPasswordBottomSheet({super.key});
+
+  static Future<void> show(BuildContext context) {
+    return CustomBottomSheet.show(
+      context: context,
+      isDismissible: false,
+      child: const CreateNewPasswordBottomSheet(),
+    );
+  }
 
   @override
   State<CreateNewPasswordBottomSheet> createState() =>
@@ -20,7 +27,6 @@ class _CreateNewPasswordBottomSheetState
   bool _obscureConfirmPassword = true;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -29,24 +35,21 @@ class _CreateNewPasswordBottomSheetState
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 23.h),
           Text(
             'new_password'.tr,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.sp,
-                ),
+              fontWeight: FontWeight.bold,
+              fontSize: 18.sp,
+            ),
           ),
           SizedBox(height: 16.h),
           Text(
             'enter_new_password'.tr,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontSize: 14.sp,
-                ),
+              fontSize: 14.sp,
+            ),
           ),
           SizedBox(height: 24.h),
-
-          // New Password Field
           CustomTextFormField(
             label: 'new_password'.tr,
             prefixIcon: Icon(Icons.lock_outline, size: 20.sp),
@@ -74,14 +77,10 @@ class _CreateNewPasswordBottomSheetState
             },
           ),
           SizedBox(height: 16.h),
-
-          // Confirm Password Field
           CustomTextFormField(
             label: 'confirm_password'.tr,
-            // أضفت مفتاح في JSON "Confirm Password"
             prefixIcon: Icon(Icons.lock_outline, size: 20.sp),
             hintText: 'confirm_new_password'.tr,
-            // من JSON: "Confirm Password"
             obscureText: _obscureConfirmPassword,
             suffixIcon: IconButton(
               icon: Icon(
@@ -105,10 +104,13 @@ class _CreateNewPasswordBottomSheetState
             },
           ),
           SizedBox(height: 32.h),
-
-          // Update Button
           CustomButton(
             text: "update_password".tr,
+            onTap: () {
+              if (_formKey.currentState?.validate() ?? false) {
+                Navigator.pop(context);
+              }
+            },
           ),
           SizedBox(height: 24.h),
         ],

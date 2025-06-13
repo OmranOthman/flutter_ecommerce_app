@@ -3,14 +3,14 @@ import 'package:flutter_ecommerce_app/core/widgets/custom_bottom_sheet.dart';
 import 'package:flutter_ecommerce_app/core/widgets/custom_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class VendorPage extends StatefulWidget {
-  const VendorPage({super.key});
+class ResultSearchPage extends StatefulWidget {
+  const ResultSearchPage({super.key});
 
   @override
-  State<VendorPage> createState() => _VendorPageState();
+  State<ResultSearchPage> createState() => _ResultSearchPageState();
 }
 
-class _VendorPageState extends State<VendorPage> {
+class _ResultSearchPageState extends State<ResultSearchPage> {
   String _selectedCategory = 'All';
   final List<String> categories = [
     'All',

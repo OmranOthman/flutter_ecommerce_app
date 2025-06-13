@@ -32,6 +32,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   late final TabController _tabController;
+
   @override
   void initState() {
     super.initState();
@@ -47,7 +48,6 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         leading: Padding(
           padding: EdgeInsets.only(left: 14.w, top: 8.h),
           child: CircleAvatar(
-           
             radius: 25.r,
           ),
         ),
@@ -72,7 +72,9 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(RoutePath.searchRoute);
+            },
             icon: Icon(
               Icons.search,
               color: Theme.of(context).primaryColor,

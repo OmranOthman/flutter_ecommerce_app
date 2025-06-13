@@ -212,7 +212,9 @@ class VerificationView extends StatelessWidget {
               text: "go_to_homepage".tr,
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, RoutePath.mainRoute);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    RoutePath.mainRoute,
+                (route) => false,);
               },
             ),
           ),

@@ -1,6 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce_app/app/routers/route_info.dart';
-import 'package:flutter_ecommerce_app/features/home/presentation/pages/vendor_page.dart';
+import 'package:flutter_ecommerce_app/features/location/presentation/pages/choose_location_page.dart';
+import 'package:flutter_ecommerce_app/features/order/presentation/pages/order_tracking_page.dart';
+import 'package:flutter_ecommerce_app/features/search/presentation/pages/result_search_page.dart';
+import 'package:flutter_ecommerce_app/features/search/presentation/pages/search_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/app/lang/app_localization.dart';
@@ -34,7 +37,7 @@ class AppView extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               initialRoute: RoutePath.splashRoute,
-             // home: VendorPage(),
+             // home: OrderTrackingPage(),
               onGenerateRoute: AppRouter.onGenerateRoute,
               navigatorKey: AppRouter.navigatorKey,
               themeMode: ThemeMode.light,

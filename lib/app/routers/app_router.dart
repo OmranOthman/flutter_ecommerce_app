@@ -16,6 +16,7 @@ import 'package:flutter_ecommerce_app/features/new_card/presentation/pages/add_n
 import 'package:flutter_ecommerce_app/features/new_card/presentation/view_model/add_new_card_cubit/payment_methods_cubit.dart';
 import 'package:flutter_ecommerce_app/features/order/presentation/pages/order_tracking_page.dart';
 import 'package:flutter_ecommerce_app/features/product_details/presentation/view_model/product_details_cubit/product_details_cubit.dart';
+import 'package:flutter_ecommerce_app/features/search/presentation/pages/search_page.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/setting_change_password_page.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/help_and_support_page.dart';
 import 'package:flutter_ecommerce_app/features/settings/presentation/pages/language_page.dart';
@@ -94,9 +95,16 @@ class AppRouter {
           builder: (_) => const CartPage(),
           settings: settings,
         );
+
       case RoutePath.notificationRoute:
         return MaterialPageRoute(
           builder: (_) => const NotificationsPage(),
+          settings: settings,
+        );
+
+        case RoutePath.searchRoute:
+        return MaterialPageRoute(
+          builder: (_) => const SearchPage(),
           settings: settings,
         );
 

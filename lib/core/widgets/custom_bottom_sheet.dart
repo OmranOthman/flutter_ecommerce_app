@@ -46,7 +46,7 @@ class CustomBottomSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 160.w,vertical: 12),
+            padding: EdgeInsets.symmetric(horizontal: 160.w, vertical: 12),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(3.h),
               child: Divider(

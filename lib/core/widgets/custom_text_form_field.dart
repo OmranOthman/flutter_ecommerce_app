@@ -76,6 +76,7 @@ class CustomTextFormField extends StatefulWidget {
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   late FocusNode _focusNode;
   late TextEditingController _controller;
+  bool _isControllerInitialized = false;
 
   bool get _hasFocus => _focusNode.hasFocus;
   bool get _hasText => _controller.text.isNotEmpty;
@@ -86,8 +87,25 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     _focusNode = widget.focusNode ?? FocusNode();
     _controller = widget.controller ?? TextEditingController();
 
+    // Initialize controller with initialValue if provided
+    if (widget.initialValue != null && !_isControllerInitialized) {
+      _controller.text = widget.initialValue!;
+      _isControllerInitialized = true;
+    }
+
     _focusNode.addListener(_updateState);
     _controller.addListener(_updateState);
+  }
+
+  @override
+  void didUpdateWidget(CustomTextFormField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Update controller if initialValue changes and no external controller is provided
+    if (widget.initialValue != oldWidget.initialValue &&
+        widget.controller == null &&
+        widget.initialValue != _controller.text) {
+      _controller.text = widget.initialValue ?? '';
+    }
   }
 
   void _updateState() => setState(() {});
@@ -115,12 +133,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           const SizedBox(height: AppDistances.smallPadding),
         ],
         TextFormField(
+          controller: _controller, // Always use the controller
+          // Remove initialValue from here
           textDirection: widget.textDirection,
           enabled: widget.enabled,
           onSaved: widget.onSaved,
           autofocus: widget.autofocus,
           readOnly: widget.readOnly,
-          controller: _controller,
           autovalidateMode: widget.autovalidateMode,
           focusNode: _focusNode,
           textInputAction: TextInputAction.next,
@@ -130,7 +149,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           style: widget.style ?? Theme.of(context).textTheme.bodyLarge,
           onChanged: widget.onChanged,
           inputFormatters: widget.inputFormatters,
-          initialValue: widget.initialValue,
           obscureText: widget.obscureText,
           keyboardType: widget.keyboardType,
           minLines: widget.minLines,
@@ -165,21 +183,18 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               child: widget.prefixIcon!,
             )
                 : null,
-
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
-               color:  Theme.of(context).primaryColor,
+                color:  Theme.of(context).primaryColor,
               ),
               borderRadius: BorderRadius.circular(16),
             ),
-
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: AppColors.grey.withOpacity(0.5),
               ),
               borderRadius: BorderRadius.circular(16),
             ),
-
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
             ),
