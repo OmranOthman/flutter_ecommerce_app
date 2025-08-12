@@ -1,0 +1,2 @@
+C:/Users/yamen/OneDrive/Desktop/flutter_ecommerce_app/android/app/.cxx/Debug/224i3q2f/x86/CMakeFiles/edit_cache.dir
+C:/Users/yamen/OneDrive/Desktop/flutter_ecommerce_app/android/app/.cxx/Debug/224i3q2f/x86/CMakeFiles/rebuild_cache.dir
